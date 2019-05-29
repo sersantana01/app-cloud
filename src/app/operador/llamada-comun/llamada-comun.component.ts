@@ -20,6 +20,7 @@ export class LlamadaComunComponent implements OnInit {
   constructor(public http: HttpClient) { }
 
   ngOnInit() {
+    $('#botonPuto').prop('disabled', true);
     let getData = {};
     let params = [];
     let param = {};
