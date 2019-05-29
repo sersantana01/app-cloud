@@ -24,6 +24,8 @@ export class InicioLlamadaComponent implements OnInit {
   contadores;
   accion = 'Intermedio';
   estatusGrabacion :string ='';
+  x = null;
+  y = null;
 
   public subscription: Subscription;
 
@@ -36,6 +38,7 @@ export class InicioLlamadaComponent implements OnInit {
       this.obtenerContadores();
       this.obtenerPrefolioIncidente();
       this.inicioGrabacion(this.prefolio, this.accion);
+      this.obtenerUbicacion(this.callId);
     } else {
       this.lista = 'NINGUNO';
       this.contadores = null;
@@ -145,29 +148,6 @@ export class InicioLlamadaComponent implements OnInit {
   }
 
   inicioGrabacion(pre, accion) {
-    // let fecha = new Date();
-    // let fActual = fecha.getDate() + '/' +
-    //         fecha.getMonth() + '/' +
-    //         fecha.getFullYear() + ' ' +
-    //         fecha.getHours() + ':' +
-    //         fecha.getMinutes() + ':' +
-    //         fecha.getSeconds();
-    // this.http
-    // .post('http://3.14.155.2:6769/grabarAuronix', {
-    //   prefolio: prefolio,
-    //   fechaGrabacion: fActual,
-    //   accion: accion,
-    //   ipOperador: '102.22.1.11'
-    // })
-    // .subscribe(data => {
-    //   this.estatusGrabacion = data['estatus'];
-    // });
-
-
-
-
-
-
     let fecha = new Date();
     let fActual = fecha.getDate() + '/' +
             fecha.getMonth() + '/' +
@@ -180,6 +160,19 @@ export class InicioLlamadaComponent implements OnInit {
     this.estatusGrabacion = this.grabacionService.grabarAuronix(pre, fActual, accion);
 
   }
+
+  obtenerUbicacion(numero) {
+
+    this.http
+      .post('http://3.14.155.2:6769/solicitarUbicacion', {
+        numero
+      })
+      .subscribe(data => {
+        this.x = data['x'];
+        this.y = data['y'];
+      });
+  }
+
 
   constructor( public dataShared: DataSharedService,private http: HttpClient, private grabacionService: GrabacionService) {}
 
