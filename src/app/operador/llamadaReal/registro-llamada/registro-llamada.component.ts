@@ -658,7 +658,8 @@ constructor(public dataShared: DataSharedService
        this. idDescripcionEvento=null;
        this. descripcionEvento=""; */
 
-       //this.eventoTmp= new Evento();
+       this.eventoTmp.idEvento=null;
+       this.eventoTmp.motivo=null;
 
       
        this. popPrioridad="";
