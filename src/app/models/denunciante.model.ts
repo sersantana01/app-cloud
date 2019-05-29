@@ -4,8 +4,7 @@ export class Denunciante {
 
  public latitudDenunciante: string;
  public longitudDenunciante: string;
-  
-  public listaInstituciones=[];
+   
   
      constructor(    ) {  
 

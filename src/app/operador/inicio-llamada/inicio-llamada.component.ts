@@ -7,6 +7,7 @@ import {Subscription} from 'rxjs';
 
 import {DataSharedService} from '../../shared/services/data-shared.service';
 import {Evento} from '../../models/evento.model';
+import {Denunciante} from '../../models/denunciante.model';
 
 
 @Component({
@@ -38,7 +39,6 @@ export class InicioLlamadaComponent implements OnInit {
       this.obtenerContadores();
       this.obtenerPrefolioIncidente();
       this.inicioGrabacion(this.prefolio, this.accion);
-      this.obtenerUbicacion(this.callId);
     } else {
       this.lista = 'NINGUNO';
       this.contadores = null;
@@ -120,12 +120,9 @@ export class InicioLlamadaComponent implements OnInit {
         this.prefolio = data['RESULTADO'];
 
 
-        /////////////////////////////////////////SE CREA NUEVA INSTANCIA DE EVENTO
-        let ev=new Evento();
-        ev.numeroTelefonico=this.callId;
-        ev.prefolio = data['RESULTADO'];
 
-        this.callCreaLlamadaEvento(ev);
+        
+        this.obtenerUbicacion(this.callId);
 
         $("#button_motivo").click();
       });
@@ -168,12 +165,29 @@ export class InicioLlamadaComponent implements OnInit {
         numero
       })
       .subscribe(data => {
-        this.x = data['x'];
-        this.y = data['y'];
+        this.x = data['x'];//latitud
+        this.y = data['y'];//longitud
+
+
+        
+        /////////////////////////////////////////SE CREA NUEVA INSTANCIA DE EVENTO
+        let ev=new Evento();
+        ev.numeroTelefonico=this.callId;
+        ev.prefolio = this.prefolio;
+
+
+        let denun= new Denunciante();
+        denun.latitudDenunciante=this.x;
+        denun.longitudDenunciante=this.y;
+
+        ev.denunciante = denun;
+        
+
+        this.callCreaLlamadaEvento(ev);
       });
   }
 
-
+b
   constructor( public dataShared: DataSharedService,private http: HttpClient, private grabacionService: GrabacionService) {}
 
 

@@ -144,6 +144,7 @@ constructor(public dataShared: DataSharedService
 
      this.eventoTmp=arrayLlamadas[arrayLlamadas.length-1];
      console.log(this.eventoTmp);
+     this.setMapCenter(this.eventoTmp.denunciante.latitudDenunciante, this.eventoTmp.denunciante.longitudDenunciante);
  }
 
 
@@ -161,6 +162,7 @@ constructor(public dataShared: DataSharedService
       this.setLlamadaCreada(data.listaEventos);
      });
     this.getMotivos();///////////////////////////////////////////SE OBTIENE LA LISTA DE MOTIVOS DE LLAMADA REAL////////////////////
+    this.setMapCenter("19.4411109", "-99.1465073");//latitudDenunciante: "19.434050" longitudDenunciante: "-99.199056"
  }
  
  public getMotivos(){ //metodo para obtener lista de motivos
@@ -321,8 +323,8 @@ constructor(public dataShared: DataSharedService
 
 
        
-        evento["latitud"]="-31.5555";////////////////////////////////////////CAMBIAR ESTOS DATOS AL OBTENERLOS DE MS
-        evento["longitud"]="19.0001";////////////////////////////////////////CAMBIAR ESTOS DATOS AL OBTENERLOS DE MS
+        evento["latitud"]=this.eventoTmp.denunciante.latitudDenunciante;////////////////////////////////////////CAMBIAR ESTOS DATOS AL OBTENERLOS DE MS
+        evento["longitud"]=this.eventoTmp.denunciante.longitudDenunciante;////////////////////////////////////////CAMBIAR ESTOS DATOS AL OBTENERLOS DE MS
         evento["zonaPatrullaje"]="9";////////////////////////////////////////CAMBIAR ESTOS DATOS AL OBTENERLOS DE MS
 
         evento["listaInstituciones"]=this.eventoTmp.listaInstituciones;
@@ -840,7 +842,32 @@ constructor(public dataShared: DataSharedService
 
        $('#button_map').click();
 
+      // http://192.168.10.80:8082/siga/siga.html?idSesion=414&longitud=-99.090746&latitud=19.371331&idSistemaGeoAlerta=9
+
+
+
+       
      }
 
+
+     public setMapCenter(latitudX, longitudY){
+    
+      console.log("SET SRC");
+  
+      let latitud=latitudX
+      let longitud=longitudY
+   
+      let url=" http://192.168.10.80:8082/siga/siga.html?idSesion=414&longitud="+longitud+"&latitud="+latitud+"&idSistemaGeoAlerta=9";
+  
+      console.log("SET SRC:"+url);
+      $('#myFrameSiga').prop('src','https://cdn-images-1.medium.com/max/1600/0*4Gzjgh9Y7Gu8KEtZ.gif');
+   
+  
+      setTimeout (() => { 
+        $('#myFrameSiga').prop('src',url );
+      }, 1500)
+   
+     
+    }
 
     }

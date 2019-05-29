@@ -22,7 +22,7 @@ status:string = '';
       .subscribe(data => {
 
         this.status = data['estatus'];
-        alert(this.status);
+      //  alert(this.status);
       
       });
 
