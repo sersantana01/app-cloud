@@ -1,0 +1,40 @@
+<div class="modal fade" id="llamadaNoProcedente" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false" data-target=".bd-example-modal-xl">
+  <div class="modal-dialog" role="document">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title">Registrar tipo de llamada no procedente</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+              </button>
+          </div>
+          <div class="modal-body">
+              <h1 class="etiqueta">Tipo de llamada:</h1>
+              <ng-select
+                  class="selector"
+                  id="selectLlamadaComun"
+                  [items]="tipoLlamadaComun"
+                  bindLabel="nombre"
+                  bindValue="id_tipo_no_procedente"
+                  searchable="true"
+                  placeholder="Selecciona una llamada no procedente"
+                  [searchFn]="customSearchFn"
+                  [(ngModel)]="llamadaNoPreferente"
+                  notFoundText="No se encontró">
+              </ng-select>
+              <br>
+              <span id="validar" *ngIf="validar">
+                  <p>*Debes seleccionar un tipo de llamada</p>
+              </span>
+              <br>
+              <div class="observacionesConsultaLlamada">
+                  <h1>Observaciones:</h1>
+                  <textarea class="txtDescripcion textarea" [(ngModel)]="observacionLlamada"></textarea>
+              </div>
+          </div>
+          <div class="modal-footer">
+              <button id="buttonAceptar" type="button" class="btn btn-info" (click)="setLlamadaComun()">Aceptar</button>
+              <button type="button" class="btn btn-info" data-dismiss="modal">Cancelar</button>
+          </div>
+      </div>
+  </div>
+</div>
