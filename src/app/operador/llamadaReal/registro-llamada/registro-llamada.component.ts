@@ -144,7 +144,13 @@ constructor(public dataShared: DataSharedService
 
      this.eventoTmp=arrayLlamadas[arrayLlamadas.length-1];
      console.log(this.eventoTmp);
-     this.setMapCenter(this.eventoTmp.denunciante.latitudDenunciante, this.eventoTmp.denunciante.longitudDenunciante);
+
+
+     if(this.eventoTmp.idEvento== null || this.eventoTmp.idEvento==""){
+
+
+      this.setMapCenter(this.eventoTmp.denunciante.latitudDenunciante, this.eventoTmp.denunciante.longitudDenunciante);
+     }
  }
 
 
@@ -162,6 +168,7 @@ constructor(public dataShared: DataSharedService
       this.setLlamadaCreada(data.listaEventos);
      });
     this.getMotivos();///////////////////////////////////////////SE OBTIENE LA LISTA DE MOTIVOS DE LLAMADA REAL////////////////////
+
     this.setMapCenter("19.4411109", "-99.1465073");//latitudDenunciante: "19.434050" longitudDenunciante: "-99.199056"
  }
  
