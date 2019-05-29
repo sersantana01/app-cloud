@@ -1,0 +1,192 @@
+
+
+.navbar-nav .user .photo img {
+    width: 10px;
+}
+
+
+.contCorporacion, .infoComplementa {
+  display:none;
+  max-height:120px;
+	overflow-y:auto;}
+
+	.contPrioridad{
+		display:none;
+		max-height:110px;
+		overflow-y:none;
+
+	}
+
+.infoComplementa button{background: none; border: none;}
+.envIcnCorporacion{
+  width:50px;
+	height:50px;
+	border:1px solid red;
+	-webkit-border-radius: 25px;
+	-moz-border-radius: 25px;
+	border-radius: 25px;
+	float:left;
+	margin-right:4px;
+	margin-bottom:4px;
+	cursor:pointer;
+	text-align:center;
+
+}
+.envIcnCorporacion img{ width:40px; max-height:40px; margin-top:4px;}
+
+.envIcnCorporacionON{
+  width:50px;
+	height:50px;
+	border:4px solid #00b2e2   ;
+	-webkit-border-radius: 25px;
+	-moz-border-radius: 25px;
+	border-radius: 25px;
+	float:left;
+	margin-right:4px;
+	margin-bottom:4px;
+	cursor:pointer;
+	text-align:center;
+
+}
+.envIcnCorporacionON img{ width:40px; max-height:40px; margin-top:4px;}
+.envIcnPrioridadRojo, .envIcnPrioridadAmarillo, .envIcnPrioridadVerde{
+	width:50px;
+	height:50px;
+	/*background:#FFF;*/
+	display:inline-block;
+	-webkit-border-radius: 50%;
+	-moz-border-radius: 50%;
+	border-radius: 50%;
+	text-align:center;
+	cursor:pointer;
+}
+.iconosCorporacion img{vertical-align:text-top;}
+
+
+/******************estilos generales*******************/
+.etiqueta{ font-size:12px; color:#CCC; margin:0; padding:0;font-weight: bold;}
+.selector{width:100%; margin-bottom:10px;
+     background: rgba(0, 0, 0, .5);
+		 color:#ccc;
+}
+.selector option{background:#333; padding: 2px 5px;}
+.textarea{
+	width:100%;
+  height: auto;
+	min-height:100px;
+  max-height: 250px;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 9px;
+    background: rgba(0, 0, 0, .5);
+	padding:5px;
+	color:white;
+}
+
+.requerido{
+	color:#00b2e2;
+    vertical-align: middle;
+		font-size: 13px;
+}
+.requerido span{font-size:10px;}
+.contenedorBotones{text-align:right;}
+.contenedorBotones .boton{margin-left: 5px;}
+.contenedorBotones .btn.btn-primary{background:#007BFF; border: none; color:#fff; font-size: 14px;}
+.wrapper .sidebar .sidebar-wrapper.ps{
+    width: 100%;
+}
+.main-panel .navbar.navbar-transparent {
+    background-color: #222 !important;
+}
+
+/**************llamadas procedentes e improcedentes****************/
+.contenedorProcedentes {
+    position: absolute;
+    top: -4px;
+    width: 25px;
+    text-align: center;
+    margin-left: 5px;
+    margin-top: 16px;
+}
+.contenedorProcedentes label{
+  width: 25px;
+  margin-bottom: 0px;
+  font-size: 12px;
+}
+.contenedorProcedentes .txtProcendente{
+  background:#FF0000;
+  color:#FFF;
+  -webkit-border-radius: 25px;
+  -moz-border-radius: 25px;
+  border-radius: 25px;
+}
+.contenedorProcedentes .txtImprocendente{
+  background:#00B2E2;
+  color:#FFF;
+  -webkit-border-radius: 25px;
+  -moz-border-radius: 25px;
+  border-radius: 25px;
+}
+
+/******************temporizador********************/
+.temporizador{
+  font-size: 9px;
+  margin-left: 6%;
+  color: #fff;
+}
+.temporizador label{width:50px; font-size: 10px; display: inline-block; color:#00B3E3;
+  margin-bottom: 0px;
+}
+.cronometroDerecha{margin-left: 40%;}
+.reloj {
+    position: absolute;
+    width: 55px;
+    height: 55px;
+    background: url(/assets/images/icnReloj.png) center center no-repeat;
+    margin-left: 4%;
+    background-size: cover;
+    margin-top: -12px;
+}
+.reloj p{display: none;}
+
+
+/*****************menu de iconos****************/
+.contIconosMenu{
+  margin-left: 5%;
+}
+.contIconosMenu a{
+  width:32px; height: 32px;
+  display: inline-block;
+  text-align: center;
+  vertical-align: middle;
+  padding: 3px;
+  margin-right: 10px;
+}
+.contIconosMenu a:hover, .deshabilitado{cursor:pointer; opacity: 0.6;}
+.contIconosMenu a img{
+  width: 32px;
+}
+.nav-link .material-icons{color:#fff;}
+
+
+/********************menu usuario*************************/
+.collapse.show{position: absolute; background: #333;}
+
+/************componente contenido registro***************/
+.wrapper .sidebar .sidebar-wrapper {
+    width: 380px;
+}
+.contenidoRegistro{
+  width:100%;
+  color:#FFF;
+  padding: 15px;
+  font-size: 12px;
+}
+.contenidoRegistro hr{
+	border-top: 1px solid rgba(0, 0, 0, 0.1);
+  border-color: #999;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.contenidoRegistro h3{color:#00B3E3; font-size: 1.5em; margin-bottom: 15px;}
+.contenidoRegistro .etiqueta{color:#B3C7CC;}
