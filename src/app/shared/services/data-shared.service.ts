@@ -13,17 +13,17 @@ export class DataSharedService {
 
  //private llamadasEvento = new Array<Evento>();
 
- private datosLlamada = new DatosLlamada();
-  //private llamadas = new Array<Evento>();
- private datosLlamadaSubject = new Subject<DatosLlamada>();
 
+ //OBSERVABLE PARA LOS DATOS DE LAS LLAMADAS QUE HA TOMADO EL OPERADOR 
+ private datosLlamada = new DatosLlamada(); 
+ private datosLlamadaSubject = new Subject<DatosLlamada>(); 
  public datosLlamadaObservable$ = this.datosLlamadaSubject.asObservable();
 
 
- private ubicacionActual = new Ubicacion();
-  //private llamadas = new Array<Evento>();
- private ubicacionActualSubject = new Subject<Ubicacion>();
 
+ //OBSERVABLE PARA LA UBICACION QUE SE RECIBA DEL SERVICIO DE OBTENER UBICACION
+ private ubicacionActual = new Ubicacion(); 
+ private ubicacionActualSubject = new Subject<Ubicacion>();
  public ubicacionActualObservable$ = this.ubicacionActualSubject.asObservable();
 
  constructor() { }
@@ -72,11 +72,13 @@ actualizarLlamada(idPrefolio: string,eventoLlamada: Evento) {
      this.datosLlamada.listaEventos[x]=eventoLlamada;
      console.log("ACTUALIZADO");
 
+     this.datosLlamada.ultimoModificado=idPrefolio;
+     this.datosLlamadaSubject.next(this.datosLlamada);
+     console.log("ULTIDMO:"+this.datosLlamada.ultimoModificado);
+
+
    }
  }
- this.datosLlamada.ultimoModificado=idPrefolio;
- this.datosLlamadaSubject.next(this.datosLlamada);
- console.log("ULTIDMO:"+this.datosLlamada.ultimoModificado);
 
 
 
