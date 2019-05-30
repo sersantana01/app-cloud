@@ -1,469 +1,324 @@
+<!--panel tabla resultados -->
+<div id="envolventeTablaResultados" class="col-md-10 contenedorTablaResultados">
+    <main class="tabTablaResultados">
+        <div class="fondoEncabezadoTablaResultados"></div>
+        <label class="tituloTab">LLAMADAS:</label>
+        <input id="tabActiva" type="radio" name="tabs" checked>
+        <label for="tabActiva"><span class="icnActiva"></span>Activas</label>
+        <input id="tabEspera" type="radio" name="tabs">
+        <label for="tabEspera"><span class="icnEspera"></span>Espera</label>
+        <input id="tabAbandonada" type="radio" name="tabs">
+        <label for="tabAbandonada"><span class="icnAbandonada"></span>Abandonadas</label>
+        <input id="tabAtendida" type="radio" name="tabs">
+        <label for="tabAtendida"><span class="icnAtendida"></span>Atendidas</label>
+        <span class="botonesTabla">
+            <a (click)="cerrarTabla()" class="icnMinimizarTabla">
+                <i class="fa fa-chevron-down"></i>
+            </a>
+            <a href="#" style="display:none;" class="icnCerrarTabla" id="icnCerrarTabla"></a>
+        </span>
+        <section id="contentTab1">
+            <div class="encabezadoTablaResultados">
+            </div>
+            <div class="contenidoTablaResultados">
+                <table class="tablaAlerta">
+                    <thead>
+                        <tr>
+                            <th>Folio</th>
+                            <th>Fecha y hora</th>
+                            <th>Tel&eacute;fono</th>
+                            <th>Telefonista</th>
+                            <th>Motivo</th>
+                            <th>Municipio</th>
+                            <th>Colonia</th>
+                            <th>Descripci&oacute;n</th>
+                            <th>Ver</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="filaSeleccionada">
+                            <td>
+                                121314321432523
+                            </td>
+                            <td>
+                                22-02-2019 13:20:34
+                            </td>
+                            <td>
+                                5521219376
+                            </td>
+                            <td>
+                                Juan Bernal
+                            </td>
+                            <td>
+                                M&eacute;dico / intoxicaci&oacute;n
+                            </td>
+                            <td>
+                                San Felipe
+                            </td>
+                            <td>
+                                Lomas
+                            </td>
+                            <td>
+                                Descripci&oacute;n de la llamada
+                            </td>
+                            <td>
+                                <label class="switch">
+                                    <input type="checkbox" checked>
+                                    <span class="slider round"></span>
+                                </label>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
 
-        <!--panel tabla resultados -->
-          <div id="envolventeTablaResultados" class="col-md-10 contenedorTablaResultados">
-          	<main class="tabTablaResultados">
-            	<div class="fondoEncabezadoTablaResultados"></div>
-                	  <label class="tituloTab">LLAMADAS:</label>
-                      <input id="tabActiva" type="radio" name="tabs" checked>
-                      <label for="tabActiva"><span class="icnActiva"></span>Activas</label>
+        <section id="contentTab2">
+            <div class="encabezadoTablaResultados">
+            </div>
+            <div class="contenidoTablaResultados">
+                <table class="tablaAlerta">
+                    <thead>
+                        <tr>
+                            <th>Folio</th>
+                            <th>Fecha y hora</th>
+                            <th>Tel&eacute;fono</th>
+                            <th>Telefonista</th>
+                            <th>Motivo</th>
+                            <th>Municipio</th>
+                            <th>Colonia</th>
+                            <th>Descripci&oacute;n</th>
+                            <th>Ver</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                121314321432523
+                            </td>
+                            <td>
+                                22-02-2019 13:20:34
+                            </td>
+                            <td>
+                                5521219376
+                            </td>
+                            <td>
+                                Juan Bernal
+                            </td>
+                            <td>
+                                M&eacute;dico / intoxicaci&oacute;n
+                            </td>
+                            <td>
+                                San Felipe
+                            </td>
+                            <td>
+                                Lomas
+                            </td>
+                            <td>
+                                Descripci&oacute;n de la llamada
+                            </td>
+                            <td>
+                                <label class="switch">
+                                    <input type="checkbox">
+                                    <span class="slider round"></span>
+                                </label>
+                            </td>
+                        </tr>
+                        <tr class="filaSeleccionada">
+                            <td>
+                                121314321432523
+                            </td>
+                            <td>
+                                22-02-2019 13:20:34
+                            </td>
+                            <td>
+                                5521219376
+                            </td>
+                            <td>
+                                Juan Bernal
+                            </td>
+                            <td>
+                                M&eacute;dico / intoxicaci&oacute;n
+                            </td>
+                            <td>
+                                San Felipe
+                            </td>
+                            <td>
+                                Lomas
+                            </td>
+                            <td>
+                                Descripci&oacute;n de la llamada
+                            </td>
+                            <td>
+                                <label class="switch">
+                                    <input type="checkbox" checked>
+                                    <span class="slider round"></span>
+                                </label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                121314321432523
+                            </td>
+                            <td>
+                                22-02-2019 13:20:34
+                            </td>
+                            <td>
+                                5521219376
+                            </td>
+                            <td>
+                                Juan Bernal
+                            </td>
+                            <td>
+                                M&eacute;dico / intoxicaci&oacute;n
+                            </td>
+                            <td>
+                                San Felipe
+                            </td>
+                            <td>
+                                Lomas
+                            </td>
+                            <td>
+                                Descripci&oacute;n de la llamada
+                            </td>
+                            <td>
+                                <label class="switch">
+                                    <input type="checkbox">
+                                    <span class="slider round"></span>
+                                </label>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
 
-                      <input id="tabEspera" type="radio" name="tabs">
-                      <label for="tabEspera"><span class="icnEspera"></span>Espera</label>
+        <section id="contentTab3">
+            <div class="encabezadoTablaResultados">
+            </div>
+            <div class="contenidoTablaResultados">
+                <table class="tablaAlerta">
+                    <thead>
+                        <tr>
+                            <th>Folio</th>
+                            <th>Fecha y hora</th>
+                            <th>Tel&eacute;fono</th>
+                            <th>Telefonista</th>
+                            <th>Motivo</th>
+                            <th>Municipio</th>
+                            <th>Colonia</th>
+                            <th>Descripci&oacute;n</th>
+                            <th>Ver</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                121314321432523
+                            </td>
+                            <td>
+                                22-02-2019 13:20:34
+                            </td>
+                            <td>
+                                5521219376
+                            </td>
+                            <td>
+                                Juan Bernal
+                            </td>
+                            <td>
+                                M&eacute;dico / intoxicaci&oacute;n
+                            </td>
+                            <td>
+                                San Felipe
+                            </td>
+                            <td>
+                                Lomas
+                            </td>
+                            <td>
+                                Descripci&oacute;n de la llamada
+                            </td>
+                            <td>
+                                <label class="switch">
+                                    <input type="checkbox">
+                                    <span class="slider round"></span>
+                                </label>
+                            </td>
+                        </tr>
+                        <tr class="filaSeleccionada">
+                            <td>
+                                121314321432523
+                            </td>
+                            <td>
+                                22-02-2019 13:20:34
+                            </td>
+                            <td>
+                                5521219376
+                            </td>
+                            <td>
+                                Juan Bernal
+                            </td>
+                            <td>
+                                M&eacute;dico / intoxicaci&oacute;n
+                            </td>
+                            <td>
+                                San Felipe
+                            </td>
+                            <td>
+                                Lomas
+                            </td>
+                            <td>
+                                Descripci&oacute;n de la llamada
+                            </td>
+                            <td>
+                                <label class="switch">
+                                    <input type="checkbox" checked>
+                                    <span class="slider round"></span>
+                                </label>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
 
-                      <input id="tabAbandonada" type="radio" name="tabs">
-                      <label for="tabAbandonada"><span class="icnAbandonada"></span>Abandonadas</label>
+        <section id="contentTab4">
+            <div class="encabezadoTablaResultados">
+            </div>
+            <div class="contenidoTablaResultados">
+                <table class="tablaAlerta">
+                    <thead>
+                        <tr>
+                            <th>Folio</th>
+                            <th>Fecha y hora</th>
+                            <th>Tel&eacute;fono</th>
+                            <th>Telefonista</th>
+                            <th>Motivo</th>
+                            <th>Municipio</th>
+                            <th>Colonia</th>
+                            <th>Descripci&oacute;n</th>
+                            <th>Ver</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let llamadaAtendida of llamadasAtendidas">
+                            <td>{{llamadaAtendida.folio}}</td>
+                            <td>{{llamadaAtendida.fecha_creacion}}</td>
+                            <td>{{llamadaAtendida.numero_telefono}}</td>
+                            <td>{{llamadaAtendida.cuenta}}</td>
+                            <td>{{llamadaAtendida.nombre_motivo}}</td>
+                            <td>{{llamadaAtendida.nombre_municipio}}</td>
+                            <td>{{llamadaAtendida.nombre_colonia}}</td>
+                            <td>{{llamadaAtendida.descripcion}}</td>
+                            <td>
+                                <a role="button" (click)="obtainXY(19.4367262, -99.1832321)"><i class='fas fa-globe'></i></a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
 
-                      <input id="tabAtendida" type="radio" name="tabs">
-                      <label for="tabAtendida"><span class="icnAtendida"></span>Atendidas</label>
-                      <span class="botonesTabla"><a (click)="cerrarTabla()" class="icnMinimizarTabla"><i class="fa fa-chevron-down"></i></a><a href="#" style="display:none;" class="icnCerrarTabla" id="icnCerrarTabla"></a></span>
-              <section id="contentTab1">
-              	<div class="encabezadoTablaResultados">
-                </div>
-                <div class="contenidoTablaResultados">
-                    <table class="tablaAlerta">
-                    	<thead>
-                            <tr>
-                                <th>Folio</th>
-                                <th>Fecha y hora</th>
-                                <th>Tel&eacute;fono</th>
-                                <th>Telefonista</th>
-                                <th>Motivo</th>
-                                <th>Municipio</th>
-                                <th>Colonia</th>
-                                <th>Descripci&oacute;n</th>
-                                <th>Ver</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr class="filaSeleccionada">
-                                <td>
-                                    121314321432523
-                                </td>
-                                <td>
-                                    22-02-2019 13:20:34
-                                </td>
-                                <td>
-                                    5521219376
-                                </td>
-                                <td>
-                                    Juan Bernal
-                                </td>
-                                <td>
-                                    M&eacute;dico / intoxicaci&oacute;n
-                                </td>
-                                <td>
-                                    San Felipe
-                                </td>
-                                <td>
-                                    Lomas
-                                </td>
-                                <td>
-                                    Descripci&oacute;n de la llamada
-                                </td>
-                                <td>
-                                    <label class="switch">
-                                      <input type="checkbox" checked>
-                                      <span class="slider round"></span>
-                                    </label>
-                                </td>
-                            </tr>
-                    	</tbody>
-                    </table>
-                </div>
-              </section>
-
-              <section id="contentTab2">
-              	<div class="encabezadoTablaResultados">
-                </div>
-                <div class="contenidoTablaResultados">
-                    <table class="tablaAlerta">
-                    	<thead>
-                            <tr>
-                                <th>Folio</th>
-                                <th>Fecha y hora</th>
-                                <th>Tel&eacute;fono</th>
-                                <th>Telefonista</th>
-                                <th>Motivo</th>
-                                <th>Municipio</th>
-                                <th>Colonia</th>
-                                <th>Descripci&oacute;n</th>
-                                <th>Ver</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>
-                                    121314321432523
-                                </td>
-                                <td>
-                                    22-02-2019 13:20:34
-                                </td>
-                                <td>
-                                    5521219376
-                                </td>
-                                <td>
-                                    Juan Bernal
-                                </td>
-                                <td>
-                                    M&eacute;dico / intoxicaci&oacute;n
-                                </td>
-                                <td>
-                                    San Felipe
-                                </td>
-                                <td>
-                                    Lomas
-                                </td>
-                                <td>
-                                    Descripci&oacute;n de la llamada
-                                </td>
-                                <td>
-                                    <label class="switch">
-                                      <input type="checkbox">
-                                      <span class="slider round"></span>
-                                    </label>
-                                </td>
-                            </tr>
-                            <tr class="filaSeleccionada">
-                                <td>
-                                    121314321432523
-                                </td>
-                                <td>
-                                    22-02-2019 13:20:34
-                                </td>
-                                <td>
-                                    5521219376
-                                </td>
-                                <td>
-                                    Juan Bernal
-                                </td>
-                                <td>
-                                    M&eacute;dico / intoxicaci&oacute;n
-                                </td>
-                                <td>
-                                    San Felipe
-                                </td>
-                                <td>
-                                    Lomas
-                                </td>
-                                <td>
-                                    Descripci&oacute;n de la llamada
-                                </td>
-                                <td>
-                                    <label class="switch">
-                                      <input type="checkbox" checked>
-                                      <span class="slider round"></span>
-                                    </label>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    121314321432523
-                                </td>
-                                <td>
-                                    22-02-2019 13:20:34
-                                </td>
-                                <td>
-                                    5521219376
-                                </td>
-                                <td>
-                                    Juan Bernal
-                                </td>
-                                <td>
-                                    M&eacute;dico / intoxicaci&oacute;n
-                                </td>
-                                <td>
-                                    San Felipe
-                                </td>
-                                <td>
-                                    Lomas
-                                </td>
-                                <td>
-                                    Descripci&oacute;n de la llamada
-                                </td>
-                                <td>
-                                    <label class="switch">
-                                      <input type="checkbox">
-                                      <span class="slider round"></span>
-                                    </label>
-                                </td>
-                            </tr>
-                    	</tbody>
-                    </table>
-                </div>
-              </section>
-
-              <section id="contentTab3">
-              	<div class="encabezadoTablaResultados">
-                </div>
-                <div class="contenidoTablaResultados">
-                    <table class="tablaAlerta">
-                    	<thead>
-                            <tr>
-                                <th>Folio</th>
-                                <th>Fecha y hora</th>
-                                <th>Tel&eacute;fono</th>
-                                <th>Telefonista</th>
-                                <th>Motivo</th>
-                                <th>Municipio</th>
-                                <th>Colonia</th>
-                                <th>Descripci&oacute;n</th>
-                                <th>Ver</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>
-                                    121314321432523
-                                </td>
-                                <td>
-                                    22-02-2019 13:20:34
-                                </td>
-                                <td>
-                                    5521219376
-                                </td>
-                                <td>
-                                    Juan Bernal
-                                </td>
-                                <td>
-                                    M&eacute;dico / intoxicaci&oacute;n
-                                </td>
-                                <td>
-                                    San Felipe
-                                </td>
-                                <td>
-                                    Lomas
-                                </td>
-                                <td>
-                                    Descripci&oacute;n de la llamada
-                                </td>
-                                <td>
-                                    <label class="switch">
-                                      <input type="checkbox">
-                                      <span class="slider round"></span>
-                                    </label>
-                                </td>
-                            </tr>
-                            <tr class="filaSeleccionada">
-                                <td>
-                                    121314321432523
-                                </td>
-                                <td>
-                                    22-02-2019 13:20:34
-                                </td>
-                                <td>
-                                    5521219376
-                                </td>
-                                <td>
-                                    Juan Bernal
-                                </td>
-                                <td>
-                                    M&eacute;dico / intoxicaci&oacute;n
-                                </td>
-                                <td>
-                                    San Felipe
-                                </td>
-                                <td>
-                                    Lomas
-                                </td>
-                                <td>
-                                    Descripci&oacute;n de la llamada
-                                </td>
-                                <td>
-                                    <label class="switch">
-                                      <input type="checkbox" checked>
-                                      <span class="slider round"></span>
-                                    </label>
-                                </td>
-                            </tr>
-                    	</tbody>
-                    </table>
-                </div>
-              </section>
-
-              <section id="contentTab4">
-               	<div class="encabezadoTablaResultados">
-                </div>
-                <div class="contenidoTablaResultados">
-                    <table class="tablaAlerta">
-                    	<thead>
-                            <tr>
-                                <th>Folio</th>
-                                <th>Fecha y hora</th>
-                                <th>Tel&eacute;fono</th>
-                                <th>Telefonista</th>
-                                <th>Motivo</th>
-                                <th>Municipio</th>
-                                <th>Colonia</th>
-                                <th>Descripci&oacute;n</th>
-                                <th>Ver</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>
-                                    121314321432523
-                                </td>
-                                <td>
-                                    22-02-2019 13:20:34
-                                </td>
-                                <td>
-                                    5521219376
-                                </td>
-                                <td>
-                                    Juan Bernal
-                                </td>
-                                <td>
-                                    M&eacute;dico / intoxicaci&oacute;n
-                                </td>
-                                <td>
-                                    San Felipe
-                                </td>
-                                <td>
-                                    Lomas
-                                </td>
-                                <td>
-                                    Descripci&oacute;n de la llamada
-                                </td>
-                                <td>
-                                    <label class="switch">
-                                      <input type="checkbox">
-                                      <span class="slider round"></span>
-                                    </label>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    121314321432523
-                                </td>
-                                <td>
-                                    22-02-2019 13:20:34
-                                </td>
-                                <td>
-                                    5521219376
-                                </td>
-                                <td>
-                                    Juan Bernal
-                                </td>
-                                <td>
-                                    M&eacute;dico / intoxicaci&oacute;n
-                                </td>
-                                <td>
-                                    San Felipe
-                                </td>
-                                <td>
-                                    Lomas
-                                </td>
-                                <td>
-                                    Descripci&oacute;n de la llamada
-                                </td>
-                                <td>
-                                    <label class="switch">
-                                      <input type="checkbox">
-                                      <span class="slider round"></span>
-                                    </label>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    121314321432523
-                                </td>
-                                <td>
-                                    22-02-2019 13:20:34
-                                </td>
-                                <td>
-                                    5521219376
-                                </td>
-                                <td>
-                                    Juan Bernal
-                                </td>
-                                <td>
-                                    M&eacute;dico / intoxicaci&oacute;n
-                                </td>
-                                <td>
-                                    San Felipe
-                                </td>
-                                <td>
-                                    Lomas
-                                </td>
-                                <td>
-                                    Descripci&oacute;n de la llamada
-                                </td>
-                                <td>
-                                    <label class="switch">
-                                      <input type="checkbox">
-                                      <span class="slider round"></span>
-                                    </label>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    121314321432523
-                                </td>
-                                <td>
-                                    22-02-2019 13:20:34
-                                </td>
-                                <td>
-                                    5521219376
-                                </td>
-                                <td>
-                                    Juan Bernal
-                                </td>
-                                <td>
-                                    M&eacute;dico / intoxicaci&oacute;n
-                                </td>
-                                <td>
-                                    San Felipe
-                                </td>
-                                <td>
-                                    Lomas
-                                </td>
-                                <td>
-                                    Descripci&oacute;n de la llamada
-                                </td>
-                                <td>
-                                    <label class="switch">
-                                      <input type="checkbox">
-                                      <span class="slider round"></span>
-                                    </label>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    121314321432523
-                                </td>
-                                <td>
-                                    22-02-2019 13:20:34
-                                </td>
-                                <td>
-                                    5521219376
-                                </td>
-                                <td>
-                                    Juan Bernal
-                                </td>
-                                <td>
-                                    M&eacute;dico / intoxicaci&oacute;n
-                                </td>
-                                <td>
-                                    San Felipe
-                                </td>
-                                <td>
-                                    Lomas
-                                </td>
-                                <td>
-                                    Descripci&oacute;n de la llamada
-                                </td>
-                                <td>
-                                    <label class="switch">
-                                      <input type="checkbox">
-                                      <span class="slider round"></span>
-                                    </label>
-                                </td>
-                            </tr>
-                    	</tbody>
-                    </table>
-                </div>
-              </section>
-
-            </main>
-            <a class="icnMaximizarTabla" (click)="abrirTabla()"><i class="fa fa-chevron-up"></i></a>
-        </div> <!--termina tabla resultados -->
+    </main>
+    <a class="icnMaximizarTabla" (click)="abrirTabla()"><i class="fa fa-chevron-up"></i></a>
+</div>
+<!--termina tabla resultados -->
