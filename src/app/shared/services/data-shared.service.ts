@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 import { Evento} from 'src/app/models/evento.model';
+import { Ubicacion} from 'src/app/models/ubicacion.model';
 
 import { DatosLlamada} from '../../models/datosLlamada';
 
@@ -12,11 +13,18 @@ export class DataSharedService {
 
  //private llamadasEvento = new Array<Evento>();
 
- private datosLlamada = new DatosLlamada();
-  //private llamadas = new Array<Evento>();
- private datosLlamadaSubject = new Subject<DatosLlamada>();
 
+ //OBSERVABLE PARA LOS DATOS DE LAS LLAMADAS QUE HA TOMADO EL OPERADOR 
+ private datosLlamada = new DatosLlamada(); 
+ private datosLlamadaSubject = new Subject<DatosLlamada>(); 
  public datosLlamadaObservable$ = this.datosLlamadaSubject.asObservable();
+
+
+
+ //OBSERVABLE PARA LA UBICACION QUE SE RECIBA DEL SERVICIO DE OBTENER UBICACION
+ private ubicacionActual = new Ubicacion(); 
+ private ubicacionActualSubject = new Subject<Ubicacion>();
+ public ubicacionActualObservable$ = this.ubicacionActualSubject.asObservable();
 
  constructor() { }
 
@@ -38,6 +46,19 @@ export class DataSharedService {
 }
 
 
+setUbicacionLlamada(latitud,longitud){
+
+
+  this.ubicacionActual.latitud=latitud;
+  this.ubicacionActual.longitud=longitud;
+  
+  console.log("LAT:"+latitud+"|||"+"LONG:"+longitud);
+
+  this.ubicacionActualSubject.next(this.ubicacionActual);
+
+}
+
+
 actualizarLlamada(idPrefolio: string,eventoLlamada: Evento) {
 
  /*
@@ -51,11 +72,13 @@ actualizarLlamada(idPrefolio: string,eventoLlamada: Evento) {
      this.datosLlamada.listaEventos[x]=eventoLlamada;
      console.log("ACTUALIZADO");
 
+     this.datosLlamada.ultimoModificado=idPrefolio;
+     this.datosLlamadaSubject.next(this.datosLlamada);
+     console.log("ULTIDMO:"+this.datosLlamada.ultimoModificado);
+
+
    }
  }
- this.datosLlamada.ultimoModificado=idPrefolio;
- this.datosLlamadaSubject.next(this.datosLlamada);
- console.log("ULTIDMO:"+this.datosLlamada.ultimoModificado);
 
 
 

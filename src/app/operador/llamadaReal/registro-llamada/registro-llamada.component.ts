@@ -8,6 +8,7 @@ import * as moment from 'moment';
 
 import {Evento} from '../../../models/evento.model';
 
+import { Ubicacion} from 'src/app/models/ubicacion.model';
 
 import { GrabacionService } from '../../../shared/services/grabacion.service';
 import {DataSharedService} from '../../../shared/services/data-shared.service';
@@ -70,6 +71,7 @@ export class RegistroLlamadaComponent implements OnInit {
    public imgrapidooff = "../assets/img/images/icnRapidoOff.svg";
    public imgrapidoACT="";
 
+   
 
    ////////////////////////////////ENDPOINTS LLAMADA REAL/////////////////////////////////
    /*
@@ -98,6 +100,10 @@ export class RegistroLlamadaComponent implements OnInit {
 
    public eventoTmp: Evento;
    public subscription: Subscription;
+   
+   public subscriptionUbicacion: Subscription;
+
+
 
 
 
@@ -169,6 +175,23 @@ constructor(public dataShared: DataSharedService
     
       this.setLlamadaCreada(data.listaEventos);
      });
+
+     this.subscriptionUbicacion = this.dataShared.ubicacionActualObservable$.subscribe((data ) => {
+      // this.ITEMS = data;
+      // console.log(  this.ITEMS);  
+
+        console.log(this.eventoTmp);
+
+        if(this.eventoTmp.prefolio!= undefined && this.eventoTmp.prefolio!=null ){
+
+          let ubicacion: Ubicacion = data;
+          console.log( data); 
+          this.eventoTmp.latitud=ubicacion.latitud;
+          this.eventoTmp.longitud=ubicacion.longitud;
+        }
+
+      });
+
     this.getMotivos();///////////////////////////////////////////SE OBTIENE LA LISTA DE MOTIVOS DE LLAMADA REAL////////////////////
 
     this.setMapCenter("19.4411109", "-99.1465073");//latitudDenunciante: "19.434050" longitudDenunciante: "-99.199056"
@@ -324,16 +347,16 @@ constructor(public dataShared: DataSharedService
         evento["fechaInicio"]=    this.dateInicio;
 
         evento["fechaFin"]=dateFinal.getTime();
-        evento["origen"]="origen";           /////////////////////////////////////////CAMBIAR ESTOS DATOS AL OBTENERLOS DE MS
+        evento["origen"]="LLAMADA";           /////////////////////////////////////////CAMBIAR ESTOS DATOS AL OBTENERLOS DE MS
         evento["estatus"]="CULMINADO";       /////////////////////////////////////////CAMBIAR ESTOS DATOS AL OBTENERLOS DE MS
-        evento["estatusCaptura"]="CAPTURANDO";////////////////////////////////////////CAMBIAR ESTOS DATOS AL OBTENERLOS DE MS
+        evento["estatusCaptura"]="ATENDIDA";////////////////////////////////////////CAMBIAR ESTOS DATOS AL OBTENERLOS DE MS
         evento["creadoPor"]=this.session_id_user;/////////////////////////////////////CAMBIAR ESTOS DATOS AL OBTENERLOS DE MS
         evento["numeroTelefonico"]= Number($("#numeroTelefono").val()) ;
 
 
        
-        evento["latitud"]=this.eventoTmp.denunciante.latitudDenunciante;////////////////////////////////////////CAMBIAR ESTOS DATOS AL OBTENERLOS DE MS
-        evento["longitud"]=this.eventoTmp.denunciante.longitudDenunciante;////////////////////////////////////////CAMBIAR ESTOS DATOS AL OBTENERLOS DE MS
+        evento["latitud"]=this.eventoTmp.latitud;////////////////////////////////////////CAMBIAR ESTOS DATOS AL OBTENERLOS DE MS
+        evento["longitud"]=this.eventoTmp.longitud;////////////////////////////////////////CAMBIAR ESTOS DATOS AL OBTENERLOS DE MS
         evento["zonaPatrullaje"]="9";////////////////////////////////////////CAMBIAR ESTOS DATOS AL OBTENERLOS DE MS
 
         evento["listaInstituciones"]=this.eventoTmp.listaInstituciones;
@@ -598,6 +621,19 @@ constructor(public dataShared: DataSharedService
 
          }*/
 
+
+         if( this.eventoTmp.latitud ==null || this.eventoTmp.latitud=="" ){  //si el motivo esta seleccionado
+          //alertify.logPosition('bottom left').maxLogItems(6).error("Seleccione un motivo primero");
+          this.notifier.showNotification ('top','center', 'Falta seleccionar ubicacion (Latitud)' );
+           flag= false;
+        }
+
+        if( this.eventoTmp.longitud ==null || this.eventoTmp.longitud=="" ){  //si el motivo esta seleccionado
+          //alertify.logPosition('bottom left').maxLogItems(6).error("Seleccione un motivo primero");
+          this.notifier.showNotification ('top','center', 'Falta seleccionar ubicacion (Longitud)' );
+           flag= false;
+        }
+
          if( this.eventoTmp.motivo ==null || this.eventoTmp.motivo=="" ){  //si el motivo esta seleccionado
            //alertify.logPosition('bottom left').maxLogItems(6).error("Seleccione un motivo primero");
            this.notifier.showNotification ('top','center', 'Seleccione un motivo primero' );
@@ -645,6 +681,9 @@ constructor(public dataShared: DataSharedService
        }
 
      public  resetLlamada(){                     //METODO PARA RESETEAR LA PANTALLA PARA PREPARAR UNA NUEVA LLAMADA
+
+    
+       this.setMapCenter("19.4411109", "-99.1465073");
        this. dateInicio=(new Date()).getTime();
 
        ////////////////////////////////////////////SE REINICIAN LAS VARIABLES LOCALES AL ESTADO DEFAULT
@@ -661,12 +700,15 @@ constructor(public dataShared: DataSharedService
        this.eventoTmp.idEvento=null;
        this.eventoTmp.motivo=null;
 
+       
+       this.eventoTmp= new Evento();
       
        this. popPrioridad="";
        this. hideCorporacion=true;
        $("#ev_descripcion").val("");
 
        this.resetPrioridad();                    ///SE RESETEA LA PRIORIDAD DE LOS EVENTOS
+
 
      }
 
@@ -833,19 +875,11 @@ constructor(public dataShared: DataSharedService
         
         });
       }
-
-
-
-
+ 
 
       public mapatest( ){
-
-       $('#button_map').click();
-
-      // http://192.168.10.80:8082/siga/siga.html?idSesion=414&longitud=-99.090746&latitud=19.371331&idSistemaGeoAlerta=9
-
-
-
+  
+        this.dataShared.setUbicacionLlamada("19.6411109", "-99.1465073");
        
      }
 
@@ -868,6 +902,22 @@ constructor(public dataShared: DataSharedService
     //  }, 1500)
    
      
-    }
+        }
+
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     }

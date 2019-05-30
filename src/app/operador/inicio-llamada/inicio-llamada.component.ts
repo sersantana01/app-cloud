@@ -130,9 +130,14 @@ export class InicioLlamadaComponent implements OnInit {
       
   }
 
+  public setPrefolio(): string {
+    return this.prefolio;
+  }
+
   public callCreaLlamadaEvento(evento){
 
-    this.dataShared.crearLlamada(evento);
+    this.dataShared.crearLlamada(evento); 
+
 
   }
 
@@ -195,7 +200,7 @@ b
 
 
   ngOnInit() {
-
+ 
 
     this.subscription = this.dataShared.datosLlamadaObservable$.subscribe((data) =>{
 

@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit, ViewEncapsulation} from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, Input} from '@angular/core';
+import { InicioLlamadaComponent } from '../../operador/inicio-llamada/inicio-llamada.component';
 
 declare var $ : any;
 
@@ -10,16 +11,20 @@ declare var $ : any;
   styleUrls: ['./llamada-comun.component.css']
 })
 export class LlamadaComunComponent implements OnInit {
-
+  @Input() prefolio: string;
+  @Input() x: string;
+  @Input() y: string;
+  private accion = 'Fin';
   private uuid: string = '5';
   private tipoLlamadaComun: [];
   private llamadaNoPreferente: number = null;
   private observacionLlamada: string;
   private validar: boolean = false;
 
-  constructor(public http: HttpClient) { }
+  constructor(public http: HttpClient, public grabacion: InicioLlamadaComponent) { }
 
   ngOnInit() {
+    $('#botonPuto').prop('disabled', true);
     let getData = {};
     let params = [];
     let param = {};
@@ -66,37 +71,46 @@ export class LlamadaComunComponent implements OnInit {
     let paramCinco = {};
     let paramSeis = {};
     let paramSiete = {};
+    let paramOcho = {};
     let urlSetLlamadaComun = 'http://3.14.155.2:9093/guardarLlamadaComun';
     let telefono = $('#numeroTelefono').val();
 
+    let prefo = this.prefolio;
+    let coordX = this.x;
+    let coordY = this.y;
+    
     if(this.llamadaNoPreferente !== null) {
       paramUno['nombreParametro'] = 'uuid';
       paramUno['tipo'] = 'String';
       paramUno['valor'] = this.uuid;
 
-      paramDos['nombreParametro'] = 'id_direccion';
+      paramDos['nombreParametro'] = 'id_tipo_no_procedente';
       paramDos['tipo'] = 'int';
-      paramDos['valor'] = 1;
+      paramDos['valor'] = this.llamadaNoPreferente;
 
-      paramTres['nombreParametro'] = 'id_tipo_no_procedente';
-      paramTres['tipo'] = 'int';
-      paramTres['valor'] = this.llamadaNoPreferente;
+      paramTres['nombreParametro'] = 'numero_telefono';
+      paramTres['tipo'] = 'String';
+      paramTres['valor'] = telefono;
 
-      paramCuatro['nombreParametro'] = 'numero_telefono';
-      paramCuatro['tipo'] = 'String';
-      paramCuatro['valor'] = telefono;
+      paramCuatro['nombreParametro'] = 'id_usuario';
+      paramCuatro['tipo'] = 'int';
+      paramCuatro['valor'] = 5;
 
-      paramCinco['nombreParametro'] = 'id_usuario';
+      paramCinco['nombreParametro'] = 'creado_por';
       paramCinco['tipo'] = 'int';
-      paramCinco['valor'] = 5;
+      paramCinco['valor'] = 2;
 
-      paramSeis['nombreParametro'] = 'creado_por';
-      paramSeis['tipo'] = 'int';
-      paramSeis['valor'] = 2;
+      paramSeis['nombreParametro'] = 'Observacion';
+      paramSeis['tipo'] = 'String';
+      paramSeis['valor'] = this.observacionLlamada;
 
-      paramSiete['nombreParametro'] = 'Observacion';
+      paramSiete['nombreParametro'] = 'LATITUD';
       paramSiete['tipo'] = 'String';
-      paramSiete['valor'] = this.observacionLlamada;
+      paramSiete['valor'] = coordX;
+
+      paramOcho['nombreParametro'] = 'LONGITUD';
+      paramOcho['tipo'] = 'String';
+      paramOcho['valor'] = coordY;
 
       params.push(paramUno);
       params.push(paramDos);
@@ -105,20 +119,22 @@ export class LlamadaComunComponent implements OnInit {
       params.push(paramCinco);
       params.push(paramSeis);
       params.push(paramSiete);
+      params.push(paramOcho);
 
       setData['nombreMs'] = 'MS_Llamada_Comun';
-      setData['nombrePaquete'] = 'catalogo';
-      setData['nombreStoreProcedure'] = 'cat_tipo_no_procedente';
+      setData['nombrePaquete'] = 'telefonista';
+      setData['nombreStoreProcedure'] = 'llamada_no_procedente';
       setData['tipo'] = 'POST';
       setData['param'] = params;
 
       this.http.post(urlSetLlamadaComun, setData).subscribe(
         (response) => {
-          let respuesta = response['VID'];
+          let respuesta = response['ID_DIRECCION'];
           if(respuesta != '' || respuesta != null) {
             this.llamadaNoPreferente = null;
             this.observacionLlamada = '';
             this.validar = false;
+            this.grabacion.inicioGrabacion(prefo, this.accion);
             $('#botonPuto').prop('disabled', true);
             $('#llamadaNoProcedente').modal('hide');
             $('#numeroTelefono').val('');
