@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 import { Evento} from 'src/app/models/evento.model';
+import { Ubicacion} from 'src/app/models/ubicacion.model';
 
 import { DatosLlamada} from '../../models/datosLlamada';
 
@@ -18,6 +19,13 @@ export class DataSharedService {
 
  public datosLlamadaObservable$ = this.datosLlamadaSubject.asObservable();
 
+
+ private ubicacionActual = new Ubicacion();
+  //private llamadas = new Array<Evento>();
+ private ubicacionActualSubject = new Subject<Ubicacion>();
+
+ public ubicacionActualObservable$ = this.ubicacionActualSubject.asObservable();
+
  constructor() { }
 
  crearLlamada(nuevaLlamada) {
@@ -34,6 +42,19 @@ export class DataSharedService {
   
    //this.llamadasSubject.next(this.llamadasEvento);
 
+
+}
+
+
+setUbicacionLlamada(latitud,longitud){
+
+
+  this.ubicacionActual.latitud=latitud;
+  this.ubicacionActual.longitud=longitud;
+  
+  console.log("LAT:"+latitud+"|||"+"LONG:"+longitud);
+
+  this.ubicacionActualSubject.next(this.ubicacionActual);
 
 }
 
