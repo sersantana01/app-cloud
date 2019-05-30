@@ -1,4 +1,4 @@
-import {Component, OnInit } from '@angular/core';
+import {Component, OnInit, NgZone } from '@angular/core';
 import   {DataSharedService}    from '../../shared/services/data-shared.service'
 
 declare const google: any;
@@ -19,8 +19,9 @@ export class FullScreenMapsComponent implements OnInit {
     
    
 
-    constructor(private datataSharedService : DataSharedService){
+    constructor(private datataSharedService : DataSharedService , private _ngZone: NgZone){
   
+        window['angularComponentRef'] = {component: this, zone: _ngZone};
     }
     ngOnInit() {
 
@@ -132,7 +133,12 @@ export class FullScreenMapsComponent implements OnInit {
         document.getElementById('searchMapInput').innerHTML=place.geometry.location.lat();
 
 
-        this.notificarDataSharedService(place.geometry.location.lat(), place.geometry.location.lng() );
+        this._ngZone.run(() => {
+            this.notificarDataSharedService(place.geometry.location.lat(), place.geometry.location.lng() );
+        });
+      
+
+    
      
     });
 
