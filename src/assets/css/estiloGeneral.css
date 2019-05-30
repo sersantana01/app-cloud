@@ -144,9 +144,9 @@
     width: 55px;
     height: 55px;
     background: url(/assets/images/icnReloj.png) center center no-repeat;
-    margin-left: 4%;
+    margin-left: 230px;
     background-size: cover;
-    margin-top: -12px;
+    margin-top:6px;
 }
 .reloj p{display: none;}
 
@@ -367,7 +367,16 @@
 	margin-right:10px;
 }
 .icnCerrarTabla:hover{cursor:pointer; opacity:0.7;}
-.icnMaximizarTabla{ display: none; position: fixed; bottom: 0px; right: 300px; z-index: 99; background: #333;}
+.icnMaximizarTabla{ display: none; position: fixed; bottom: 0px; right: 250px; z-index: 99;
+  background: rgba(8,97,120,1);
+  padding: 3px 10px;
+  -webkit-border-top-left-radius: 5px;
+-webkit-border-top-right-radius: 5px;
+-moz-border-radius-topleft: 5px;
+-moz-border-radius-topright: 5px;
+border-top-left-radius: 5px;
+border-top-right-radius: 5px;
+}
 .contenidoTablaResultados table tbody tr:nth-child(even) {background: #086178; color:#E1E1E1;}
 .contenidoTablaResultados table tbody tr:nth-child(odd) {background: #4D4D4D; color:#E1E1E1;}
 .contenidoTablaResultados table tbody tr.filaSeleccionada{background: #023542; color:#fff;}
@@ -446,3 +455,9 @@ input:checked + .slider:before {
 
 /************Estilos para mapa************/
 #map.envolventeMapaHtml{z-index:1;}
+
+
+/*********user info ********/
+.user-info #collapseExample{
+  position: absolute;
+}
