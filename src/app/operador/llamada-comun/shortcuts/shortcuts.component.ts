@@ -1,6 +1,7 @@
-import { Component, ViewEncapsulation, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import {NotificacionService} from '../../../notificacion/notificacion.service';
+import { InicioLlamadaComponent } from '../../../operador/inicio-llamada/inicio-llamada.component';
 declare var $:any;
 
 
@@ -11,14 +12,20 @@ declare var $:any;
   host:{ '(window:keydown)' : 'shortcut($event)' }
 })
 export class ShortcutsComponent implements OnInit {
-
   private readonly notifier: NotificacionService;
   private uuid: number;
-
+  private accion = 'Fin';
+  @Input() prefolio: string;
+  @Input() x: string;
+  @Input() y: string;
 
   ngOnInit() {
   }
-  constructor(private http: HttpClient, notifierService: NotificacionService) {
+  constructor(
+    private http: HttpClient, 
+    notifierService: NotificacionService, 
+    public grabacion: InicioLlamadaComponent
+    ) {
     this.notifier = notifierService;
   }
 
@@ -60,32 +67,41 @@ export class ShortcutsComponent implements OnInit {
     let paramCuatro = {};
     let paramCinco = {};
     let paramSeis = {};
+    let paramSiete = {};
     let urlSetLlamadaComun = 'http://3.14.155.2:9093/guardarLlamadaComun';
     let telefono = $('#numeroTelefono').val();
+
+    
+    let coordX = this.x;
+    let coordY = this.y;
 
     paramUno['nombreParametro'] = 'uuid';
     paramUno['tipo'] = 'String';
     paramUno['valor'] = this.uuid;
 
-    paramDos['nombreParametro'] = 'id_direccion';
+    paramDos['nombreParametro'] = 'id_tipo_no_procedente';
     paramDos['tipo'] = 'int';
-    paramDos['valor'] = 1;
+    paramDos['valor'] = id;
 
-    paramTres['nombreParametro'] = 'id_tipo_no_procedente';
-    paramTres['tipo'] = 'int';
-    paramTres['valor'] = id;
+    paramTres['nombreParametro'] = 'numero_telefono';
+    paramTres['tipo'] = 'String';
+    paramTres['valor'] = telefono;
 
-    paramCuatro['nombreParametro'] = 'numero_telefono';
-    paramCuatro['tipo'] = 'String';
-    paramCuatro['valor'] = telefono;
+    paramCuatro['nombreParametro'] = 'id_usuario';
+    paramCuatro['tipo'] = 'int';
+    paramCuatro['valor'] = 5;
 
-    paramCinco['nombreParametro'] = 'id_usuario';
+    paramCinco['nombreParametro'] = 'creado_por';
     paramCinco['tipo'] = 'int';
-    paramCinco['valor'] = 5;
+    paramCinco['valor'] = 2;
 
-    paramSeis['nombreParametro'] = 'creado_por';
-    paramSeis['tipo'] = 'int';
-    paramSeis['valor'] = 2;
+    paramSeis['nombreParametro'] = 'LATITUD';
+    paramSeis['tipo'] = 'String';
+    paramSeis['valor'] = coordX;
+
+    paramSiete['nombreParametro'] = 'LONGITUD';
+    paramSiete['tipo'] = 'String';
+    paramSiete['valor'] = coordY;
 
     params.push(paramUno);
     params.push(paramDos);
@@ -93,6 +109,7 @@ export class ShortcutsComponent implements OnInit {
     params.push(paramCuatro);
     params.push(paramCinco);
     params.push(paramSeis);
+    params.push(paramSiete);
 
     setData['nombreMs'] = 'MS_Llamada_Comun';
     setData['nombrePaquete'] = 'catalogo';
@@ -107,8 +124,10 @@ export class ShortcutsComponent implements OnInit {
     this.http.post(urlSetLlamadaComun, setData).subscribe(
       (response) => {
         let respuesta = response['VID'];
+        let prefo = this.prefolio;
         var nombreLlamada = '';
         if(respuesta != '' || respuesta != null) {
+          this.grabacion.inicioGrabacion(prefo, this.accion);
           switch(idLlamadaComun) {
             case 1:
               nombreLlamada = 'LLAMADA DE PRUEBA';

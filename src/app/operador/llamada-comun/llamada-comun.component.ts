@@ -72,7 +72,6 @@ export class LlamadaComunComponent implements OnInit {
     let paramSeis = {};
     let paramSiete = {};
     let paramOcho = {};
-    let paramNueve = {};
     let urlSetLlamadaComun = 'http://3.14.155.2:9093/guardarLlamadaComun';
     let telefono = $('#numeroTelefono').val();
 
@@ -85,47 +84,42 @@ export class LlamadaComunComponent implements OnInit {
       paramUno['tipo'] = 'String';
       paramUno['valor'] = this.uuid;
 
-      paramDos['nombreParametro'] = 'id_direccion';
+      paramDos['nombreParametro'] = 'id_tipo_no_procedente';
       paramDos['tipo'] = 'int';
-      paramDos['valor'] = 1;
+      paramDos['valor'] = this.llamadaNoPreferente;
 
-      paramTres['nombreParametro'] = 'id_tipo_no_procedente';
-      paramTres['tipo'] = 'int';
-      paramTres['valor'] = this.llamadaNoPreferente;
+      paramTres['nombreParametro'] = 'numero_telefono';
+      paramTres['tipo'] = 'String';
+      paramTres['valor'] = telefono;
 
-      paramCuatro['nombreParametro'] = 'numero_telefono';
-      paramCuatro['tipo'] = 'String';
-      paramCuatro['valor'] = telefono;
+      paramCuatro['nombreParametro'] = 'id_usuario';
+      paramCuatro['tipo'] = 'int';
+      paramCuatro['valor'] = 5;
 
-      paramCinco['nombreParametro'] = 'id_usuario';
+      paramCinco['nombreParametro'] = 'creado_por';
       paramCinco['tipo'] = 'int';
-      paramCinco['valor'] = 5;
+      paramCinco['valor'] = 2;
 
-      paramSeis['nombreParametro'] = 'creado_por';
-      paramSeis['tipo'] = 'int';
-      paramSeis['valor'] = 2;
+      paramSeis['nombreParametro'] = 'Observacion';
+      paramSeis['tipo'] = 'String';
+      paramSeis['valor'] = this.observacionLlamada;
 
-      paramSiete['nombreParametro'] = 'Observacion';
+      paramSiete['nombreParametro'] = 'LATITUD';
       paramSiete['tipo'] = 'String';
-      paramSiete['valor'] = this.observacionLlamada;
+      paramSiete['valor'] = coordX;
 
-      paramOcho['nombreParametro'] = 'LATITUD';
+      paramOcho['nombreParametro'] = 'LONGITUD';
       paramOcho['tipo'] = 'String';
-      paramOcho['valor'] = coordX;
-
-      paramNueve['nombreParametro'] = 'LONGITUD';
-      paramNueve['tipo'] = 'String';
-      paramNueve['valor'] = coordY;
+      paramOcho['valor'] = coordY;
 
       params.push(paramUno);
-      //params.push(paramDos);
+      params.push(paramDos);
       params.push(paramTres);
       params.push(paramCuatro);
       params.push(paramCinco);
       params.push(paramSeis);
       params.push(paramSiete);
       params.push(paramOcho);
-      params.push(paramNueve);
 
       setData['nombreMs'] = 'MS_Llamada_Comun';
       setData['nombrePaquete'] = 'telefonista';

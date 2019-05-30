@@ -32,47 +32,16 @@ export class GridsLlamadasComponent implements OnInit {
     this.getLlamadasAtendidas(getData);
   }
 
-  public obtainXY(x: number, y: number) {
-    let getData = {};
-    let params = [];
-    let param1 = {};
-    let param2 = {};
-    let param3 = {};
-
-    param1['nombreParametro'] = 'uuid';
-    param1['tipo'] = 'String';
-    param1['valor'] = this.uuid;
-
-    params.push(param1);
-
-    param2['nombreParametro'] = 'coordenada_x';
-    param2['tipo'] = 'int';
-    param2['valor'] = x;
-
-    params.push(param2);
-
-    param3['nombreParametro'] = 'coordenada_y';
-    param3['tipo'] = 'int';
-    param3['valor'] = y;
-
-    params.push(param3);
-    
-    getData['nombreMs'] = 'MS_Grid_Llamadas';
-    getData['nombrePaquete'] = 'telefonista';
-    getData['nombreStoreProcedure'] = 'llam_atendidas';
-    getData['param'] = params;
-
-    this.setXY(getData);
+  public setXY(x: number, y: number) {
+    this.setMapCenter(x, y);
   }
 
-  public setXY(data: any) {
-    let urlSetCoordenadas = 'http://192.168.11.110:8080/enviarCoordenadas';
+  public setMapCenter(latitudX, longitudY){
+    let latitud=latitudX
+    let longitud=longitudY
+    let url=" http://192.168.10.80:8082/siga/siga.html?idSesion=414&longitud="+longitud+"&latitud="+latitud+"&idSistemaGeoAlerta=9";
 
-    this.http.post(urlSetCoordenadas, data).subscribe(
-      (response) => {
-        alert('Se enviaron las coordenadas');
-      }
-    );
+    $('#myFrameSiga').prop('src',url );  
   }
 
   public getLlamadasAtendidas(data: any) {
@@ -81,6 +50,7 @@ export class GridsLlamadasComponent implements OnInit {
     this.http.post(urlGetLlamadasAtendidas, data).subscribe(
       (response) => {
         this.llamadasAtendidas = response["items"];
+        console.log(this.llamadasAtendidas);
       }
     );
   }
