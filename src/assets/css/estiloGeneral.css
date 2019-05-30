@@ -461,3 +461,8 @@ input:checked + .slider:before {
 .user-info #collapseExample{
   position: absolute;
 }
+
+/*********Estilos para panel fixed ********/
+.fixed-plugin .fa-2x {
+    font-size: 1em;
+}
