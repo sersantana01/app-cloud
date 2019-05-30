@@ -38,7 +38,6 @@ export class InicioLlamadaComponent implements OnInit {
       this.obtenerLista();
       this.obtenerContadores();
       this.obtenerPrefolioIncidente();
-      this.inicioGrabacion(this.prefolio, this.accion);
     } else {
       this.lista = 'NINGUNO';
       this.contadores = null;
@@ -123,6 +122,8 @@ export class InicioLlamadaComponent implements OnInit {
 
         
         this.obtenerUbicacion(this.callId);
+        
+        this.inicioGrabacion(this.prefolio, this.accion);
 
         $("#button_motivo").click();
       });

@@ -9,9 +9,11 @@
 /* CSS FOR POPOVER*/
 .popoverCustom {
      background: Khaki;
+     left: -35% !important;
+     z-index:  1020;
 }
 .popover.popoverCustom .arrow {
-   left: -19% !important;
+   left: -9% !important;
    z-index: -1000;
 
 }

@@ -11,7 +11,7 @@ declare var $: any;
 
 export class VectorMapsComponent implements OnInit {
     ngOnInit() {
-        this.setMapCenter();
+       // this.setMapCenter();
     }
 
 
