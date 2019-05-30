@@ -645,6 +645,9 @@ constructor(public dataShared: DataSharedService
        }
 
      public  resetLlamada(){                     //METODO PARA RESETEAR LA PANTALLA PARA PREPARAR UNA NUEVA LLAMADA
+
+    
+       this.setMapCenter("19.4411109", "-99.1465073");
        this. dateInicio=(new Date()).getTime();
 
        ////////////////////////////////////////////SE REINICIAN LAS VARIABLES LOCALES AL ESTADO DEFAULT
@@ -667,6 +670,7 @@ constructor(public dataShared: DataSharedService
        $("#ev_descripcion").val("");
 
        this.resetPrioridad();                    ///SE RESETEA LA PRIORIDAD DE LOS EVENTOS
+
 
      }
 
