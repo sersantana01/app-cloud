@@ -7,6 +7,7 @@ import {Subscription} from 'rxjs';
 
 import {DataSharedService} from '../../shared/services/data-shared.service';
 import {Evento} from '../../models/evento.model';
+import {Denunciante} from '../../models/denunciante.model';
 
 
 @Component({
@@ -24,6 +25,8 @@ export class InicioLlamadaComponent implements OnInit {
   contadores;
   accion = 'Intermedio';
   estatusGrabacion :string ='';
+  x = null;
+  y = null;
 
   public subscription: Subscription;
 
@@ -117,16 +120,17 @@ export class InicioLlamadaComponent implements OnInit {
         this.prefolio = data['RESULTADO'];
 
 
-        /////////////////////////////////////////SE CREA NUEVA INSTANCIA DE EVENTO
-        let ev=new Evento();
-        ev.numeroTelefonico=this.callId;
-        ev.prefolio = data['RESULTADO'];
 
-        this.callCreaLlamadaEvento(ev);
+        
+        this.obtenerUbicacion(this.callId);
 
         $("#button_motivo").click();
       });
       
+  }
+
+  public setPrefolio(): string {
+    return this.prefolio;
   }
 
   public callCreaLlamadaEvento(evento){
@@ -145,29 +149,6 @@ export class InicioLlamadaComponent implements OnInit {
   }
 
   inicioGrabacion(pre, accion) {
-    // let fecha = new Date();
-    // let fActual = fecha.getDate() + '/' +
-    //         fecha.getMonth() + '/' +
-    //         fecha.getFullYear() + ' ' +
-    //         fecha.getHours() + ':' +
-    //         fecha.getMinutes() + ':' +
-    //         fecha.getSeconds();
-    // this.http
-    // .post('http://3.14.155.2:6769/grabarAuronix', {
-    //   prefolio: prefolio,
-    //   fechaGrabacion: fActual,
-    //   accion: accion,
-    //   ipOperador: '102.22.1.11'
-    // })
-    // .subscribe(data => {
-    //   this.estatusGrabacion = data['estatus'];
-    // });
-
-
-
-
-
-
     let fecha = new Date();
     let fActual = fecha.getDate() + '/' +
             fecha.getMonth() + '/' +
@@ -181,6 +162,36 @@ export class InicioLlamadaComponent implements OnInit {
 
   }
 
+  obtenerUbicacion(numero) {
+
+    this.http
+      .post('http://3.14.155.2:6769/solicitarUbicacion', {
+        numero
+      })
+      .subscribe(data => {
+        this.x = data['x'];//latitud
+        this.y = data['y'];//longitud
+
+
+        
+        /////////////////////////////////////////SE CREA NUEVA INSTANCIA DE EVENTO
+        let ev=new Evento();
+        ev.numeroTelefonico=this.callId;
+        ev.prefolio = this.prefolio;
+
+
+        let denun= new Denunciante();
+        denun.latitudDenunciante=this.x;
+        denun.longitudDenunciante=this.y;
+
+        ev.denunciante = denun;
+        
+
+        this.callCreaLlamadaEvento(ev);
+      });
+  }
+
+b
   constructor( public dataShared: DataSharedService,private http: HttpClient, private grabacionService: GrabacionService) {}
 
 

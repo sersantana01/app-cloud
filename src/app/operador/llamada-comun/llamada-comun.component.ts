@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit, ViewEncapsulation} from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, Input} from '@angular/core';
+import { InicioLlamadaComponent } from '../../operador/inicio-llamada/inicio-llamada.component';
 
 declare var $ : any;
 
@@ -10,14 +11,17 @@ declare var $ : any;
   styleUrls: ['./llamada-comun.component.css']
 })
 export class LlamadaComunComponent implements OnInit {
-
+  @Input() prefolio: string;
+  @Input() x: string;
+  @Input() y: string;
+  private accion = 'Fin';
   private uuid: string = '5';
   private tipoLlamadaComun: [];
   private llamadaNoPreferente: number = null;
   private observacionLlamada: string;
   private validar: boolean = false;
 
-  constructor(public http: HttpClient) { }
+  constructor(public http: HttpClient, public grabacion: InicioLlamadaComponent) { }
 
   ngOnInit() {
     $('#botonPuto').prop('disabled', true);
@@ -67,9 +71,15 @@ export class LlamadaComunComponent implements OnInit {
     let paramCinco = {};
     let paramSeis = {};
     let paramSiete = {};
+    let paramOcho = {};
+    let paramNueve = {};
     let urlSetLlamadaComun = 'http://3.14.155.2:9093/guardarLlamadaComun';
     let telefono = $('#numeroTelefono').val();
 
+    let prefo = this.prefolio;
+    let coordX = this.x;
+    let coordY = this.y;
+    
     if(this.llamadaNoPreferente !== null) {
       paramUno['nombreParametro'] = 'uuid';
       paramUno['tipo'] = 'String';
@@ -99,27 +109,38 @@ export class LlamadaComunComponent implements OnInit {
       paramSiete['tipo'] = 'String';
       paramSiete['valor'] = this.observacionLlamada;
 
+      paramOcho['nombreParametro'] = 'LATITUD';
+      paramOcho['tipo'] = 'String';
+      paramOcho['valor'] = coordX;
+
+      paramNueve['nombreParametro'] = 'LONGITUD';
+      paramNueve['tipo'] = 'String';
+      paramNueve['valor'] = coordY;
+
       params.push(paramUno);
-      params.push(paramDos);
+      //params.push(paramDos);
       params.push(paramTres);
       params.push(paramCuatro);
       params.push(paramCinco);
       params.push(paramSeis);
       params.push(paramSiete);
+      params.push(paramOcho);
+      params.push(paramNueve);
 
       setData['nombreMs'] = 'MS_Llamada_Comun';
-      setData['nombrePaquete'] = 'catalogo';
-      setData['nombreStoreProcedure'] = 'cat_tipo_no_procedente';
+      setData['nombrePaquete'] = 'telefonista';
+      setData['nombreStoreProcedure'] = 'llamada_no_procedente';
       setData['tipo'] = 'POST';
       setData['param'] = params;
 
       this.http.post(urlSetLlamadaComun, setData).subscribe(
         (response) => {
-          let respuesta = response['VID'];
+          let respuesta = response['ID_DIRECCION'];
           if(respuesta != '' || respuesta != null) {
             this.llamadaNoPreferente = null;
             this.observacionLlamada = '';
             this.validar = false;
+            this.grabacion.inicioGrabacion(prefo, this.accion);
             $('#botonPuto').prop('disabled', true);
             $('#llamadaNoProcedente').modal('hide');
             $('#numeroTelefono').val('');
