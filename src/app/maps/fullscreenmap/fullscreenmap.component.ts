@@ -142,7 +142,7 @@ export class FullScreenMapsComponent implements OnInit {
        
 
         $("#lat").val(place.geometry.location.lat());
-        $("#long").val(place.geometry.location.lng())    ; 
+        $("#long").val(place.geometry.location.lng()); 
 
 
        $("#btn_location").click();

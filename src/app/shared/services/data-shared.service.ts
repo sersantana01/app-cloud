@@ -46,7 +46,7 @@ export class DataSharedService {
 }
 
 
-setUbicacionLlamada(latitud,longitud){
+public setUbicacionLlamada(latitud,longitud){
 
 
   this.ubicacionActual.latitud=latitud;
