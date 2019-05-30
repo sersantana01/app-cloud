@@ -9,6 +9,7 @@ import * as moment from 'moment';
 import {Evento} from '../../../models/evento.model';
 
 
+import { GrabacionService } from '../../../shared/services/grabacion.service';
 import {DataSharedService} from '../../../shared/services/data-shared.service';
 
 import { Subscription } from 'rxjs';
@@ -103,7 +104,8 @@ export class RegistroLlamadaComponent implements OnInit {
 
 
 constructor(public dataShared: DataSharedService
-          , public restCaller: RegistroLlamadaService, 
+          , public restCaller: RegistroLlamadaService,  
+            private grabacionService: GrabacionService,
            notifierService: NotificacionService) {
    this.notifier = notifierService;
    //this.dateInicio=(new Date()).getTime();
@@ -209,7 +211,7 @@ constructor(public dataShared: DataSharedService
 
    if(this.eventoTmp.motivo!=null && this.eventoTmp.motivo!=""){
    //if(this.selectedMotivo!=null && this.selectedMotivo!=""){
-    ////////////// this.iniciarGrabacion( );           //SE INICIA GRABACION
+     this.iniciarGrabacion( );           //SE INICIA GRABACION
      this.hideCorporacion=false;
    //////////////////////
        var call = {};
@@ -656,7 +658,8 @@ constructor(public dataShared: DataSharedService
        this. idDescripcionEvento=null;
        this. descripcionEvento=""; */
 
-       //this.eventoTmp= new Evento();
+       this.eventoTmp.idEvento=null;
+       this.eventoTmp.motivo=null;
 
       
        this. popPrioridad="";
@@ -721,18 +724,8 @@ constructor(public dataShared: DataSharedService
 
        var date = new Date();
        let dateGrabacion = moment(date).format('DD/MM/YYYY HH:mm:ss');
-       var call = {};
-       call["prefolio"]=$("#prefolioSpan").html().toString().trim();
-       call["fechaGrabacion"]=dateGrabacion;
-       call["accion"]="inicio";
-       call["ipOperador"]=this.uuid;
-
-
-       this.restCaller.sendCall(call,this.endopointGrabacion).subscribe(
-         (data) => {
-             console.log(data);
        
-       });
+        this.grabacionService.grabarAuronix(this.eventoTmp.prefolio, dateGrabacion, "Inicio");
 
      }
 
@@ -867,12 +860,12 @@ constructor(public dataShared: DataSharedService
       let url=" http://192.168.10.80:8082/siga/siga.html?idSesion=414&longitud="+longitud+"&latitud="+latitud+"&idSistemaGeoAlerta=9";
   
       console.log("SET SRC:"+url);
-      $('#myFrameSiga').prop('src','https://cdn-images-1.medium.com/max/1600/0*4Gzjgh9Y7Gu8KEtZ.gif');
+      //$('#myFrameSiga').prop('src','https://cdn-images-1.medium.com/max/1600/0*4Gzjgh9Y7Gu8KEtZ.gif');
    
   
-      setTimeout (() => { 
+   //   setTimeout (() => { 
         $('#myFrameSiga').prop('src',url );
-      }, 1500)
+    //  }, 1500)
    
      
     }
