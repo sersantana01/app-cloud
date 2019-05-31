@@ -883,7 +883,6 @@ constructor(public dataShared: DataSharedService
        
      }
 
-
      public setMapCenter(latitudX, longitudY){
     
       console.log("SET SRC");
@@ -891,8 +890,10 @@ constructor(public dataShared: DataSharedService
       let latitud=latitudX
       let longitud=longitudY
    
-      let url=" http://192.168.10.80:8082/siga/siga.html?idSesion=414&longitud="+longitud+"&latitud="+latitud+"&idSistemaGeoAlerta=9";
-  
+      //let url=" http://192.168.10.80:8082/siga/siga.html?idSesion=414&longitud="+longitud+"&latitud="+latitud+"&idSistemaGeoAlerta=9";
+      let url="http://192.168.10.80:8082/siga/siga.html?idSesion=414&longitud="+longitud+"&latitud="+latitud+"&numExterior=&idInstitucion=1&idSistemaGeoAlerta=9&idSistema=1"
+
+
       console.log("SET SRC:"+url);
       //$('#myFrameSiga').prop('src','https://cdn-images-1.medium.com/max/1600/0*4Gzjgh9Y7Gu8KEtZ.gif');
    

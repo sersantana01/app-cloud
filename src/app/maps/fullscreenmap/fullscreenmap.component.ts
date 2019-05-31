@@ -1,6 +1,7 @@
 import {Component, OnInit, NgZone } from '@angular/core';
 import   {DataSharedService}    from '../../shared/services/data-shared.service'
 
+import * as $ from 'jquery';
 declare const google: any;
 
 interface Marker {
@@ -18,11 +19,15 @@ draggable?: boolean;
 export class FullScreenMapsComponent implements OnInit {
     
    
+  someValue:String = 'xxxx';
+    progress: number = 0;
+  label: string;
 
-    constructor(private datataSharedService : DataSharedService , private _ngZone: NgZone){
-  
-        window['angularComponentRef'] = {component: this, zone: _ngZone};
+    constructor(private datataSharedService : DataSharedService , public _ngZone: NgZone){
+ 
+        
     }
+ 
     ngOnInit() {
 
      this.demo();
@@ -87,7 +92,7 @@ export class FullScreenMapsComponent implements OnInit {
 
     autocomplete.setComponentRestrictions ({ 'country' : [ 'mx' ]}, { 'city' : [ 'Mexico City' ]} ); 
 
-
+    console.log("11");
 
     autocomplete.addListener('place_changed', function() {
         infowindow.close();
@@ -129,17 +134,19 @@ export class FullScreenMapsComponent implements OnInit {
        // document.getElementById('lon-span').innerHTML = place.geometry.location.lng();
 
       
+    console.log("22");
 
         document.getElementById('searchMapInput').innerHTML=place.geometry.location.lat();
 
+        console.log(place.geometry.location.lat());
+       
 
-        this._ngZone.run(() => {
-            this.notificarDataSharedService(place.geometry.location.lat(), place.geometry.location.lng() );
-        });
-      
+        $("#lat").val(place.geometry.location.lat());
+        $("#long").val(place.geometry.location.lng()); 
 
-    
-     
+
+       $("#btn_location").click();
+
     });
 
 
@@ -155,10 +162,10 @@ export class FullScreenMapsComponent implements OnInit {
        marker2.setPosition(e.latLng);
        marker2.setVisible(true);
        var latLng = marker2.latLng;
-
+console.log(latLng);
     
-
-       this.notificarDataSharedService(latLng.lat(),latLng.lng()  );
+       console.log("333");
+      // this.notificarDataSharedService(latLng.lat(),latLng.lng()  );
     });
 
 
@@ -175,8 +182,8 @@ export class FullScreenMapsComponent implements OnInit {
 
 
         
-
-       this.notificarDataSharedService(latLng.lat(),latLng.lng()  );
+    console.log("444");
+      // this.notificarDataSharedService(latLng.lat(),latLng.lng()  );
      });
 
 
@@ -185,8 +192,19 @@ export class FullScreenMapsComponent implements OnInit {
     }
 
 
-  public notificarDataSharedService ( long : any , lat : any){
-        this.datataSharedService.setUbicacionLlamada( lat, long);
+  public sendLocation (  ){
+    
+   let lat= $("#lat").val( );
+   let long= $("#long").val( )    ; 
+
+   if(lat!="" && long !=""){
+
+
+    this.datataSharedService.setUbicacionLlamada( lat, long);
+    $("#lat").val("" );
+    $("#long").val(""); 
+   }
+
 
     }
 
