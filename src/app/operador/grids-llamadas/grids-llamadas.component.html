@@ -311,6 +311,11 @@
                             <td>{{llamadaAtendida.descripcion}}</td>
                             <td>
                                 <a role="button" (click)="setXY(llamadaAtendida.latitud, llamadaAtendida.longitud)"><i class='fas fa-globe'></i></a>
+                                
+                                <button
+                                class="btn btn-just-icon btn-link  btn-twitter mat-raised-button" mat-raised-button=""
+                                (click)="setXY(llamadaAtendida.latitud, llamadaAtendida.longitud)">
+                                <span class="mat-button-wrapper"><i class='fas fa-globe'></i></span></button>
                             </td>
                         </tr>
                     </tbody>
