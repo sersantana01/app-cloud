@@ -883,7 +883,6 @@ constructor(public dataShared: DataSharedService
        
      }
 
-
      public setMapCenter(latitudX, longitudY){
     
       console.log("SET SRC");
