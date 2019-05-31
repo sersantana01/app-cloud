@@ -44,8 +44,9 @@ export class GridsLlamadasComponent implements OnInit {
   public setMapCenter(latitudX, longitudY){
     let latitud=latitudX
     let longitud=longitudY
-    let url=" http://192.168.10.80:8082/siga/siga.html?idSesion=414&longitud="+longitud+"&latitud="+latitud+"&idSistemaGeoAlerta=9";
+    let url="http://192.168.10.80:8082/siga/siga.html?idSesion=414&longitud="+longitud+"&latitud="+latitud+"&numExterior=&idInstitucion=1&idSistemaGeoAlerta=9&idSistema=1"
 
+    console.log(url);
     $('#myFrameSiga').prop('src',url );  
   }
 
