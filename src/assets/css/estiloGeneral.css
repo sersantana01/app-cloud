@@ -458,12 +458,6 @@ input:checked + .slider:before {
 /************Estilos para mapa************/
 #map.envolventeMapaHtml{z-index:1;}
 
-
-/*********user info ********/
-.user-info #collapseExample{
-  position: absolute;
-}
-
 /*********z-index tabla**********/
 .wrapper .sidebar{
   z-index: 3;
@@ -568,3 +562,33 @@ input:checked + .slider:before {
     left: 45px;
     bottom: -13px;
 }
+
+/******ventana estatus usuarios******/
+.user-info span{font-size: 13px;}
+.user-info span:hover{text-decoration: none; cursor: pointer;}
+.user-info #collapseExample{
+  position: absolute;
+  margin-left: -90px;
+}
+#collapseExample .nav .nav-item{width:100%;}
+.estatusUsuario{
+  margin-top: 5px;
+	background: #333;
+	-webkit-border-bottom-right-radius: 5px;
+	-webkit-border-bottom-left-radius: 5px;
+	-moz-border-radius-bottomright: 5px;
+	-moz-border-radius-bottomleft: 5px;
+	border-bottom-right-radius: 5px;
+	border-bottom-left-radius: 5px;
+  font-size: 11px;
+}
+.estatusUsuario li{padding:2px 10px; border-bottom:1px solid #003366;}
+.estatusUsuario li:hover{background:#006699; cursor:pointer;}
+.estatusUsuario li a{color:#E1E1E1; text-decoration:none; text-transform: capitalize;}
+.estatusUsuario li:last-child{padding-bottom:8px; border-bottom:none;}
+.estatusUsuario i{width:18px;}
+
+
+/************icono de adminstracion colores**************/
+.fixed-plugin .fa-2x {font-size: 1em;}
+div.fixed-plugin{width:32px;}
