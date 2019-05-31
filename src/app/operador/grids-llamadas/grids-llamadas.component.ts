@@ -45,7 +45,7 @@ export class GridsLlamadasComponent implements OnInit {
   }
 
   public getLlamadasAtendidas(data: any) {
-    let urlGetLlamadasAtendidas = 'http://192.168.11.110:8080/obtenerLlamadasAtendidas';
+    let urlGetLlamadasAtendidas = 'http://3.14.155.2:9094/obtenerLlamadasAtendidas';
 
     this.http.post(urlGetLlamadasAtendidas, data).subscribe(
       (response) => {

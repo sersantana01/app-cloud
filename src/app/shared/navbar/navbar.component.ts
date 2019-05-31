@@ -17,6 +17,10 @@ declare var $: any;
 })
 
 export class NavbarComponent implements OnInit {
+
+   banderaMapa :boolean=true;
+   public urlMapa:String="/maps/googlemaps";
+
     private listTitles: any[];
     location: Location;
     mobile_menu_visible: any = 0;
@@ -206,5 +210,22 @@ export class NavbarComponent implements OnInit {
     }
     getPath() {
         return this.location.prepareExternalUrl(this.location.path());
+    }
+
+
+
+    cambioMapa(){
+        
+
+        if(this.banderaMapa){
+            this.urlMapa="/maps/googlemaps";
+            this.banderaMapa=false;
+        }else{
+              this.urlMapa="/maps/siga";
+              this.banderaMapa=true;
+        }
+
+       
+       
     }
 }
