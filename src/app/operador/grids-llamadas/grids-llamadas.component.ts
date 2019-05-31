@@ -32,6 +32,11 @@ export class GridsLlamadasComponent implements OnInit {
     this.getLlamadasAtendidas(getData);
   }
 
+  public refresh() {
+    //alert('Refrescar');
+    this.ngOnInit();
+  }
+
   public setXY(x: number, y: number) {
     this.setMapCenter(x, y);
   }
