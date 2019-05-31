@@ -18,11 +18,27 @@
         padding: 0 11px 0 13px;
         text-overflow: ellipsis;
         width: 50%;
+        z-index: 3;
+        position:absolute;
+        display:block;
+        top: 100px;
     }
+
     #searchMapInput:focus {
         border-color: #4d90fe;
     }
 </style>
 
-<div id="map">
+<input id="searchMapInput" class="mapControls" type="text" placeholder="Ingrese dirección">
+
+<div id="map">   
+    
+    
+
 </div>
+
+<p>Progress: %</p> 
+<input [hidden]=true id="lat" type="text" >
+<input [hidden]=true id="long" type="text" >
+
+<button [hidden]=true id="btn_location" (click)="sendLocation();" ></button>

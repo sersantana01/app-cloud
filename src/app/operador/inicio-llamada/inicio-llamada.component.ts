@@ -136,7 +136,8 @@ export class InicioLlamadaComponent implements OnInit {
 
   public callCreaLlamadaEvento(evento){
 
-    this.dataShared.crearLlamada(evento);
+    this.dataShared.crearLlamada(evento); 
+
 
   }
 
@@ -199,7 +200,7 @@ b
 
 
   ngOnInit() {
-
+ 
 
     this.subscription = this.dataShared.datosLlamadaObservable$.subscribe((data) =>{
 
