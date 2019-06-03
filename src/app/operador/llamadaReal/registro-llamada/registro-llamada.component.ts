@@ -277,7 +277,8 @@ constructor(public dataShared: DataSharedService
 
            for(var x=0;x<this.itemsSelectInstituciones.length;x++){
 
-
+           // this.eventoTmp.listaInstituciones.push(this.itemsSelectInstituciones
+                console.log(data);
            }
             
      });
@@ -635,13 +636,13 @@ constructor(public dataShared: DataSharedService
 
          if( this.eventoTmp.latitud ==null || this.eventoTmp.latitud=="" ){  //si el motivo esta seleccionado
           //alertify.logPosition('bottom left').maxLogItems(6).error("Seleccione un motivo primero");
-          this.notifier.showNotification ('top','center', 'Falta seleccionar ubicacion (Latitud)' );
+          this.notifier.showNotification ('top','center', 'Seleccionar ubicacion ' );
            flag= false;
         }
 
         if( this.eventoTmp.longitud ==null || this.eventoTmp.longitud=="" ){  //si el motivo esta seleccionado
           //alertify.logPosition('bottom left').maxLogItems(6).error("Seleccione un motivo primero");
-          this.notifier.showNotification ('top','center', 'Falta seleccionar ubicacion (Longitud)' );
+          this.notifier.showNotification ('top','center', 'Seleccionar ubicacion ' );
            flag= false;
         }
 
