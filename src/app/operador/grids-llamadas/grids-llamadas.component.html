@@ -296,7 +296,13 @@
                             <th>Municipio</th>
                             <th>Colonia</th>
                             <th>Descripci&oacute;n</th>
-                            <th>Ver</th>
+                            <th>Ver
+                                <a href="javascript:void(0)" (click)="refresh()">
+                                    <i class="material-icons">
+                                        cached
+                                    </i>
+                                </a>
+                            </th>
                         </tr>
                     </thead>
                     <tbody>
@@ -310,12 +316,7 @@
                             <td>{{llamadaAtendida.nombre_colonia}}</td>
                             <td>{{llamadaAtendida.descripcion}}</td>
                             <td>
-                                <a role="button" (click)="setXY(llamadaAtendida.latitud, llamadaAtendida.longitud)"><i class='fas fa-globe'></i></a>
-                                
-                                <button
-                                class="btn btn-just-icon btn-link  btn-twitter mat-raised-button" mat-raised-button=""
-                                (click)="setXY(llamadaAtendida.latitud, llamadaAtendida.longitud)">
-                                <span class="mat-button-wrapper"><i class='fas fa-globe'></i></span></button>
+                                <a href="javascript:void(0)" role="button" (click)="setXY(llamadaAtendida.latitud, llamadaAtendida.longitud)"><i class='fas fa-globe'></i></a>
                             </td>
                         </tr>
                     </tbody>
