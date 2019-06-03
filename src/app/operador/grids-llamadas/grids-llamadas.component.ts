@@ -14,6 +14,12 @@ export class GridsLlamadasComponent implements OnInit {
   constructor(public http: HttpClient) { }
 
   ngOnInit() {
+    setInterval(() => {
+      this.refreshLlamadasAtendidas();
+    }, 3000);
+  }
+
+  public refreshLlamadasAtendidas() {
     let getData = {};
     let params = [];
     let param = {};
@@ -33,7 +39,6 @@ export class GridsLlamadasComponent implements OnInit {
   }
 
   public refresh() {
-    //alert('Refrescar');
     this.ngOnInit();
   }
 
@@ -56,6 +61,7 @@ export class GridsLlamadasComponent implements OnInit {
     this.http.post(urlGetLlamadasAtendidas, data).subscribe(
       (response) => {
         this.llamadasAtendidas = response["items"];
+        console.log(this.llamadasAtendidas);
       }
     );
   }
