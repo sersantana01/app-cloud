@@ -3,6 +3,10 @@ import { ROUTES } from '../../sidebar/sidebar.component';
 import { Router, ActivatedRoute, NavigationEnd, NavigationStart } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
 import { Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
+
+import {AuthService} from '../../pages/login/auth.service'  ;
+
+import { Usuario } from '../../pages/login/usuario';
 const misc: any = {
     navbar_menu_visible: 0,
     active_collapse: true,
@@ -17,6 +21,8 @@ declare var $: any;
 })
 
 export class NavbarComponent implements OnInit {
+    auth:boolean=false;
+    username:string;
 
    banderaMapa :boolean=true;
    public urlMapa:String="/maps/googlemaps";
@@ -31,7 +37,8 @@ export class NavbarComponent implements OnInit {
 
     @ViewChild('app-navbar-cmp') button: any;
 
-    constructor(location: Location, private renderer: Renderer, private element: ElementRef, private router: Router,) {
+    constructor(location: Location, private renderer: Renderer, private element: ElementRef, private router: Router, 
+        private authService: AuthService) {
         this.location = location;
         this.nativeElement = element.nativeElement;
         this.sidebarVisible = false;
@@ -114,6 +121,17 @@ export class NavbarComponent implements OnInit {
             $layer.remove();
           }
         });
+
+
+        
+        this.username= this.authService.getUsuario.username ;
+
+       
+        if(this.authService.estaAutentificado  &&  this.username.toUpperCase() !='LUIS'){
+            this.auth=true;
+        }else{
+            this.auth=false;
+        }
     }
     onResize(event) {
       if ($(window).width() > 991) {

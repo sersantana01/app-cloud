@@ -11,6 +11,7 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {ShortcutsComponent} from '../../operador/llamada-comun/shortcuts/shortcuts.component';
 
 
+
 @NgModule({
     imports: [ RouterModule, CommonModule, MatButtonModule, FormsModule , NgSelectModule , NgbModule],
     declarations: [ NavbarComponent, InicioLlamadaComponent, LlamadaComunComponent, ShortcutsComponent ],

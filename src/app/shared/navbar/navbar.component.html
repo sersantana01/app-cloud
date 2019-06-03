@@ -8,7 +8,7 @@
         </button>
       </div>
       <!-- <a class="navbar-brand" href="{{getPath()}}"> {{getTitle()}}</a> -->
-      <app-inicio-llamada></app-inicio-llamada>
+      <app-inicio-llamada *ngIf="auth" ></app-inicio-llamada>
     </div>
   <button mat-button class="navbar-toggler btn-no-ripple" type="button" (click)="sidebarToggle()">
       <span class="sr-only">Toggle navigation</span>
@@ -16,7 +16,7 @@
       <span class="navbar-toggler-icon icon-bar"></span>
       <span class="navbar-toggler-icon icon-bar"></span>
     </button>
-    <div class="temporizador">
+    <div class="temporizador" *ngIf="auth" >
         <label>Transmisi&oacute;n:</label><span class="crroIzquierda">00:00:00</span><span
             class="cronometroDerecha">00:00:00</span> <br />
         <div class="reloj">
@@ -26,7 +26,7 @@
             class="cronometroDerecha">00:00:00</span>
     </div>
 
-    <div class="contIconosMenu">
+    <div class="contIconosMenu"  *ngIf="auth" >
       <a id="botonPuto" role="button" data-toggle="modal" data-target="#llamadaNoProcedente" title="Llamada comun"><img
   src="assets/images/icnLlamadaComun2.svg" alt="Llamada comun"></a>
       <a href="#" data-toggle="modal" data-target="#ejemploModal" title="Llamada recurrente"><img
@@ -39,7 +39,7 @@
     </div>
     <div class="collapse navbar-collapse justify-content-end" id="navigation">
 
-      <ul class="navbar-nav">
+      <ul class="navbar-nav"  *ngIf="auth" >
         <li class="nav-item">
           <a class="nav-link" href="" >
             <a  routerLink="{{urlMapa}}" routerLinkActive="active-link"   (click)="cambioMapa()">
@@ -74,33 +74,79 @@
       </ul>
       <div class="user">
           <div class="photo">
-              <img src="./assets/img/faces/avatar.jpg" />
+
+              <img src="./assets/img/faces/avatar.jpg" *ngIf="auth" >
+              <img src="./assets/img/faces/card-profile1-square.jpg" *ngIf="!auth">
           </div>
           <div class="user-info">
               <a data-toggle="collapse" href="#collapseExample" class="collapsed">
                   <span>
-                      Tania Andrew
+                      {{username}}
                       <b class="caret"></b>
                   </span>
               </a>
-              <div class="collapse" id="collapseExample">
+              <div class="collapse estatusUsuario" id="collapseExample">
                   <ul class="nav">
                       <li class="nav-item">
-                          <a href="javascript:void(0)" class="nav-link">
-                              <span class="sidebar-mini">MP</span>
-                              <span class="sidebar-normal">My Profile</span>
+                          <a  class="nav-link" routerLink="/pages/lock" routerLinkActive="active-link">
+                            <i class="fas fa-utensils"></i> Comida
+                          </a>
+                      </li>
+                      <li class="nav-item">
+                          <a  class="nav-link" routerLink="/pages/lock" routerLinkActive="active-link">
+                            <i class="fas fa-male"></i> Comisi&oacute;n
+                          </a>
+                      </li>
+                      <li class="nav-item">
+                          <a  class="nav-link" routerLink="/pages/lock" routerLinkActive="active-link">
+                            <i class="fas fa-user-clock"></i> Descanso moment&aacute;neo
                           </a>
                       </li>
                       <li class="nav-item">
                           <a href="javascript:void(0)" class="nav-link">
-                              <span class="sidebar-mini">EP</span>
-                              <span class="sidebar-normal">Edit Profile</span>
+                            <i class="fas fa-user-md"></i> Enfermer&iacute;a
                           </a>
                       </li>
                       <li class="nav-item">
-                          <a href="javascript:void(0)" class="nav-link">
-                              <span class="sidebar-mini">S</span>
-                              <span class="sidebar-normal">Settings</span>
+                          <a  class="nav-link" routerLink="/pages/lock" routerLinkActive="active-link">
+                            <i class="fas fa-door-open"></i> W. C.
+                          </a>
+                      </li>
+                      <li class="nav-item">
+                          <a  class="nav-link" routerLink="/pages/lock" routerLinkActive="active-link">
+                            <i class="fas fa-user-friends"></i> Reuni&oacute;n coordinador
+                          </a>
+                      </li>
+                      <li class="nav-item">
+                          <a  class="nav-link" routerLink="/pages/lock" routerLinkActive="active-link">
+                            <i class="fas fa-chalkboard-teacher"></i> Organizaci&oacute;n
+                                        inmediata
+                          </a>
+                      </li>
+                      <li class="nav-item">
+                          <a  class="nav-link" routerLink="/pages/lock" routerLinkActive="active-link">
+                            <i class="fas fa-users"></i> Junta laboral
+                          </a>
+                      </li>
+                      <li class="nav-item">
+                          <a  class="nav-link" routerLink="/pages/lock" routerLinkActive="active-link">
+                            <i class="fas fa-utensil-spoon"></i> Desayuno
+                          </a>
+                      </li>
+                      <li class="nav-item">
+                          <a  class="nav-link" routerLink="/pages/lock" routerLinkActive="active-link">
+                            <i class="fas fa-coffee"></i> Cena
+                          </a>
+                      </li>
+                      <li class="nav-item">
+                          <a  class="nav-link" routerLink="/pages/lock" routerLinkActive="active-link">
+                            <i class="fas fa-user-cog"></i> Asistencia t&eacute;cnica
+                          </a>
+                      </li>
+                      <li class="nav-item">
+                          <a  class="nav-link" routerLink="/pages/login" routerLinkActive="active-link">
+                              
+                            <i class='fa fa-power-off'></i> Cerrar sesi&oacute;n
                           </a>
                       </li>
                   </ul>

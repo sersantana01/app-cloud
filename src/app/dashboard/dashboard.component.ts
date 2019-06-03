@@ -73,11 +73,11 @@ export class DashboardComponent implements OnInit, AfterViewInit {
       this.tableData = {
           headerRow: ['ID', 'Name', 'Salary', 'Country', 'City'],
           dataRows: [
-              ['US', 'USA', '2.920	', '53.23%'],
-              ['DE', 'Germany', '1.300', '20.43%'],
-              ['AU', 'Australia', '760', '10.35%'],
-              ['GB', 'United Kingdom	', '690', '7.87%'],
-              ['RO', 'Romania', '600', '5.94%'],
+              ['US', 'CDMX', '2.920	', '53.23%'],
+              ['DE', 'Yucatan', '1.300', '20.43%'],
+              ['AU', 'Durango', '760', '10.35%'],
+              ['GB', 'Morelos Kingdom	', '690', '7.87%'],
+              ['RO', 'C2 CEDA', '600', '5.94%'],
               ['BR', 'Brasil', '550', '4.34%']
           ]
        };

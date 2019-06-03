@@ -134,7 +134,7 @@ export class FullScreenMapsComponent implements OnInit {
        // document.getElementById('lon-span').innerHTML = place.geometry.location.lng();
 
       
-    console.log("22");
+  
 
         document.getElementById('searchMapInput').innerHTML=place.geometry.location.lat();
 
@@ -166,6 +166,19 @@ console.log(latLng);
     
        console.log("333");
       // this.notificarDataSharedService(latLng.lat(),latLng.lng()  );
+
+
+ 
+      console.log(latLng.lat());
+     
+
+      $("#lat").val(latLng.lat());
+      $("#long").val(latLng.lng()); 
+
+
+     $("#btn_location").click();
+
+
     });
 
 
@@ -184,6 +197,14 @@ console.log(latLng);
         
     console.log("444");
       // this.notificarDataSharedService(latLng.lat(),latLng.lng()  );
+
+
+      $("#lat").val(latLng.lat());
+      $("#long").val(latLng.lng()); 
+
+
+     $("#btn_location").click()
+
      });
 
 

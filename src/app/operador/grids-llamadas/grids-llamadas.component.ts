@@ -32,6 +32,10 @@ export class GridsLlamadasComponent implements OnInit {
     this.getLlamadasAtendidas(getData);
   }
 
+  public refresh() {
+    this.ngOnInit();
+  }
+
   public setXY(x: number, y: number) {
     this.setMapCenter(x, y);
   }
@@ -39,7 +43,7 @@ export class GridsLlamadasComponent implements OnInit {
   public setMapCenter(latitudX, longitudY){
     let latitud=latitudX
     let longitud=longitudY
-    let url=" http://192.168.10.80:8082/siga/siga.html?idSesion=414&longitud="+longitud+"&latitud="+latitud+"&idSistemaGeoAlerta=9";
+    let url=" http://192.168.10.80:8082/siga/siga.html?idSesion=414&longitud="+longitud+"&latitud="+latitud+"&numExterior=&idInstitucion=1&idSistemaGeoAlerta=9&idSistema=1";
 
     $('#myFrameSiga').prop('src',url );  
   }
