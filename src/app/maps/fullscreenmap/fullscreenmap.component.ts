@@ -1,5 +1,10 @@
 import {Component, OnInit, NgZone } from '@angular/core';
 import   {DataSharedService}    from '../../shared/services/data-shared.service'
+import { Subscription  } from 'rxjs';
+
+import {Evento} from '../../models/evento.model';
+
+import { Ubicacion} from 'src/app/models/ubicacion.model';
 
 import * as $ from 'jquery';
 declare const google: any;
@@ -23,6 +28,14 @@ export class FullScreenMapsComponent implements OnInit {
     progress: number = 0;
   label: string;
 
+  map:any;
+
+  
+   
+  public subscriptionUbicacion: Subscription;
+  public subscriptionCenterUbicacion: Subscription;
+
+
     constructor(private datataSharedService : DataSharedService , public _ngZone: NgZone){
  
         
@@ -31,8 +44,70 @@ export class FullScreenMapsComponent implements OnInit {
     ngOnInit() {
 
      this.demo();
+
+
+     this.subscriptionUbicacion = this.datataSharedService.datosLlamadaObservable$.subscribe((data ) => {
+        // this.ITEMS = data;
+        // console.log(  this.ITEMS);  
+   
+            console.log("UBICACION GOOGLE   "); 
+
+            console.log(data);
+
+            let evento= data.listaEventos[data.listaEventos.length-1];
+
+            if(evento.idEvento==undefined || evento.idEvento==null || evento.idEvento==""){
+
+                this.setGoogleUbicacion(evento.denunciante.latitudDenunciante, evento.denunciante.longitudDenunciante);
+             }
+            
+
+        });
+
+        this.subscriptionCenterUbicacion= this.datataSharedService.ubicacionActualObservable$.subscribe((data ) => {
+            // this.ITEMS = data;
+            // console.log(  this.ITEMS);  
+
+            if(data["latitud"]=="0" && data["longitud"]=="0" ){
+            console.log("RESETING TO 0 0 ");  
+            console.log(  data);  
+            }
+        
+        });
+
+
+
     }
 
+
+    public setGoogleUbicacion(latitud, longitud ){
+
+        const myLatlng = new google.maps.LatLng(latitud, longitud);
+
+       // const map = new google.maps.Map(document.getElementById('map'), mapOptions);
+
+        // this.map = new google.maps.Map(document.getElementById('map'), mapOptions);
+
+        var infowindow = new google.maps.InfoWindow({
+            content: "Denunciante"
+          });
+
+      
+        this. map.setZoom(17);
+        this. map.setCenter(myLatlng);
+        var marker2 = new google.maps.Marker({
+            map: this.map,position: myLatlng,
+            draggable: false,
+            title: 'Denunciante ubicacion',
+            icon:"https://img.icons8.com/metro/40/000000/street-view.png",
+            animation: google.maps.Animation.DROP,
+            anchorPoint: new google.maps.Point(0, -29)
+        });
+        marker2.addListener('click', function() {
+            infowindow.open(this.map, marker2);
+          });
+
+    }
 
 
     public demo(){
@@ -40,7 +115,9 @@ export class FullScreenMapsComponent implements OnInit {
         const mapOptions = {
             zoom: 13,
             center: myLatlng,
-            scrollwheel: false, // we disable de scroll over the map, it is a really annoing when you scroll through page
+            gestureHandling: 'auto',
+         
+            scrollwheel: true, // we disable de scroll over the map, it is a really annoing when you scroll through page
             styles: [
                 {'featureType': 'water', 'stylers': [{'saturation': 43}, {'lightness': -11}, {'hue': '#0088ff'}]},
                 {'featureType': 'road', 'elementType': 'geometry.fill', 'stylers': [{'hue': '#ff0000'},
@@ -64,7 +141,7 @@ export class FullScreenMapsComponent implements OnInit {
     
 
 
-        const map = new google.maps.Map(document.getElementById('map'), mapOptions);
+        this. map = new google.maps.Map(document.getElementById('map'), mapOptions);
 
 
        // const Marker = new google.maps.Marker({
@@ -75,15 +152,15 @@ export class FullScreenMapsComponent implements OnInit {
     //Marker.setMap(map);
 
     var input = document.getElementById('searchMapInput');
-    map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+    this.map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
 
     var autocomplete = new google.maps.places.Autocomplete(input);
-    autocomplete.bindTo('bounds', map);
+    autocomplete.bindTo('bounds',   this.map);
 
     var infowindow = new google.maps.InfoWindow();
 
     var marker2 = new google.maps.Marker({
-        map: map,
+        map:  this. map,
         draggable: true,
         animation: google.maps.Animation.BOUNCE,
         anchorPoint: new google.maps.Point(0, -29)
@@ -101,10 +178,10 @@ export class FullScreenMapsComponent implements OnInit {
     
         /* If the place has a geometry, then present it on a map. */
         if (place.geometry.viewport) {
-            map.fitBounds(place.geometry.viewport);
+            this. map.fitBounds(place.geometry.viewport);
         } else {
-            map.setCenter(place.geometry.location);
-            map.setZoom(17);
+            this. map.setCenter(place.geometry.location);
+            this. map.setZoom(17);
         }
         marker2.setIcon(({
             url: place.icon,
@@ -126,7 +203,7 @@ export class FullScreenMapsComponent implements OnInit {
         }
       
         infowindow.setContent('<div><strong>' + place.name + '</strong><br>' + address);
-        infowindow.open(map, marker2);
+        infowindow.open(  this.map, marker2);
         
         /* Location details */
       ///  document.getElementById('location-snap').innerHTML = place.formatted_address;
@@ -154,7 +231,7 @@ export class FullScreenMapsComponent implements OnInit {
 
 
       // Este detector de eventos llama a  mueve el Marker () cuando se hace doble clic en el mapa.
-    google.maps.event.addListener (map, 'click', function (e) {
+    google.maps.event.addListener (  this.map, 'click', function (e) {
       // addMarker (e.latLng, map);
 
       infowindow.close();
@@ -162,7 +239,7 @@ export class FullScreenMapsComponent implements OnInit {
        marker2.setPosition(e.latLng);
        marker2.setVisible(true);
        var latLng = marker2.latLng;
-console.log(latLng);
+       console.log(latLng);
     
        console.log("333");
       // this.notificarDataSharedService(latLng.lat(),latLng.lng()  );

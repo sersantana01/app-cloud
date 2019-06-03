@@ -13,7 +13,8 @@ import { Ubicacion} from 'src/app/models/ubicacion.model';
 import { GrabacionService } from '../../../shared/services/grabacion.service';
 import {DataSharedService} from '../../../shared/services/data-shared.service';
 
-import { Subscription } from 'rxjs';
+import { Subscription,interval,Observable } from 'rxjs';
+ 
 import {NotificacionService} from '../../../notificacion/notificacion.service';
 
 
@@ -104,6 +105,7 @@ export class RegistroLlamadaComponent implements OnInit {
    public subscriptionUbicacion: Subscription;
 
 
+   public sub: Subscription;
 
 
 
@@ -154,7 +156,7 @@ constructor(public dataShared: DataSharedService
      console.log(this.eventoTmp);
 
 
-     if(this.eventoTmp.idEvento== null || this.eventoTmp.idEvento==""){
+     if(this.eventoTmp.idEvento== null || this.eventoTmp.idEvento=="" ){
 
 
       this.setMapCenter(this.eventoTmp.denunciante.latitudDenunciante, this.eventoTmp.denunciante.longitudDenunciante);
@@ -195,6 +197,8 @@ constructor(public dataShared: DataSharedService
     this.getMotivos();///////////////////////////////////////////SE OBTIENE LA LISTA DE MOTIVOS DE LLAMADA REAL////////////////////
 
     this.setMapCenter("19.4411109", "-99.1465073");//latitudDenunciante: "19.434050" longitudDenunciante: "-99.199056"
+
+ 
  }
  
  public getMotivos(){ //metodo para obtener lista de motivos
@@ -226,7 +230,7 @@ constructor(public dataShared: DataSharedService
  public getInstituciones(){///////////Metodo para obtener las instituciones relacionadas a una prioridad
 
 
-   console.log(this.eventoTmp.motivo);
+  // console.log(this.eventoTmp.motivo);
 
    this.resetPrioridad ();
   // this. selectedPrioridad="";
@@ -268,11 +272,18 @@ constructor(public dataShared: DataSharedService
   
            var lista= JSON.parse(data["responseData"]);   
            this.itemsSelectInstituciones=lista["items"];
+
+
+
+           for(var x=0;x<this.itemsSelectInstituciones.length;x++){
+
+
+           }
             
      });
 
-       this.openPop (this.eventoTmp.motivo["prioridad"]);
-       this.noPopover=false;
+       /*this.openPop (this.eventoTmp.motivo["prioridad"]);
+       this.noPopover=false;*/
        }
  }
 
@@ -395,7 +406,7 @@ constructor(public dataShared: DataSharedService
 
 
                 $( "#id_evento" ).addClass( this.eventoTmp.prioridad+"_text" );
-                this.openPop (this.eventoTmp.prioridad);
+               // this.openPop (this.eventoTmp.prioridad);
                 this.disabledMotivos();
 
 
@@ -501,7 +512,7 @@ constructor(public dataShared: DataSharedService
 
          }else{
 
-           this.openPop (this.eventoTmp.prioridad);
+        //   this.openPop (this.eventoTmp.prioridad);
           // this.modificarEvento();
 
          }
@@ -682,8 +693,14 @@ constructor(public dataShared: DataSharedService
 
      public  resetLlamada(){                     //METODO PARA RESETEAR LA PANTALLA PARA PREPARAR UNA NUEVA LLAMADA
 
-    
+
+     /* if(this.eventoTmp.idEvento!=undefined ){
        this.setMapCenter("19.4411109", "-99.1465073");
+       
+       this.dataShared.setUbicacionLlamada( 0, 0);
+      }*/
+
+
        this. dateInicio=(new Date()).getTime();
 
        ////////////////////////////////////////////SE REINICIAN LAS VARIABLES LOCALES AL ESTADO DEFAULT
@@ -879,7 +896,7 @@ constructor(public dataShared: DataSharedService
 
       public mapatest( ){
   
-        this.dataShared.setUbicacionLlamada("19.6411109", "-99.1465073");
+        this.dataShared.setUbicacionLlamada("19.4511109", "-99.1165073" );
        
      }
 
@@ -887,6 +904,9 @@ constructor(public dataShared: DataSharedService
     
       console.log("SET SRC");
   
+
+
+      //////////////////////////////UBICACION DE SIGA///////////////////////////////////////////////////////////
       let latitud=latitudX
       let longitud=longitudY
    
@@ -901,24 +921,18 @@ constructor(public dataShared: DataSharedService
    //   setTimeout (() => { 
         $('#myFrameSiga').prop('src',url );
     //  }, 1500)
-   
-     
-        }
+     //////////////////////////////UBICACION DE SIGA///////////////////////////////////////////////////////////
+  
+    //////////////////////////////UBICACION DE GOOGLE///////////////////////////////////////////////////////////
+  
 
 
+    this.dataShared.setUbicacionLlamada("19.4511109", "-99.1165073" );
+
+    //////////////////////////////UBICACION DE GOOGLE///////////////////////////////////////////////////////////
+  
+   }
         
-
-
-
-
-
-
-
-
-
-
-
-
-
+        
 
     }

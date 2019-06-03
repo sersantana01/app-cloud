@@ -52,7 +52,7 @@ public setUbicacionLlamada(latitud,longitud){
   this.ubicacionActual.latitud=latitud;
   this.ubicacionActual.longitud=longitud;
   
-  console.log("LAT:"+latitud+"|||"+"LONG:"+longitud);
+  console.log("LAT:"+latitud+"|||"+"LONG:"+longitud );
 
   this.ubicacionActualSubject.next(this.ubicacionActual);
 

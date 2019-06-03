@@ -28,7 +28,7 @@
           <h3>Corporaci&oacute;n</h3>
             <div  [style.display]="eventoTmp.idEvento==null?'inherit':'none'" *ngFor="let institucion of itemsSelectInstituciones" >
                         <div (click)="selectInstitucion($event,institucion.id_institucion);" >
-                            <img class="envIcnCorporacion" alt="NO IMAGE"  [src]="'../assets/img/images/corporaciones/' + institucion.url_imagen"/>
+                            <img class="envIcnCorporacionON" alt="NO IMAGE"  [src]="'../assets/img/images/corporaciones/' + institucion.url_imagen"/>
                         </div>
            </div>
  </div>
