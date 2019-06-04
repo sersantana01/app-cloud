@@ -193,7 +193,7 @@ export class InicioLlamadaComponent implements OnInit {
       });
   }
 
-b
+
   constructor( public dataShared: DataSharedService,private http: HttpClient, private grabacionService: GrabacionService) {}
 
 

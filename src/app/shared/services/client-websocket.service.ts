@@ -36,11 +36,10 @@ export class ClientWebsocketService  {
         ///this.mensajes.push(mensaje);
         console.log("Entra nuevo mensake"+mensaje.x);
 
-        this.dataSharedService.setUbicacionLlamada(mensaje.x, mensaje.y);
-
-
-
-
+        if(mensaje.x!=null && mensaje.y!=null){
+          this.dataSharedService.setUbicacionLlamada(mensaje.x, mensaje.y);
+ 
+        } 
       });
       //this.mensaje.tipo = 'NUEVO_USUARIO';
       //this.mensaje.idUsuario = '76';

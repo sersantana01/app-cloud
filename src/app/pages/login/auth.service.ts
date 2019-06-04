@@ -56,7 +56,7 @@ export class AuthService {
 
 
     public loginORDS(usuario: Usuario):Observable<any>{
-    const urlEndpoint = 'http://localhost:9595/oauth/token';
+    const urlEndpoint = 'http://3.14.155.2:9595/oauth/token';
     const credenciales = btoa( 'angularapp' + ':' + '12345');
 
     const httpHeaders = new HttpHeaders({

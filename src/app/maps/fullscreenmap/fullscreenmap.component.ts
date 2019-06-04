@@ -32,7 +32,7 @@ export class FullScreenMapsComponent implements OnInit {
 
   
    
-  public subscriptionUbicacion: Subscription;
+  public subscriptionDatos: Subscription;
   public subscriptionCenterUbicacion: Subscription;
 
 
@@ -42,11 +42,26 @@ export class FullScreenMapsComponent implements OnInit {
     }
  
     ngOnInit() {
-
+        console.log("YOUE ARE IN GOOGLE");
      this.demo();
 
 
-     this.subscriptionUbicacion = this.datataSharedService.datosLlamadaObservable$.subscribe((data ) => {
+    let evento:Evento= this.datataSharedService.buscarUltimoEvento();
+
+      console.log(evento);
+      
+      console.log(evento!=null && evento.denunciante.latitudDenunciante!=null);
+
+      if(evento!=null && evento.denunciante.latitudDenunciante!=null){
+        this.setGoogleUbicacion(evento.denunciante.latitudDenunciante,evento.denunciante.longitudDenunciante);
+
+      }
+      if(evento!=null && evento.latitud!=null){
+        this.setGoogleUbicacionEvento(evento.latitud,evento.longitud);
+
+      }
+
+        this.subscriptionDatos = this.datataSharedService.datosLlamadaObservable$.subscribe((data ) => {
         // this.ITEMS = data;
         // console.log(  this.ITEMS);  
    
@@ -56,6 +71,7 @@ export class FullScreenMapsComponent implements OnInit {
 
             let evento= data.listaEventos[data.listaEventos.length-1];
 
+            console.log("?????"+(evento.idEvento==undefined || evento.idEvento==null || evento.idEvento==""));
             if(evento.idEvento==undefined || evento.idEvento==null || evento.idEvento==""){
 
                 this.setGoogleUbicacion(evento.denunciante.latitudDenunciante, evento.denunciante.longitudDenunciante);
@@ -99,7 +115,7 @@ export class FullScreenMapsComponent implements OnInit {
             map: this.map,position: myLatlng,
             draggable: false,
             title: 'Denunciante ubicacion',
-            icon:"https://img.icons8.com/metro/40/000000/street-view.png",
+            icon:"https://img.icons8.com/ultraviolet/45/000000/street-view.png",
             animation: google.maps.Animation.DROP,
             anchorPoint: new google.maps.Point(0, -29)
         });
@@ -108,6 +124,34 @@ export class FullScreenMapsComponent implements OnInit {
           });
 
     }
+
+    public setGoogleUbicacionEvento(latitud, longitud ){
+
+      const myLatlng = new google.maps.LatLng(latitud, longitud);
+
+     // const map = new google.maps.Map(document.getElementById('map'), mapOptions);
+
+      // this.map = new google.maps.Map(document.getElementById('map'), mapOptions);
+
+      var infowindow = new google.maps.InfoWindow({
+          content: "Denunciante"
+        });
+
+    
+      this. map.setZoom(17);
+      this. map.setCenter(myLatlng);
+      var marker2 = new google.maps.Marker({
+          map: this.map,position: myLatlng,
+          draggable: false,
+          title: 'Evento ubicacion', 
+          animation: google.maps.Animation.DROP,
+          anchorPoint: new google.maps.Point(0, -29)
+      });
+      marker2.addListener('click', function() {
+          infowindow.open(this.map, marker2);
+        });
+
+  }
 
 
     public demo(){
@@ -301,10 +345,6 @@ export class FullScreenMapsComponent implements OnInit {
       ///  document.getElementById('location-snap').innerHTML = place.formatted_address;
        // document.getElementById('lat-span').innerHTML = place.geometry.location.lat();
        // document.getElementById('lon-span').innerHTML = place.geometry.location.lng();
-
-      
-  
-
         document.getElementById('searchMapInput').innerHTML=place.geometry.location.lat();
 
         console.log(place.geometry.location.lat());
@@ -312,9 +352,7 @@ export class FullScreenMapsComponent implements OnInit {
 
         $("#lat").val(place.geometry.location.lat());
         $("#long").val(place.geometry.location.lng()); 
-
-
-       $("#btn_location").click();
+        $("#btn_location").click();
 
     });
 
@@ -329,23 +367,14 @@ export class FullScreenMapsComponent implements OnInit {
       infowindow.close();
        marker2.setVisible(false);
        marker2.setPosition(e.latLng);
-       marker2.setVisible(true);
-       var latLng = marker2.latLng;
-       console.log(latLng);
+       marker2.setVisible(true); 
+
+       var latLng = e.latLng;   
     
-       console.log("333");
-      // this.notificarDataSharedService(latLng.lat(),latLng.lng()  );
-
-
- 
-      console.log(latLng.lat());
-     
-
-      $("#lat").val(latLng.lat());
-      $("#long").val(latLng.lng()); 
-
-
-     $("#btn_location").click();
+       console.log("333"); 
+       $("#lat").val(latLng.lat());
+       $("#long").val(latLng.lng()); 
+       $("#btn_location").click();
 
 
     });
