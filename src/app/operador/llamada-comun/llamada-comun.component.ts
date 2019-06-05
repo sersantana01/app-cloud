@@ -20,6 +20,8 @@ export class LlamadaComunComponent implements OnInit {
   private llamadaNoPreferente: number = null;
   private observacionLlamada: string;
   private validar: boolean = false;
+  private timer;
+  private preventSimpleClick: boolean = false;
 
   constructor(public http: HttpClient, public grabacion: InicioLlamadaComponent) { }
 
@@ -43,6 +45,24 @@ export class LlamadaComunComponent implements OnInit {
     this.getLlamadaComun(getData);
   }
 
+  public eventoClick(id: number) {
+    this.timer = 0;
+    this.preventSimpleClick = false;
+    let delay = 200;
+
+    this.timer = setTimeout(() => {
+      if(!this.preventSimpleClick) {
+        this.llamadaNoPreferente = id;
+      }
+    }, delay);
+  }
+
+  public eventoDobleClick(id: number) {
+    this.preventSimpleClick = true;
+    clearTimeout(this.timer);
+    this.persisteLlamadaComun(id);
+  }
+
   public getLlamadaComun(data: any): void {
     let urlGetLlamadaComun = 'http://3.14.155.2:9093/obtenerCatalogoLlamadaComun';
     
@@ -53,15 +73,7 @@ export class LlamadaComunComponent implements OnInit {
     );
   }
 
-  public customSearchFn(busqueda: string, item: any) {
-    busqueda = busqueda.toLocaleLowerCase();
-    var cadena_idMotivo=item.id_tipo_no_procedente+"";
-    var cadena_nombreMotivo=item.nombre.toLocaleLowerCase()+"";
-
-    return cadena_idMotivo.indexOf(busqueda) > -1 || cadena_nombreMotivo.indexOf(busqueda) > -1;
-  }
-
-  public setLlamadaComun() {
+  public persisteLlamadaComun(id: number): void {
     let setData = {};
     let params = [];
     let paramUno = {};
@@ -86,7 +98,7 @@ export class LlamadaComunComponent implements OnInit {
 
       paramDos['nombreParametro'] = 'id_tipo_no_procedente';
       paramDos['tipo'] = 'int';
-      paramDos['valor'] = this.llamadaNoPreferente;
+      paramDos['valor'] = id;
 
       paramTres['nombreParametro'] = 'numero_telefono';
       paramTres['tipo'] = 'String';
@@ -148,4 +160,7 @@ export class LlamadaComunComponent implements OnInit {
     }
   }
 
+  public setLlamadaComun() {
+    this.persisteLlamadaComun(this.llamadaNoPreferente);
+  }
 }
