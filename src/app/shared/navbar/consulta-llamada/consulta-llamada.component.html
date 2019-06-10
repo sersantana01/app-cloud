@@ -1,0 +1,423 @@
+
+
+<!-- Modal consulta de llamdada-->
+<div  class="modal fade" id="modalConsultaLlamada" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div   class="modal-dialog modal-lg " role="document">
+      <div style="width: 1200px " class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalLlamadaIncidenciaLabel">Consulta de llamada</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div style="width: 1000px " class="modal-body">
+        <!--inicia contenido consulta de llamada -->
+        
+        <div class="contGeneral">
+            <div class="container-fluid">
+              <header class="row titulo">
+              </header>
+              <div class="row titulo p-3">
+                  <h1>Consulta de llamadas</h1>
+              </div>
+              <form>
+              <div class="row content p-3">
+                <div class="col-md-3">
+                  <label class="etiqueta">Ciudad:</label>
+                  <br />
+                  <select name="" class="selector">
+                    <option>SELECCIONAR</option>
+                  </select>
+                </div>
+                <div class="col-md-3">
+                  <label class="etiqueta">Colonia:</label>
+                  <br />
+                  <input name="" type="text" class="cajaTexto" />
+                </div>
+                <div class="col-md-3">
+                  <label class="etiqueta">Calle:</label>
+                  <br />
+                  <input name="" type="text" class="cajaTexto" />
+                </div>
+                <div class="col-md-3">
+                  <label class="etiqueta">Motivo:</label>
+                  <ng-select name="motivos"  class="selector" id="selectMotivo" [items]="itemsSelectMotivos"                 
+                  bindLabel="nombre_motivo"
+                  searchable="true"
+                  placeholder="Selecciona un motivo"
+                  [searchFn]="customSearchFn"
+                  [(ngModel)]="consultaMotivo"
+                  notFoundText="No se encontró">
+                  </ng-select>
+                  <br />
+                 <!-- <select name="" class="selector">
+                    <option>SELECCIONAR</option>
+                  </select>  -->
+                </div>
+              </div>
+              <div class="row content p-3">
+               <div class="col-md-3">
+                  <label class="etiqueta">Clave operativa:</label>
+                  <br />
+                  <input name="" type="text" class="cajaTexto" />
+               </div> 
+               <div class="col-md-3">
+                  <label class="etiqueta">Origen:</label>
+                  <br />
+                  <select name="" class="selector">
+                    <option>SELECCIONAR</option>
+                  </select>
+                </div>
+                <div class="col-md-3">
+                  <label class="etiqueta">Prioridad:</label>
+                  <br />
+                  <select id="consulta_prioridad" class="selector">
+                    <option>SELECCIONAR </option>                    
+                    <option value="URGENTE" >URGENTE</option>                    
+                    <option value="RAPIDA">RAPIDA</option>                    
+                    <option value="NORMAL">NORMAL</option>
+                  </select>
+                </div>
+                <div class="col-md-3">
+                  <label class="etiqueta">Tel&eacute;fono:</label>
+                  <br />
+                  <input id="consulta_telefono" type="text" class="cajaTexto" />
+                </div>
+              </div>
+              <div class="row content p-3">
+                <div class="col-md-3">
+                  <label class="etiqueta">Folio:</label>
+                  <br />
+                  <div class="row">
+                      <div class="col-md-6">
+                          <label>Desde:</label><input id="consulta_folio_desde" type="text" class="cajaTexto" />
+                      </div>
+                      <div class="col-md-6">
+                          <label>Hasta:</label><input id="consulta_folio_hasta" type="text" class="cajaTexto" />
+                      </div>
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="row">
+                      <div class="col-md-6">
+                          <label class="etiqueta">Fecha:</label> 
+                      </div>
+                      <div class="col-md-6">
+                          <input name="" type="checkbox" value="" /> <label class="etiqueta">Buscar sin fecha</label>
+                      </div>
+                  </div>
+                  <div class="row">
+                      <div class="col-md-6">
+                          <label>Desde:</label>
+                          <input type="text" name="rangoFechaInicialDetencion" id="fechaInicialConsultaLlamada" value="Fecha inicial" class="cajaTexto" readonly="readonly" /> 
+                      </div>
+                      <div class="col-md-6">
+                          <label>Hasta:</label>
+                          <input type="text" name="rangoFechaFinalDetencion" id="fechaFinalConsultaLlamada" value="Fecha final" class="cajaTexto" readonly="readonly" />
+                      </div>
+                  </div>
+               </div>
+               <div class="col-md-6">
+                      <label class="etiqueta">Descripci&oacute;n:</label>
+                      <br />
+                      <textarea name="" cols="" rows="" class="areaTexto"></textarea>
+                </div>
+              </div>
+              <div class="row content p-3">
+                <div class="col-md-3">
+                  <label class="etiqueta">Lugar:</label>
+                  <br />
+                  <input name="" type="text" class="cajaTexto" />
+                </div>
+                <div class="col-md-3">
+                  <label class="etiqueta">Estatus:</label>
+                  <br />
+                  <select name="" class="selector">
+                    <option>SELECCIONAR</option>
+                  </select>
+                </div>
+                <div class="col-md-6">
+                  <div class="row contenedorBotones p-3">
+                    <div class="col-6">
+                      </div>
+                      <div class="col-6 nopadding">
+                        <button type="button" class="botonModal btn btn-primary">Buscar</button>
+                        <input type="reset" value="Borrar" class="botonModal btn btn-secondary">
+                      </div>
+                  </div>
+                </div>
+              </div>
+              </form>
+              <!--INICIA TABLA -->
+              <div class="row p-3">
+                  <table class="table tablaDataTable" id="tblConsultaLlamada">
+                    <thead>
+                      <tr>
+                        <th></th>
+                        <th>Fecha / Hora</th>
+                        <th>Motivo</th>
+                        <th>Folio</th>
+                        <th>Tel&eacute;fono</th>
+                        <th>Municipio</th>
+                        <th>Colonia</th>
+                        <th>Telefonista</th>
+                        <th>Icono recurrente</th>
+                        <th>Icono</th>
+                        <th>Editar</th>
+                        <th>Eliminar</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>1</td>
+                        <td>2019-03-14 16:56:00</td>
+                        <td>APOYO/AMBULANTAJE</td>
+                        <td>0021000100000012540</td>
+                        <td>312313123</td>
+                        <td>SAN ANDRES CHOLULA</td>
+                        <td>TOSCANA</td>
+                        <td>OPERADOR1</td>
+                        <td><a href="#"><img src="../assets/images/iconosTablas/icnRecurrente.svg" class="icnSvg"/></a></td>
+                        <td><a href="#"><img src="../assets/images/iconosTablas/icnDiadema.svg" class="icnSvg"/></a></td>
+                        <td><a href="#"><img src="../assets/images/iconosTablas/icnEditar.svg" class="icnSvg"/></a></td>
+                        <td><a href="#"><img src="../assets/images/iconosTablas/icnCancelar.svg" class="icnSvg"/></a></td>
+                      </tr>
+                      <tr>
+                        <td>2</td>
+                        <td>2019-03-14 16:56:00</td>
+                        <td>APOYO/AMBULANTAJE</td>
+                        <td>0021000100000012540</td>
+                        <td>312313123</td>
+                        <td>SAN ANDRES CHOLULA</td>
+                        <td>TOSCANA</td>
+                        <td>OPERADOR1</td>
+                        <td><a href="#"><img src="../assets/images/iconosTablas/icnRecurrente.svg" class="icnSvg"/></a></td>
+                        <td><a href="#"><img src="../assets/images/iconosTablas/icnDiadema.svg" class="icnSvg"/></a></td>
+                        <td><a href="#"><img src="../assets/images/iconosTablas/icnEditar.svg" class="icnSvg"></a></td>
+                        <td><a href="#"><img src="../assets/images/iconosTablas/icnCancelar.svg" class="icnSvg"></a></td>
+                      </tr>
+                      <tr>
+                        <td>3</td>
+                        <td>2019-03-14 16:56:00</td>
+                        <td>APOYO/AMBULANTAJE</td>
+                        <td>0021000100000012540</td>
+                        <td>312313123</td>
+                        <td>SAN ANDRES CHOLULA</td>
+                        <td>TOSCANA</td>
+                        <td>OPERADOR1</td>
+                        <td><a href="#"><img src="../assets/images/iconosTablas/icnRecurrente.svg" class="icnSvg"/></a></td>
+                        <td><a href="#"><img src="../assets/images/iconosTablas/icnDiadema.svg" class="icnSvg"/></a></td>
+                        <td><a href="#"><img src="../assets/images/iconosTablas/icnEditar.svg" class="icnSvg"></a></td>
+                        <td><a href="#"><img src="../assets/images/iconosTablas/icnCancelar.svg" class="icnSvg"></a></td>
+                      </tr>
+                    </tbody>
+                  </table>
+              </div>
+              <!--TERMINA TABLA -->
+              <div class="row content p-3 menuIconos">
+                <div class="col-12 text-right">
+                    <img src="../assets/images/menu/icnPersonas.svg" />
+                      <img src="../assets/images/menu/icnAuto.svg" />
+                      <img src="../assets/images/menu/icnArma.svg" />
+                      <img src="../assets/images/menu/icnCorporacion.svg" />
+                      <img src="../assets/images/menu/icnTelefonista.svg" />
+                      <img src="../assets/images/menu/icnAgregarInfo.svg" />
+                      <img src="../assets/images/menu/icnEditarInfo.svg" />
+                      <img src="../assets/images/menu/icnReconocimiento.svg" />
+                  </div>
+              </div>
+              <hr />
+              <h2>Datos del evento</h2>
+              <form>
+              <div class="row content p-3">
+                    <div class="col">
+                      <label class="etiqueta">Municipio:</label>
+                      <br />
+                      <input name="" type="text" class="cajaTexto" />
+                    </div>
+                    <div class="col">
+                      <label class="etiqueta">Folio:</label>
+                      <br />
+                      <input name="" type="text" class="cajaTexto" />
+                    </div>
+                    <div class="col">
+                      <label class="etiqueta">Tipo de tel&eacute;fono:</label>
+                      <br />
+                      <input type="text" class="cajaTexto" /> 
+                    </div> 
+                    <div class="col">
+                      <label class="etiqueta">Tel&eacute;fono:</label>
+                      <br />
+                      <input name="" type="text" class="cajaTexto" />
+                    </div>
+                    <div class="col">
+                      <label class="etiqueta">Fecha de recepci&oacute;n:</label>
+                      <br />
+                      <input type="text" id="datepicker" class="cajaTexto" />
+                    </div>
+              </div>
+              <div class="row content p-3">
+                    <div class="col">
+                      <label class="etiqueta">Motivo:</label>
+                      <br />
+                      <input name="" type="text" class="cajaTexto" />
+                    </div>
+                    <div class="col">
+                      <label class="etiqueta">Tiempo:</label>
+                      <br />
+                      <input name="" type="text" class="cajaTexto" />
+                    </div>
+                    <div class="col">
+                      <label class="etiqueta">Colonia:</label>
+                      <br />
+                      <input type="text" id="datepicker" class="cajaTexto" />
+                    </div>
+                    <div class="col">
+                      <label class="etiqueta">Ciudad:</label>
+                      <br />
+                      <input name="" type="text" class="cajaTexto" />
+                    </div>
+                    <div class="col">
+                      <label class="etiqueta">Origen:</label>
+                      <br />
+                      <input name="" type="text" class="cajaTexto" />
+                    </div>
+              </div>
+              <div class="row content p-3">
+                    <div class="col">
+                      <label class="etiqueta">Clave del operador:</label>
+                      <br />
+                      <input name="" type="text" class="cajaTexto" />
+                    </div>
+                    <div class="col">
+                      <label class="etiqueta">Prioridad:</label>
+                      <br />
+                      <input name="" type="text" class="cajaTexto" />
+                    </div>
+                    <div class="col">
+                      <label class="etiqueta">Estatus:</label>
+                      <br />
+                      <input type="text" id="datepicker" class="cajaTexto" />
+                    </div>
+                    <div class="col">
+                    </div> 
+                    <div class="col">
+                    </div> 
+              </div>
+              <div class="row content p-3">
+                    <div class="col-md-6">
+                      <label class="etiqueta">Lugar:</label>
+                      <br />
+                      <textarea name="" cols="" rows="" class="areaTexto"></textarea>
+                    </div>
+                    <div class="col-md-6">
+                      <label class="etiqueta">Descripci&oacute;n del evento:</label>
+                      <br />
+                      <textarea name="" cols="" rows="" class="areaTexto"></textarea>
+                    </div>
+              </div>
+              <div class="row contenedorBotones p-3">
+                <div class="col-6">
+                  </div>
+                  <div class="col-6">
+                    <button type="button" class="botonModal btn btn-primary"><i class="fa fa-globe" aria-hidden="true"></i> Seleccionar ubicación</button>
+                  </div>
+              </div>
+              </form>
+              <hr />
+              <h2>Datos del denunciante</h2>
+              <form>
+              <div class="row content p-3">
+                    <div class="col-md-4">
+                      <label class="etiqueta">Nombre:</label>
+                      <br />
+                      <input name="" type="text" class="cajaTexto" />
+                    </div>
+                    <div class="col-md-4">
+                      <label class="etiqueta">Apellido Paterno:</label>
+                      <br />
+                      <input name="" type="text" class="cajaTexto" />
+                    </div>
+                    <div class="col-md-4">
+                      <label class="etiqueta">Apellido Materno:</label>
+                      <br />
+                      <input type="text" class="cajaTexto" /> 
+                    </div> 
+              </div>
+              <div class="row content p-3">
+                    <div class="col-md-4">
+                      <label class="etiqueta">Direcci&oacute;n:</label>
+                      <br />
+                      <textarea name="" cols="" rows="" class="areaTexto"></textarea>
+                    </div>
+                    <div class="col-md-4">
+                      <label class="etiqueta">Tel&eacute;fono:</label>
+                      <br />
+                      <input name="" type="text" class="cajaTexto" />
+                    </div>
+                    <div class="col-md-4">
+                      <label class="etiqueta">Tipo:</label>
+                      <br />
+                      <input type="text" class="cajaTexto" /> 
+                    </div> 
+              </div>
+              </form>
+              <hr />
+              <h2>Llamadas asociadas</h2>
+              <!--INICIA TABLA LLAMADAS ASOCIADAS -->
+              <div class="row p-3">
+                  <table class="table tablaAlerta" id="tblLlamadasAsociadas">
+                    <thead>
+                      <tr>
+                        <th></th>
+                        <th></th>
+                        <th>Fecha / Hora</th>
+                        <th>Tel&eacute;fono</th>
+                        <th>Folio</th>
+                        <th>Razonamiento</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>1</td>
+                        <td><a href="#"><img src="../assets/images/iconosTablas/reproducir.svg" class="icnSvg" /></a></td>
+                        <td>2019-03-14 16:56:00</td>
+                        <td>312313123</td>
+                        <td>0021000100000012540</td>
+                        <td>INFO RAZONAMIENTO</td>
+                      </tr>
+                      <tr>
+                        <td>2</td>
+                        <td><a href="#"><img src="../assets/images/iconosTablas/reproducir.svg" class="icnSvg" /></a></td>
+                        <td>2017-06-11 02:33:43</td>
+                        <td>312313123</td>
+                        <td>0021000100000012540</td>
+                        <td>TOSCANA</td>
+                      </tr>
+                    </tbody>
+                  </table>
+              </div>
+              <!--TERMINA TABLA LLAMADAS ASOCIADAS-->
+              
+            </div>
+            <!--container-fluid --> 
+          </div>
+          <!--contGeneral -->
+          
+        <!--termina contenido consulta de llamada -->
+        </div>
+        <div class="modal-footer">
+          <div class="row contenedorBotones">
+              <div class="col-12">
+                <button type="button" class="botonModal btn btn-primary">Aceptar</button>
+              <button type="button" class="botonModal btn btn-secondary" data-dismiss="modal">Cancelar</button>
+              </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--termina modal consulta de llamdada -->
+
+  
+  <button [hidden]=true (click)="getMotivos();" id="button_getmotivos_consulta">GET MOTIVOS</button>

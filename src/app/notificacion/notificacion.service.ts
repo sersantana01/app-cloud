@@ -11,7 +11,7 @@ export class NotificacionService {
 
 
 
-  public   showNotification(from: any, align: any, msj : string) {
+  public   showNotification(from: any, align: any, msj : string ,msjType: string) {
     const type = ['', 'info', 'success', 'warning', 'danger', 'rose', 'primary'];
 
     const color = Math.floor((Math.random() * 6) + 1);
@@ -20,7 +20,7 @@ export class NotificacionService {
         icon: 'notifications',
         message:msj      //'Welcome to <b>Material Dashboard</b> - a beautiful dashboard for every web developer.'
     }, {
-        type: type[color],
+        type: msjType,
         delay: 500,
        timer: 1000,
         placement: {

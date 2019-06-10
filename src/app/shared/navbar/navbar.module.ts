@@ -9,12 +9,13 @@ import {LlamadaComunComponent} from '../../operador/llamada-comun/llamada-comun.
 import { NgSelectModule } from '@ng-select/ng-select';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {ShortcutsComponent} from '../../operador/llamada-comun/shortcuts/shortcuts.component';
+import { ConsultaLlamadaComponent } from './consulta-llamada/consulta-llamada.component';
 
 
 
 @NgModule({
     imports: [ RouterModule, CommonModule, MatButtonModule, FormsModule , NgSelectModule , NgbModule],
-    declarations: [ NavbarComponent, InicioLlamadaComponent, LlamadaComunComponent, ShortcutsComponent ],
+    declarations: [ NavbarComponent, InicioLlamadaComponent, LlamadaComunComponent, ShortcutsComponent, ConsultaLlamadaComponent ],
     exports: [ NavbarComponent ]
 })
 

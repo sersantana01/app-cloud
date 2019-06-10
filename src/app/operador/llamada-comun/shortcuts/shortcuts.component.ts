@@ -158,7 +158,7 @@ export class ShortcutsComponent implements OnInit {
           $('#llamadaNoProcedente').modal('hide');
           $('#numeroTelefono').val('');
 
-          this.notifier.showNotification('top','center', nombreLlamada );
+          this.notifier.showNotification('top','center', nombreLlamada ,'success');
         }
       }
     );

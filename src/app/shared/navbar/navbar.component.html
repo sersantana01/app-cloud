@@ -31,8 +31,8 @@
   src="assets/images/icnLlamadaComun2.svg" alt="Llamada comun"></a>
       <a href="#" data-toggle="modal" data-target="#ejemploModal" title="Llamada recurrente"><img
           src="assets/images/icnLlamadaIncidencia.svg" alt="Llamada comun"></a>
-      <a href="#" data-toggle="modal" data-target="#ejemploModal" title="Consultar llamada"><img
-          src="assets/images/icnConsultaLlamada.svg" alt="Llamada comun"></a>
+      <a data-backdrop="static" data-keyboard="false"  role="button"  data-toggle="modal" data-target="#modalConsultaLlamada" title="Consultar llamada"><img
+        (click)="getMotivosConsultaLlamadas();"   src="assets/images/icnConsultaLlamada.svg" alt="Consultar Llamada"></a>
       <a href="#" data-toggle="modal" data-target="#ejemploModal" title="Rastreo de vehículo">
         <img src="assets/images/icnRastreoVehiculo.svg" alt="Rastreo de vehículo">
       </a>
@@ -41,6 +41,11 @@
 
       <ul class="navbar-nav"  *ngIf="auth" >
         <li class="nav-item">
+          
+           <button type="button" class="btn btn-link" (click)="cambioMapa();"><i class="material-icons" >layers3</i></button>    
+
+
+          <!--
           <a class="nav-link" href="" >
             <a  routerLink="{{urlMapa}}" routerLinkActive="active-link"   (click)="cambioMapa()">
             <i class="material-icons" >dashboard</i>
@@ -49,6 +54,7 @@
               <span class="d-lg-none d-md-block">Stats</span>
             </p>
           </a>
+         -->
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link" href="#pablo" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -156,3 +162,5 @@
     </div>
   </div>
 </nav>
+
+<app-consulta-llamada></app-consulta-llamada>

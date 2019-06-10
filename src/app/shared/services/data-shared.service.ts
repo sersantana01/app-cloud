@@ -65,13 +65,13 @@ return ultimoEvento!=null? ultimoEvento:null;
 }
 
 
-public setUbicacionLlamada(latitud,longitud){
+public setUbicacionLlamada(latitud,longitud, zp){
 
 
   this.ubicacionActual.latitud=latitud;
   this.ubicacionActual.longitud=longitud;
   
-  console.log("LAT:"+latitud+"|||"+"LONG:"+longitud );
+  console.log("LAT:"+latitud+"|||"+"LONG:"+longitud+"||||ZP:"+zp );
 
   this.ubicacionActualSubject.next(this.ubicacionActual);
 

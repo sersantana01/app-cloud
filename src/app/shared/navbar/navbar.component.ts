@@ -25,7 +25,7 @@ export class NavbarComponent implements OnInit {
     username:string;
 
    banderaMapa :boolean=true;
-   public urlMapa:String="/maps/googlemaps";
+   public urlMapa:string="/maps/googlemaps";
 
     private listTitles: any[];
     location: Location;
@@ -244,6 +244,17 @@ export class NavbarComponent implements OnInit {
         }
 
        
+        this.router.navigateByUrl(  this.urlMapa);
+       
+    }
+
+    btnClick= function () { 
+        this.router.navigateByUrl('/maps/googlemaps');
+    };
+
+    getMotivosConsultaLlamadas(){
+         
+        $("#button_getmotivos_consulta").click();
        
     }
 }

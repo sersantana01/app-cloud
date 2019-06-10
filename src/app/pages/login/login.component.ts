@@ -43,7 +43,7 @@ export class LoginComponent implements OnInit, OnDestroy {
         if( this.usuario.username == null || this.usuario.password == null){
             
         /// swal.fire('Error', 'USername o password  vacios', 'error' );
-        this.notificacion.showNotification('top','center', 'usuario o contraseña vacios' );
+        this.notificacion.showNotification('top','center', 'usuario o contraseña vacios' , 'danger');
          return;
         }
      
@@ -70,10 +70,10 @@ export class LoginComponent implements OnInit, OnDestroy {
         }, error =>{
      
            if(error.status == 400){
-            this.notificacion.showNotification('top','center', 'Usuario o contraseñas incorrectas!' );
+            this.notificacion.showNotification('top','center', 'Usuario o contraseñas incorrectas!', 'danger' );
            //  swal.fire('Error Login', 'Usuario o clave incorrectas!', 'error');
            }else if(error.status == 401) {
-            this.notificacion.showNotification('top','center', 'Usuario o contraseñas incorrectas!');
+            this.notificacion.showNotification('top','center', 'Usuario o contraseñas incorrectas!', 'danger');
              //swal.fire('Error Login', 'Usuario o clave incorrectas!', 'error');
            }
         }
