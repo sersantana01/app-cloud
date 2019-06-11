@@ -33,22 +33,11 @@ export class LlamadaComunComponent implements OnInit {
       'cursor': 'pointer',
       'opacity': '0.6'
     });
-    let getData = {};
-    let params = [];
-    let param = {};
 
-    param['nombreParametro'] = 'uuid';
-    param['tipo'] = 'String';
-    param['valor'] = this.uuid;
+    let json = {};
+    json['uuid'] = this.uuid;
 
-    params.push(param);
-
-    getData['nombreMs'] = 'MS_Llamada_Comun';
-    getData['nombrePaquete'] = 'catalogo';
-    getData['nombreStoreProcedure'] = 'cat_tipo_no_procedente';
-    getData['param'] = params;
-
-    this.getLlamadaComun(getData);
+    this.getLlamadaComun(json);
   }
 
   public eventoClick(id: number) {
@@ -71,11 +60,12 @@ export class LlamadaComunComponent implements OnInit {
 
   public getLlamadaComun(data: any): void {
     //let urlGetLlamadaComun = 'http://3.14.155.2:9093/obtenerCatalogoLlamadaComun';
-    let urlGetLlamadaComun = 'http://localhost:9088/obtenerCatalogoLlamadaComun';
+    let urlGetLlamadaComun = 'http://localhost:9088/obtenerCatalogoLlamadaNoProcedente';
 
     this.llamadaComunService.getLlamadaComun(urlGetLlamadaComun, data).subscribe(
       response => {
         this.tipoLlamadaComun = response['items'];
+        console.log(this.tipoLlamadaComun);
       }
     );
   }
