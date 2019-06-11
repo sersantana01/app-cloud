@@ -34,10 +34,10 @@ export class ClientWebsocketService  {
         let mensaje: Mensaje = JSON.parse(e.body) as Mensaje;
 
         ///this.mensajes.push(mensaje);
-        console.log("Entra nuevo mensake"+mensaje.x);
+        console.log("Entra nuevo mensaje:"+mensaje.x);
 
         if(mensaje.x!=null && mensaje.y!=null){
-          this.dataSharedService.setUbicacionLlamada(mensaje.x, mensaje.y);
+          this.dataSharedService.setUbicacionLlamada(mensaje.x, mensaje.y,"");/////////////PONER ZONA PATRULLAJE EN EL 3er parametro
  
         } 
       });

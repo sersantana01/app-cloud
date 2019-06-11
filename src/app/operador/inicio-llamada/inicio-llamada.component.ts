@@ -28,20 +28,26 @@ export class InicioLlamadaComponent implements OnInit {
   x = null;
   y = null;
 
+
+  fechaInicioLlamada:any;
   public subscription: Subscription;
 
 
   inicioLlamada() {
     if (this.callId !== '') {
+
+
       $('#botonPuto').prop('disabled', false);
       $('#botonPuto').css({
         'cursor': 'pointer',
         'opacity': 'inherit'
       });
       $('#numeroTelefono').prop('disabled', true);
+      this.fechaInicioLlamada= (new Date()).getTime();
       this.obtenerLista();
       this.obtenerContadores();
       this.obtenerPrefolioIncidente();
+
     } else {
       this.lista = 'NINGUNO';
       this.contadores = null;
@@ -191,6 +197,7 @@ export class InicioLlamadaComponent implements OnInit {
         denun.longitudDenunciante=this.y;
 
         ev.denunciante = denun;
+        ev.fechaInicio=this.fechaInicioLlamada;
         
 
         this.callCreaLlamadaEvento(ev);

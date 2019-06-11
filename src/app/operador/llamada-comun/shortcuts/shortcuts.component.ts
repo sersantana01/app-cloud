@@ -192,12 +192,12 @@ export class ShortcutsComponent implements OnInit {
                 nombreLlamada = 'LLAMADA MUDA';
               break;
             }
-            $('#botonPuto').prop('disabled', true);
-            $('#llamadaNoProcedente').modal('hide');
-            $('#numeroTelefono').val('');
-
-            this.notifier.showNotification('top','center', nombreLlamada );
           }
+          $('#botonPuto').prop('disabled', true);
+          $('#llamadaNoProcedente').modal('hide');
+          $('#numeroTelefono').val('');
+
+          this.notifier.showNotification('top','center', nombreLlamada ,'success');
         }
       }
     );

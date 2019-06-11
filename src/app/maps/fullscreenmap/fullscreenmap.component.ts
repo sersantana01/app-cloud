@@ -2,6 +2,8 @@ import {Component, OnInit, NgZone } from '@angular/core';
 import   {DataSharedService}    from '../../shared/services/data-shared.service'
 import { Subscription  } from 'rxjs';
 
+import {GoogleMapService} from './google-map.service';
+
 import {Evento} from '../../models/evento.model';
 
 import { Ubicacion} from 'src/app/models/ubicacion.model';
@@ -36,14 +38,17 @@ export class FullScreenMapsComponent implements OnInit {
   public subscriptionCenterUbicacion: Subscription;
 
 
-    constructor(private datataSharedService : DataSharedService , public _ngZone: NgZone){
+    constructor(private datataSharedService : DataSharedService , public maps : GoogleMapService){
  
         
     }
  
     ngOnInit() {
         console.log("YOUE ARE IN GOOGLE");
-     this.demo();
+ 
+     //this.demo();
+     // se inicializa mapa 
+     this.maps.initMap();
 
 
     let evento:Evento= this.datataSharedService.buscarUltimoEvento();
@@ -53,11 +58,13 @@ export class FullScreenMapsComponent implements OnInit {
       console.log(evento!=null && evento.denunciante.latitudDenunciante!=null);
 
       if(evento!=null && evento.denunciante.latitudDenunciante!=null){
-        this.setGoogleUbicacion(evento.denunciante.latitudDenunciante,evento.denunciante.longitudDenunciante);
+        //this.setGoogleUbicacion(evento.denunciante.latitudDenunciante,evento.denunciante.longitudDenunciante);
+        
+        this.maps.setGoogleUbicacion(evento.denunciante.latitudDenunciante, evento.denunciante.longitudDenunciante);
 
       }
       if(evento!=null && evento.latitud!=null){
-        this.setGoogleUbicacionEvento(evento.latitud,evento.longitud);
+        this.maps.setGoogleUbicacionEvento(evento.latitud,evento.longitud);
 
       }
 
@@ -74,7 +81,9 @@ export class FullScreenMapsComponent implements OnInit {
             console.log("?????"+(evento.idEvento==undefined || evento.idEvento==null || evento.idEvento==""));
             if(evento.idEvento==undefined || evento.idEvento==null || evento.idEvento==""){
 
-                this.setGoogleUbicacion(evento.denunciante.latitudDenunciante, evento.denunciante.longitudDenunciante);
+               // this.setGoogleUbicacion(evento.denunciante.latitudDenunciante, evento.denunciante.longitudDenunciante);
+
+                this.maps.setGoogleUbicacion(evento.denunciante.latitudDenunciante, evento.denunciante.longitudDenunciante);
              }
             
 
@@ -95,6 +104,7 @@ export class FullScreenMapsComponent implements OnInit {
 
     }
 
+/*
 
     public setGoogleUbicacion(latitud, longitud ){
 
@@ -123,8 +133,8 @@ export class FullScreenMapsComponent implements OnInit {
             infowindow.open(this.map, marker2);
           });
 
-    }
-
+    }*/
+/*
     public setGoogleUbicacionEvento(latitud, longitud ){
 
       const myLatlng = new google.maps.LatLng(latitud, longitud);
@@ -153,7 +163,8 @@ export class FullScreenMapsComponent implements OnInit {
 
   }
 
-
+*/
+/*
     public demo(){
         const myLatlng = new google.maps.LatLng(19.434522, -99.176824);
         const mapOptions = {
@@ -311,8 +322,7 @@ export class FullScreenMapsComponent implements OnInit {
         infowindow.close();
         marker2.setVisible(false);
         var place = autocomplete.getPlace();
-    
-        /* If the place has a geometry, then present it on a map. */
+     
         if (place.geometry.viewport) {
             this. map.fitBounds(place.geometry.viewport);
         } else {
@@ -340,8 +350,7 @@ export class FullScreenMapsComponent implements OnInit {
       
         infowindow.setContent('<div><strong>' + place.name + '</strong><br>' + address);
         infowindow.open(  this.map, marker2);
-        
-        /* Location details */
+    
       ///  document.getElementById('location-snap').innerHTML = place.formatted_address;
        // document.getElementById('lat-span').innerHTML = place.geometry.location.lat();
        // document.getElementById('lon-span').innerHTML = place.geometry.location.lng();
@@ -409,17 +418,19 @@ export class FullScreenMapsComponent implements OnInit {
 
  
     }
+*/
 
-
-  public sendLocation (  ){
+  public sendLocation(  ){
     
    let lat= $("#lat").val( );
    let long= $("#long").val( )    ; 
+   
+   let zp= $("#zp").val( )    ; 
 
    if(lat!="" && long !=""){
 
 
-    this.datataSharedService.setUbicacionLlamada( lat, long);
+    this.datataSharedService.setUbicacionLlamada( lat, long,zp);//PONER ZONA PATRULLAJE
     $("#lat").val("" );
     $("#long").val(""); 
    }

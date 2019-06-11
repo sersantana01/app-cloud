@@ -11,7 +11,7 @@ declare var $: any;
 })
 export class GridsLlamadasComponent implements OnInit {
   private uuid: string = '5';
-  private llamadasAtendidas: [];
+  public llamadasAtendidas: [];
 
   constructor(private http: HttpClient, private gridsLlamadasService: GridsLlamadasService) { }
 

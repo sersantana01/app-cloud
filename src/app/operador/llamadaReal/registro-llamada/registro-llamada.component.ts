@@ -16,6 +16,7 @@ import {DataSharedService} from '../../../shared/services/data-shared.service';
 import { Subscription,interval,Observable } from 'rxjs';
  
 import {NotificacionService} from '../../../notificacion/notificacion.service';
+import {GoogleMapService} from '../../../maps/fullscreenmap/google-map.service';
 
 
 @Component({
@@ -43,10 +44,7 @@ export class RegistroLlamadaComponent implements OnInit {
  public hideCorporacion=true;          //variable para controlar la visibilidad de las secciones de corporaciones,prioridad
  
  //public hideCorporacion=false;          //variable para controlar la visibilidad de las secciones de corporaciones,prioridad
-
-
-
-
+ 
  public popPrioridad="";               //variable para mostrar mensaje en el popover
  public noPopover=false;               //variable para controlar la visibilidad del popover de ayuda en prioridad
  public disableMotivos=true;
@@ -75,41 +73,40 @@ export class RegistroLlamadaComponent implements OnInit {
    
 
    ////////////////////////////////ENDPOINTS LLAMADA REAL/////////////////////////////////
-   /*
-   public endpointMotivos ="http://localhost:9091/obtenerMotivos";   
-   public endpointInst ="http://localhost:9091/obtenerInstituciones"; 
-   public endpointSaveEvento="http://localhost:9091/saveEvento";  
-   public endpointUpdateDesc="http://localhost:9091/updateDescripcion";       
-   public endpointModificarEvento="http://localhost:9091/updateEvento";
-   */
-
     
+   //public endpointMotivos ="http://localhost:9091/obtenerMotivos";   
+   //public endpointInst ="http://localhost:9091/obtenerInstituciones"; 
+  // public endpointSaveEvento="http://localhost:9091/saveEvento";  
+   //public endpointUpdateDesc="http://localhost:9091/updateDescripcion";       
+  // public endpointModificarEvento="http://localhost:9091/updateEvento";
+     
    //public endpointSaveEvento="http://localhost:9091/saveEvento";  
    //public endpointUpdateDesc="http://localhost:9091/updateDescripcion"; 
 
    public endopointGrabacion= "http://3.14.155.2:6769/grabarAuronix";
   
-  // public endpointSaveEvento="http://localhost:9091/api/llamadaReal/saveEvento";   
+  //public endpointSaveEvento="http://localhost:9091/api/llamadaReal/saveEvento";   
    public endpointSaveEvento="http://3.14.155.2:9091/api/llamadaReal/saveEvento";   
    public endpointUpdateDesc="http://3.14.155.2:9091/api/llamadaReal/updateDescripcion";  
    //public endpointUpdateDesc="http://localhost:9091/api/llamadaReal/updateDescripcion";  
    public endpointMotivos ="http://3.14.155.2:9091/api/llamadaReal/obtenerMotivos";
+  // public endpointMotivos ="http://localhost:9091/api/llamadaReal/obtenerMotivos";
    public endpointInst ="http://3.14.155.2:9091/api/llamadaReal/obtenerInstituciones";   
    public endpointModificarEvento="http://3.14.155.2:9091/api/llamadaReal/updateEvento";
 
 
 
    public eventoTmp: Evento;
-   public subscription: Subscription;
-   
+   public subscription: Subscription;   
    public subscriptionUbicacion: Subscription;
 
 
   // public sub: Subscription;
  
-constructor(public dataShared: DataSharedService
-          , public restCaller: RegistroLlamadaService,  
+constructor(public dataShared: DataSharedService,
+            public restCaller: RegistroLlamadaService,  
             private grabacionService: GrabacionService,
+            public maps : GoogleMapService,
            notifierService: NotificacionService) {
    this.notifier = notifierService;
    //this.dateInicio=(new Date()).getTime();
@@ -140,7 +137,7 @@ constructor(public dataShared: DataSharedService
 
      if(this.eventoTmp.idEvento== null || this.eventoTmp.idEvento=="" ){
 
-      this.setMapCenter(this.eventoTmp.denunciante.latitudDenunciante, this.eventoTmp.denunciante.longitudDenunciante);
+    //  this.setMapCenter(this.eventoTmp.denunciante.latitudDenunciante, this.eventoTmp.denunciante.longitudDenunciante);
      }
  }
 
@@ -151,16 +148,23 @@ constructor(public dataShared: DataSharedService
      }
  }
  ngOnInit() {
-
+ 
    this.subscription = this.dataShared.datosLlamadaObservable$.subscribe((data ) => {
      // this.ITEMS = data;
-     // console.log(  this.ITEMS);    
+      console.log(data.listaEventos);    
+
+      this.dataShared.buscarUltimoEvento();
       this.setLlamadaCreada(data.listaEventos);
+
+      //asignacion de fecha Captura para el evento
+      this. dateInicio=(new Date()).getTime();
+      this.eventoTmp.fechaInicio=this.dateInicio;
+
      });
 
      this.subscriptionUbicacion = this.dataShared.ubicacionActualObservable$.subscribe((data ) => {
       // this.ITEMS = data;
-      // console.log(  this.ITEMS);  
+        console.log(  data);  
         console.log(this.eventoTmp);        
         console.log( this.eventoTmp.prefolio!= null && this.eventoTmp.idEvento!=null );
         if(this.eventoTmp.prefolio!= null && this.eventoTmp.idEvento==null ){
@@ -170,17 +174,23 @@ constructor(public dataShared: DataSharedService
           this.eventoTmp.latitud=ubicacion.latitud;
           this.eventoTmp.longitud=ubicacion.longitud;
 
-          this.notifier.showNotification ('top','center', 'Ubicación de evento establecida correctamente.' );
+          this.notifier.showNotification ('top','center', 'Ubicación de evento establecida correctamente.', 'success' );
               
         }
 
-      });
+      },(err) => {
+
+        console.log(err);
+
+
+      }
+      
+      
+      );
 
     this.getMotivos();///////////////////////////////////////////SE OBTIENE LA LISTA DE MOTIVOS DE LLAMADA REAL////////////////////
 
     this.setMapCenter("19.4411109", "-99.1465073");//latitudDenunciante: "19.434050" longitudDenunciante: "-99.199056"
-
- 
  
  }
  
@@ -214,7 +224,6 @@ constructor(public dataShared: DataSharedService
 
     console.log(this.eventoTmp);
    this.resetPrioridad ();
-   this. dateInicio=(new Date()).getTime();
    
    if(this.eventoTmp.motivo!=null && this.eventoTmp.motivo!=""){
    //if(this.selectedMotivo!=null && this.selectedMotivo!=""){
@@ -249,9 +258,7 @@ constructor(public dataShared: DataSharedService
   
            var lista= JSON.parse(data["responseData"]);
            this.itemsSelectInstituciones=lista["items"];
-
-
-
+ 
            for(var x=0;x<this.itemsSelectInstituciones.length;x++){
  
                 this.eventoTmp.listaInstituciones.push(this.itemsSelectInstituciones[x].id_institucion);
@@ -370,9 +377,9 @@ constructor(public dataShared: DataSharedService
         evento["prioridad"]=     this.eventoTmp.prioridad; //this.selectedPrioridad;
 
        // evento["fechaInicio"]=date.getTime();
-        evento["fechaInicio"]=    this.dateInicio;
+        evento["fechaInicio"]=     this.eventoTmp.fechaInicio;
 
-        evento["fechaFin"]=dateFinal.getTime();
+     //   evento["fechaFin"]=dateFinal.getTime();
         evento["origen"]="LLAMADA";           /////////////////////////////////////////CAMBIAR ESTOS DATOS AL OBTENERLOS DE MS
         evento["estatus"]="CULMINADO";       /////////////////////////////////////////CAMBIAR ESTOS DATOS AL OBTENERLOS DE MS
         evento["estatusCaptura"]="ATENDIDA";////////////////////////////////////////CAMBIAR ESTOS DATOS AL OBTENERLOS DE MS
@@ -408,13 +415,13 @@ constructor(public dataShared: DataSharedService
                if(respuesta["ID_EVE"]!=undefined){
                 this.eventoTmp.idEvento=respuesta["ID_EVE"];
                 this.eventoTmp.idDescripcionEvento=respuesta["ID_DESC"];
-                this.notifier.showNotification ('top','center', 'Evento registrado con exito' );
+                this.notifier.showNotification ('top','center', 'Evento registrado con exito', 'success' );
                 $( "#id_evento" ).addClass( this.eventoTmp.prioridad+"_text" );
                // this.openPop (this.eventoTmp.prioridad);
                 this.disabledMotivos();
                 this. actualizarLlamada();//LLAMADA A OBSERVABLE
                }else{
-                this.notifier.showNotification ('top','center', 'Ocurrio un error al intentar guardar el evento. Intente de nuevo.' );
+                this.notifier.showNotification ('top','center', 'Ocurrio un error al intentar guardar el evento. Intente de nuevo.', 'danger' );
                }
            },(err) => {//CUANDO OCURREN ERRORES DE VALIDACION EN SERVIDOR SE MUESTRAN EN FORMATO ESPECIAL
 
@@ -431,7 +438,7 @@ constructor(public dataShared: DataSharedService
                 }
               }
 
-              this.notifier.showNotification ('top','center',mensajeError  );
+              this.notifier.showNotification ('top','center',mensajeError, 'danger'  );
                           
               }
             }
@@ -552,13 +559,13 @@ constructor(public dataShared: DataSharedService
                    if(respuesta["INSERTADO"]>0){
 
                      this.eventoTmp.descripcion=descripcionCompleta//descripcionEvento=descripcionCompleta;
-                     this.notifier.showNotification ('top','center', 'Descripcion guardada con exito.' );
+                     this.notifier.showNotification ('top','center', 'Descripcion guardada con exito.' , 'success');
                      this. actualizarLlamada();
 
                    }
                    else{
                      $("#ev_descripcion").val( descripcionCompleta.replace(/<br>/g, "\n" ));
-                     this.notifier.showNotification ('top','center','Ocurrio un error al guardar, intente de nuevo.' );
+                     this.notifier.showNotification ('top','center','Ocurrio un error al guardar, intente de nuevo.', 'danger' );
           
                    }
                   
@@ -576,7 +583,7 @@ constructor(public dataShared: DataSharedService
                       mensajeError+=(propiedad +":"+errorsList[propiedad])+"<br/>";
                     }
                   }
-                  this.notifier.showNotification ('top','center', mensajeError  );                  
+                  this.notifier.showNotification ('top','center', mensajeError , 'danger' );                  
                   
                   $("#ev_descripcion").val( descripcionCompleta.replace(/<br>/g, "\n" ));
                   }
@@ -585,7 +592,7 @@ constructor(public dataShared: DataSharedService
 
 
          }else{ 
-           this.notifier.showNotification ('top','center','Falta escribir descripcion' );
+           this.notifier.showNotification ('top','center','Falta escribir descripcion', 'danger' );
 
          }
      }
@@ -597,7 +604,7 @@ constructor(public dataShared: DataSharedService
 
          if(( this.eventoTmp.latitud ==null || this.eventoTmp.latitud=="" ) ||   ( this.eventoTmp.longitud ==null || this.eventoTmp.longitud=="" )  ){  //si el motivo esta seleccionado
           //alertify.logPosition('bottom left').maxLogItems(6).error("Seleccione un motivo primero");
-          this.notifier.showNotification ('top','center', 'Seleccionar ubicacion ' );
+          this.notifier.showNotification ('top','center', 'Seleccionar ubicacion ', 'danger' );
            flag= false;
         }
         /*
@@ -609,13 +616,13 @@ constructor(public dataShared: DataSharedService
 
          if( this.eventoTmp.motivo ==null || this.eventoTmp.motivo=="" ){  //si el motivo esta seleccionado
            //alertify.logPosition('bottom left').maxLogItems(6).error("Seleccione un motivo primero");
-           this.notifier.showNotification ('top','center', 'Seleccione un motivo primero' );
+           this.notifier.showNotification ('top','center', 'Seleccione un motivo primero', 'danger' );
             flag= false;
          }
 
          if(($("#ev_descripcion").val().toString().trim())==""){//si ha escrito una descripcion
         // alertify.logPosition('bottom left').maxLogItems(6).error('Debe escribir la descripcion del evento');
-           this.notifier.showNotification ('top','center','Debe escribir la descripcion del evento' );
+           this.notifier.showNotification ('top','center','Debe escribir la descripcion del evento', 'danger' );
             flag= false;
          }else{
              if(this.eventoTmp.idEvento==null){//SI NO HAY UN EVENTO GUARDADO
@@ -623,23 +630,23 @@ constructor(public dataShared: DataSharedService
                let desc= $("#ev_descripcion").val().toString().trim();
                if(desc.length<10){  //SE VALIDA QUE LA PRIMERA DESCRIPCION TENGA ALMENOS 10 CARACTERES DE LONGITUD
 
-                this.notifier.showNotification ('top','center', 'Debe escribir la descripcion del evento con almenos 10 caracteres' );
+                this.notifier.showNotification ('top','center', 'Debe escribir la descripcion del evento con almenos 10 caracteres', 'danger' );
                  flag= false;
                }
              }
          }
          if(this.eventoTmp.prioridad==null || this.eventoTmp.prioridad=="" ){//si ha seleccionado una prioridad
       
-          this.notifier.showNotification ('top','center','Seleccione una prioridad primero' );
+          this.notifier.showNotification ('top','center','Seleccione una prioridad primero' , 'danger');
           flag= false;
          }
          if(this.eventoTmp.listaInstituciones.length==0){//si hay almenos una institucion seleccionada para atender el evento
-          this.notifier.showNotification ('top','center', 'Seleccione al menos una institucion primero' );
+          this.notifier.showNotification ('top','center', 'Seleccione al menos una institucion primero', 'danger' );
           flag= false;
          }
 
          if(this.eventoTmp.prefolio==null|| this.eventoTmp.prefolio==""  ){//si hay prefolio institucion seleccionada para atender el evento
-           this.notifier.showNotification ('top','center','Genere un prefolio primero' );
+           this.notifier.showNotification ('top','center','Genere un prefolio primero0','danger' );
            flag= false;
          }
           
@@ -807,11 +814,11 @@ constructor(public dataShared: DataSharedService
              var respuesta= JSON.parse(data["responseData"]); 
              if(Number(respuesta["ACTUALIZADO"])>0){
                // alertify.logPosition('bottom left').success("Registro modificado");
-               this.notifier.showNotification ('top','center', 'Registro modificado' );
+               this.notifier.showNotification ('top','center', 'Registro modificado' , 'success' );
              }
              else{                
               //  alertify.logPosition('bottom left').error("Error al intentar guardar cambios");
-              this.notifier.showNotification ('top','center','Error al intentar guardar cambios' );
+              this.notifier.showNotification ('top','center','Error al intentar guardar cambios', 'danger' );
              }
         
         });
@@ -820,7 +827,7 @@ constructor(public dataShared: DataSharedService
 
       public mapatest( ){
   
-        this.dataShared.setUbicacionLlamada("19.4511109", "-99.1165073" );
+        this.dataShared.setUbicacionLlamada("19.4511109", "-99.1165073","" );///////////PONER ZONA PATRULLAJE
        
      }
 
