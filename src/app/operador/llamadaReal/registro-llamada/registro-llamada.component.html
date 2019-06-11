@@ -28,7 +28,7 @@
           <h3>Corporaci&oacute;n</h3>
             <div  [style.display]="eventoTmp.idEvento==null?'inherit':'none'" *ngFor="let institucion of itemsSelectInstituciones" >
                         <div (click)="selectInstitucion($event,institucion.id_institucion);" >
-                            <img class="envIcnCorporacion" alt="NO IMAGE"  [src]="'../assets/img/images/corporaciones/' + institucion.url_imagen"/>
+                            <img class="envIcnCorporacionON" alt="NO IMAGE"  [src]="'../assets/img/images/corporaciones/' + institucion.url_imagen"/>
                         </div>
            </div>
  </div>
@@ -39,6 +39,7 @@
 
             <div class="iconosCorporacion" [style.display]="eventoTmp.idEvento==null?'inherit':'none'" >
 
+              <!-- 
             <ng-template #popTitle>Recomendada:</ng-template>
             <ng-template #popContent > Recomendada:<br><b>{{popPrioridad}}</b></ng-template>
             <button id="button_pop"
@@ -46,8 +47,9 @@
               [disabled]="noPopover"
               [ngbPopover]="popContent" [popoverTitle]="popTitle"
               triggers="manual" #p1="ngbPopover" (click)="doClick(p1)"> POP </button>
+        
               <div [autoClose]="false"  triggers="manual"  popoverClass="popoverCustom" id="ppover" #p1="ngbPopover"  [ngbPopover]="popContent" placement="right" > </div>
-
+                -->
               <a (click)="  setPrioridad('URGENTE')" id="prioridadRojo" class="envIcnPrioridadRojo" title="Urgente">
                 <img [src]="imgurgenteACT" width="45" height="45" alt="Urgente">
               </a>
@@ -82,10 +84,10 @@
           <hr />
           * <span>Requerido </span>
         </div>
- <div class="contenedorBotones" [style.display]="hideCorporacion?'none':'inherit'">
- <button (click)="callReset();" id="btnAceptarEvento" type="reset" class="btn btn-primary">Aceptar</button>
+ <div class="contenedorBotones" [style.display]="eventoTmp.idEvento==null?'none':'inherit'">
+ <button (click)="callReset();" id="btnAceptarEvento" type="reset" class="btn btn-primary">FINALIZAR</button>
  </div>
-  <button  (click)="mapatest();" >SET UBICACION MANUALMENTE</button>
+  <!-- <button  (click)="mapatest();" >SET UBICACION MANUALMENTE</button> -->
  </div>
  </div>
  <!--envolventeDatosHtml -->
@@ -96,4 +98,4 @@
  <p>
 
 
- </p>
+ </p> 

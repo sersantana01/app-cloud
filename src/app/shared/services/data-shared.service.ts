@@ -30,6 +30,8 @@ export class DataSharedService {
 
  crearLlamada(nuevaLlamada) {
    this.datosLlamada.listaEventos.push(nuevaLlamada);
+   this.datosLlamada.ultimoModificado=nuevaLlamada.prefolio;
+
    this.datosLlamadaSubject.next(this.datosLlamada);
 }
 
@@ -46,13 +48,30 @@ export class DataSharedService {
 }
 
 
+buscarUltimoEvento() {
+ console.log(this.datosLlamada);
+  let ultimoEvento;
+  for(let x=0;x<this.datosLlamada.listaEventos.length;x++){
+
+    if(this.datosLlamada.listaEventos[x].prefolio== this.datosLlamada.ultimoModificado){
+ 
+      console.log("ULTIMO FUE:"+this.datosLlamada.listaEventos[x].prefolio);
+      ultimoEvento=this.datosLlamada.listaEventos[x];
+    }
+  }
+ 
+
+return ultimoEvento!=null? ultimoEvento:null;
+}
+
+
 public setUbicacionLlamada(latitud,longitud){
 
 
   this.ubicacionActual.latitud=latitud;
   this.ubicacionActual.longitud=longitud;
   
-  console.log("LAT:"+latitud+"|||"+"LONG:"+longitud);
+  console.log("LAT:"+latitud+"|||"+"LONG:"+longitud );
 
   this.ubicacionActualSubject.next(this.ubicacionActual);
 

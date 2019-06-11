@@ -40,7 +40,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     login(): void {
         console.log(this.usuario);
      
-        if(this.usuario.username == null || this.usuario.password == null){
+        if( this.usuario.username == null || this.usuario.password == null){
             
         /// swal.fire('Error', 'USername o password  vacios', 'error' );
         this.notificacion.showNotification('top','center', 'usuario o contraseña vacios' );
@@ -57,9 +57,14 @@ export class LoginComponent implements OnInit, OnDestroy {
          this.authService.guardarToken(response.access_token);
         let username= this.authService.getUsuario.username;
      
+
+          if(username.toUpperCase() == 'LUIS'){
+            this.router.navigate(['dashboard']);
+          }else{
+            this.router.navigate(['']);
+          }
      
-     
-         this.router.navigate(['']);
+      
        //  swal.fire('Login', `Hola ${username}, has iniciado sesión con éxito!`, 'success');
      
         }, error =>{

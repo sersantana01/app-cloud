@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, NavigationEnd, NavigationStart } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
+import { ClientWebsocketService } from './shared/services/client-websocket.service';
 
 @Component({
     selector: 'app-my-app',
@@ -10,7 +11,7 @@ import { Subscription } from 'rxjs/Subscription';
 export class AppComponent implements OnInit {
   private _router: Subscription;
 
-  constructor( private router: Router ) {
+  constructor( private router: Router, private clientWebsocketService:ClientWebsocketService ) {
   }
 
     ngOnInit() {
@@ -22,5 +23,7 @@ export class AppComponent implements OnInit {
           modalBackdrop.remove();
         }
       });
+
+      this.clientWebsocketService.conectar();
     }
 }

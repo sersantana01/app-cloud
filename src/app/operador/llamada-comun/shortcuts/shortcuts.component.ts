@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import {NotificacionService} from '../../../notificacion/notificacion.service';
+import { NotificacionService } from '../../../notificacion/notificacion.service';
 import { InicioLlamadaComponent } from '../../../operador/inicio-llamada/inicio-llamada.component';
+import { ShortcutsService } from './shortcuts.service';
 declare var $:any;
 
 
@@ -9,6 +9,7 @@ declare var $:any;
   selector: 'app-shortcuts',
   templateUrl: './shortcuts.component.html',
   styleUrls: ['./shortcuts.component.css'],
+  providers: [ ShortcutsService ],
   host:{ '(window:keydown)' : 'shortcut($event)' }
 })
 export class ShortcutsComponent implements OnInit {
@@ -40,9 +41,9 @@ export class ShortcutsComponent implements OnInit {
   }
 
   constructor(
-    private http: HttpClient, 
     notifierService: NotificacionService, 
-    public grabacion: InicioLlamadaComponent
+    private grabacion: InicioLlamadaComponent,
+    private shortcutsService: ShortcutsService
     ) {
     this.notifier = notifierService;
   }
@@ -53,10 +54,11 @@ export class ShortcutsComponent implements OnInit {
   }
 
   public getLlamadaComun(data: any) {
-    let urlGetLlamadaComun = 'http://3.14.155.2:9093/obtenerCatalogoLlamadaComun';
+    //let urlGetLlamadaComun = 'http://3.14.155.2:9093/obtenerCatalogoLlamadaComun';
+    let urlGetLlamadaComun = 'http://localhost:9088/obtenerCatalogoLlamadaComun';
     
-    this.http.post(urlGetLlamadaComun, data).subscribe(
-      (response) => {
+    this.shortcutsService.getLlamadaComun(urlGetLlamadaComun, data).subscribe(
+      response => {
         this.tipoLlamadaComun = response['items'];
       }
     );
@@ -101,7 +103,8 @@ export class ShortcutsComponent implements OnInit {
     let paramCinco = {};
     let paramSeis = {};
     let paramSiete = {};
-    let urlSetLlamadaComun = 'http://3.14.155.2:9093/guardarLlamadaComun';
+    //let urlSetLlamadaComun = 'http://3.14.155.2:9093/guardarLlamadaComun';
+    let urlSetLlamadaComun = 'http://localhost:9088/guardarLlamadaComun';
     let telefono = $('#numeroTelefono').val();
 
     
@@ -154,8 +157,8 @@ export class ShortcutsComponent implements OnInit {
   }
 
   public showAlert(setData, urlSetLlamadaComun, idLlamadaComun) {
-    this.http.post(urlSetLlamadaComun, setData).subscribe(
-      (response) => {
+    this.shortcutsService.setLlamadaComun(urlSetLlamadaComun, setData).subscribe(
+      response => {
         var valida = $('#numeroTelefono').val();
         let respuesta = response['ID_DIRECCION'];
         let prefo = this.prefolio;

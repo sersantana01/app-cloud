@@ -13,7 +13,7 @@
 
             <input id="numeroTelefono" class="numeroTel" type="tel" name="" [(ngModel)]="callId" maxlength="10" pattern="[0-9]"
                 style="background-color: #FFFFFF; color: #000000" *ngIf="lista=='NINGUNO'" (keyup.control)="inicioLlamada()" />
-            <span id="prefolioSpan">{{x}}</span>
+            <!-- <span id="prefolioSpan">{{x}}</span> -->
 
             <span class="contenedorProcedentes">
                 <label id="c1" for="" class="txtProcendente" *ngIf="contadores!=null">{{contadores.COMUN}}</label>
@@ -28,5 +28,6 @@
 
         <app-llamada-comun [prefolio]="prefolio" [x]="x" [y]="y"></app-llamada-comun>
         <app-shortcuts [prefolio]="prefolio" [x]="x" [y]="y"></app-shortcuts>
+        <app-rastreo-vehiculo></app-rastreo-vehiculo>
 
         <button [hidden]=true (click)="callResetLlamada();" id="button_header_reset">RESET EVENTO</button>

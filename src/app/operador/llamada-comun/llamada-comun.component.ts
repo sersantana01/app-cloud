@@ -1,14 +1,14 @@
-import { HttpClient } from '@angular/common/http';
-import { Component, OnInit, ViewEncapsulation, Input} from '@angular/core';
+import { Component, OnInit, Input} from '@angular/core';
 import { InicioLlamadaComponent } from '../../operador/inicio-llamada/inicio-llamada.component';
+import { LlamadaComunService } from './llamada-comun.service';
 
 declare var $ : any;
 
 @Component({
   selector: 'app-llamada-comun',
-  encapsulation:ViewEncapsulation.None,
   templateUrl: './llamada-comun.component.html',
-  styleUrls: ['./llamada-comun.component.css']
+  styleUrls: ['./llamada-comun.component.css'],
+  providers: [ LlamadaComunService ]
 })
 export class LlamadaComunComponent implements OnInit {
   @Input() prefolio: string;
@@ -23,10 +23,16 @@ export class LlamadaComunComponent implements OnInit {
   private timer;
   private preventSimpleClick: boolean = false;
 
-  constructor(public http: HttpClient, public grabacion: InicioLlamadaComponent) { }
+  constructor(
+    public grabacion: InicioLlamadaComponent, 
+    private llamadaComunService: LlamadaComunService) { }
 
   ngOnInit() {
     $('#botonPuto').prop('disabled', true);
+    $('#botonPuto').css({
+      'cursor': 'pointer',
+      'opacity': '0.6'
+    });
     let getData = {};
     let params = [];
     let param = {};
@@ -64,10 +70,11 @@ export class LlamadaComunComponent implements OnInit {
   }
 
   public getLlamadaComun(data: any): void {
-    let urlGetLlamadaComun = 'http://3.14.155.2:9093/obtenerCatalogoLlamadaComun';
-    
-    this.http.post(urlGetLlamadaComun, data).subscribe(
-      (response) => {
+    //let urlGetLlamadaComun = 'http://3.14.155.2:9093/obtenerCatalogoLlamadaComun';
+    let urlGetLlamadaComun = 'http://localhost:9088/obtenerCatalogoLlamadaComun';
+
+    this.llamadaComunService.getLlamadaComun(urlGetLlamadaComun, data).subscribe(
+      response => {
         this.tipoLlamadaComun = response['items'];
       }
     );
@@ -84,7 +91,8 @@ export class LlamadaComunComponent implements OnInit {
     let paramSeis = {};
     let paramSiete = {};
     let paramOcho = {};
-    let urlSetLlamadaComun = 'http://3.14.155.2:9093/guardarLlamadaComun';
+    //let urlSetLlamadaComun = 'http://3.14.155.2:9093/guardarLlamadaComun';
+    let urlSetLlamadaComun = 'http://localhost:9088/guardarLlamadaComun';
     let telefono = $('#numeroTelefono').val();
 
     let prefo = this.prefolio;
@@ -139,8 +147,8 @@ export class LlamadaComunComponent implements OnInit {
       setData['tipo'] = 'POST';
       setData['param'] = params;
 
-      this.http.post(urlSetLlamadaComun, setData).subscribe(
-        (response) => {
+      this.llamadaComunService.setLlamadaComun(urlSetLlamadaComun, setData).subscribe(
+        response => {
           let respuesta = response['ID_DIRECCION'];
           if(respuesta != '' || respuesta != null) {
             this.llamadaNoPreferente = null;
@@ -148,8 +156,13 @@ export class LlamadaComunComponent implements OnInit {
             this.validar = false;
             this.grabacion.inicioGrabacion(prefo, this.accion);
             $('#botonPuto').prop('disabled', true);
+            $('#botonPuto').css({
+              'cursor': 'pointer',
+              'opacity': '0.6'
+            });
             $('#llamadaNoProcedente').modal('hide');
             $('#numeroTelefono').val('');
+            $('#numeroTelefono').prop('disabled', false);
           }
         }
       );

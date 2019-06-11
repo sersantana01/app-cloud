@@ -1,170 +1,188 @@
 
 
 .navbar-nav .user .photo img {
-    width: 10px;
+  width: 10px;
 }
 
 
 .contCorporacion, .infoComplementa {
+display:none;
+max-height:120px;
+overflow-y:auto;}
+
+.contPrioridad{
   display:none;
-  max-height:120px;
-	overflow-y:auto;}
+  max-height:110px;
+  overflow-y:none;
 
-	.contPrioridad{
-		display:none;
-		max-height:110px;
-		overflow-y:none;
-
-	}
+}
 
 .infoComplementa button{background: none; border: none; cursor: pointer;}
 .envIcnCorporacion{
-  width:50px;
-	height:50px;
-	border:1px solid red;
-	-webkit-border-radius: 25px;
-	-moz-border-radius: 25px;
-	border-radius: 25px;
-	float:left;
-	margin-right:4px;
-	margin-bottom:4px;
-	cursor:pointer;
-	text-align:center;
+width:50px;
+height:50px;
+border:1px solid red;
+-webkit-border-radius: 25px;
+-moz-border-radius: 25px;
+border-radius: 25px;
+float:left;
+margin-right:4px;
+margin-bottom:4px;
+cursor:pointer;
+text-align:center;
 
 }
 .envIcnCorporacion img{ width:40px; max-height:40px; margin-top:4px;}
 
 .envIcnCorporacionON{
-  width:50px;
-	height:50px;
-	border:4px solid #00b2e2   ;
-	-webkit-border-radius: 25px;
-	-moz-border-radius: 25px;
-	border-radius: 25px;
-	float:left;
-	margin-right:4px;
-	margin-bottom:4px;
-	cursor:pointer;
-	text-align:center;
+width:50px;
+height:50px;
+border:4px solid #00b2e2   ;
+-webkit-border-radius: 25px;
+-moz-border-radius: 25px;
+border-radius: 25px;
+float:left;
+margin-right:4px;
+margin-bottom:4px;
+cursor:pointer;
+text-align:center;
 
 }
 .envIcnCorporacionON img{ width:40px; max-height:40px; margin-top:4px;}
 .envIcnPrioridadRojo, .envIcnPrioridadAmarillo, .envIcnPrioridadVerde{
-	width:50px;
-	height:50px;
-	/*background:#FFF;*/
-	display:inline-block;
-	-webkit-border-radius: 50%;
-	-moz-border-radius: 50%;
-	border-radius: 50%;
-	text-align:center;
-	cursor:pointer;
+width:50px;
+height:50px;
+/*background:#FFF;*/
+display:inline-block;
+-webkit-border-radius: 50%;
+-moz-border-radius: 50%;
+border-radius: 50%;
+text-align:center;
+cursor:pointer;
 }
 .iconosCorporacion img{vertical-align:text-top;}
+
+
+
+.iconoPrioridadPreseleccionada{
+  width:50px;
+  height:50px;
+  border:4px solid #00b2e2   ;
+  -webkit-border-radius: 25px;
+  -moz-border-radius: 25px;
+  border-radius: 25px;
+  /*float:left;*/
+  margin-right:4px;
+  margin-bottom:4px;
+  cursor:pointer;
+  text-align:center;
+  
+  }
+ .iconoPrioridadPreseleccionada img{ width:40px; max-height:40px;  }
 
 
 /******************estilos generales*******************/
 .etiqueta{ font-size:12px; color:#CCC; margin:0; padding:0;font-weight: bold;}
 .selector{width:100%; margin-bottom:10px;
-     background: rgba(0, 0, 0, .5);
-		 color:#ccc;
+   background: rgba(0, 0, 0, .5);
+   color:#ccc;
 }
 .selector option{background:#333; padding: 2px 5px;}
 .textarea{
-	width:100%;
-  height: auto;
-	min-height:100px;
-  max-height: 250px;
-	-webkit-border-radius: 3px;
-	-moz-border-radius: 3px;
-	border-radius: 9px;
-    background: rgba(0, 0, 0, .5);
-	padding:5px;
-	color:white;
+width:100%;
+height: auto;
+min-height:100px;
+max-height: 250px;
+-webkit-border-radius: 3px;
+-moz-border-radius: 3px;
+border-radius: 9px;
+  background: rgba(0, 0, 0, .5);
+padding:5px;
+color:white;
 }
 
 .requerido{
-	color:#00b2e2;
-    vertical-align: middle;
-		font-size: 13px;
+color:#00b2e2;
+  vertical-align: middle;
+  font-size: 13px;
 }
 .requerido span{font-size:10px;}
 .contenedorBotones{text-align:right;}
 .contenedorBotones .boton{margin-left: 5px;}
 .contenedorBotones .btn.btn-primary{background:#007BFF; border: none; color:#fff; font-size: 14px;}
 .wrapper .sidebar .sidebar-wrapper.ps{
-    width: 100%;
+  width: 100%;
 }
 .main-panel .navbar.navbar-transparent {
-    background-color: #222 !important;
+  background-color: #222 !important;
 }
 
 /**************llamadas procedentes e improcedentes****************/
 .contenedorProcedentes {
-    position: absolute;
-    top: -4px;
-    width: 25px;
-    text-align: center;
-    right:-30px;
+  position: absolute;
+  top: -4px;
+  width: 25px;
+  text-align: center;
+  right:-30px;
 }
 .contenedorProcedentes label{
-  width: 25px;
-  margin-bottom: 0px;
-  font-size: 12px;
+width: 25px;
+margin-bottom: 0px;
+font-size: 12px;
 }
 .contenedorProcedentes .txtProcendente{
-  background:#FF0000;
-  color:#FFF;
-  -webkit-border-radius: 25px;
-  -moz-border-radius: 25px;
-  border-radius: 25px;
+background:#FF0000;
+color:#FFF;
+-webkit-border-radius: 25px;
+-moz-border-radius: 25px;
+border-radius: 25px;
 }
 .contenedorProcedentes .txtImprocendente{
-  background:#00B2E2;
-  color:#FFF;
-  -webkit-border-radius: 25px;
-  -moz-border-radius: 25px;
-  border-radius: 25px;
+background:#00B2E2;
+color:#FFF;
+-webkit-border-radius: 25px;
+-moz-border-radius: 25px;
+border-radius: 25px;
 }
 
 /******************temporizador********************/
 .temporizador{
-  font-size: 70%;
-  color: #fff;
-  text-align: center;
-  width:250px;
+font-size: 70%;
+color: #fff;
+text-align: center;
+width:250px;
 }
 .temporizador label{width:65px; font-size: 10px; display: inline-block; color:#00B3E3;
-  margin-bottom: 0px;
+margin-bottom: 0px;
 }
 .cronometroDerecha{margin-left: 12%;}
 .reloj {
-    position: absolute;
-    width: 55px;
-    height: 55px;
-    background: url(/assets/images/icnReloj.png) center center no-repeat;
-    margin-left: 230px;
-    background-size: cover;
-    margin-top:-26px;
+  position: absolute;
+  width: 55px;
+  height: 55px;
+  background: url(/assets/images/icnReloj.png) center center no-repeat;
+  margin-left: 230px;
+  background-size: cover;
+  margin-top:-26px;
 }
 .reloj p{display: none;}
 
 
 /*****************menu de iconos****************/
 .contIconosMenu{
-  margin-left: 5%;
+margin-left: 5%;
 }
 .contIconosMenu a{
-  width:32px; height: 32px;
-  display: inline-block;
-  text-align: center;
-  vertical-align: middle;
-  padding: 3px;
-  margin-right: 10px;
+width:32px; height: 32px;
+display: inline-block;
+text-align: center;
+vertical-align: middle;
+padding: 3px;
+margin-right: 10px;
 }
 .contIconosMenu a:hover, .deshabilitado{cursor:pointer; opacity: 0.6;}
 .contIconosMenu a img{
-  width: 32px;
+width: 32px;
 }
 .nav-link .material-icons{color:#fff;}
 
@@ -174,19 +192,19 @@
 
 /************componente contenido registro***************/
 .wrapper .sidebar .sidebar-wrapper {
-    width: 380px;
+  width: 380px;
 }
 .contenidoRegistro{
-  width:100%;
-  color:#FFF;
-  padding: 15px;
-  font-size: 12px;
+width:100%;
+color:#FFF;
+padding: 15px;
+font-size: 12px;
 }
 .contenidoRegistro hr{
-	border-top: 1px solid rgba(0, 0, 0, 0.1);
-  border-color: #999;
-  margin-top: 10px;
-  margin-bottom: 10px;
+border-top: 1px solid rgba(0, 0, 0, 0.1);
+border-color: #999;
+margin-top: 10px;
+margin-bottom: 10px;
 }
 .contenidoRegistro h3{color:#00B3E3; font-size: 1.5em; margin-bottom: 15px;}
 .contenidoRegistro .etiqueta{color:#B3C7CC;}
@@ -195,87 +213,87 @@
 
 /********************Estilos tabla**********************/
 .contenedorTablaResultados{
-	position: fixed;
-    z-index: 3;
-    bottom: 0px;
-    width: 64%;
-    margin-left: 18%;
-    margin-right: 18%;
-    color:#e1e1e1;
-    display: block;
-    	font-family: 'Roboto Condensed', sans-serif;
-      font-size: 13px;
+position: fixed;
+  z-index: 3;
+  bottom: 0px;
+  width: 64%;
+  margin-left: 18%;
+  margin-right: 18%;
+  color:#e1e1e1;
+  display: block;
+    font-family: 'Roboto Condensed', sans-serif;
+    font-size: 13px;
 }
 .contenedorTablaResultados label{
-	font-family: 'Roboto Condensed', sans-serif;
-	font-size:14px;
-	font-weight:lighter;
+font-family: 'Roboto Condensed', sans-serif;
+font-size:14px;
+font-weight:lighter;
 }
 .tablaAlerta{width: 100%;}
 .fondoEncabezadoTablaResultados{
-	margin:0 auto; height:30px;
-	position:absolute; z-index:1;
-	height:45px; background:rgba(8,97,120,1);
-	left: 15px;
-    right: 15px;
-	-webkit-border-radius: 5px;
-	-moz-border-radius: 5px;
-	border-radius: 5px;
-	-webkit-box-shadow: 0px 3px 5px 0px rgba(0,0,0,0.3);
-	-moz-box-shadow: 0px 3px 5px 0px rgba(0,0,0,0.3);
-	box-shadow: 0px 3px 5px 0px rgba(0,0,0,0.3);
+margin:0 auto; height:30px;
+position:absolute; z-index:1;
+height:45px; background:rgba(8,97,120,1);
+left: 15px;
+  right: 15px;
+-webkit-border-radius: 5px;
+-moz-border-radius: 5px;
+border-radius: 5px;
+-webkit-box-shadow: 0px 3px 5px 0px rgba(0,0,0,0.3);
+-moz-box-shadow: 0px 3px 5px 0px rgba(0,0,0,0.3);
+box-shadow: 0px 3px 5px 0px rgba(0,0,0,0.3);
 }
 
 .tabTablaResultados p:not(:last-child) {
-  margin: 0 0 20px;
+margin: 0 0 20px;
 }
 
 .tabTablaResultados main {
-  max-width: 800px;
-  padding: 40px;
-  border: 1px solid rgba(0,0,0,.2);
-  background: #fff;
-  box-shadow: 0 1px 3px rgba(0,0,0,.1);
+max-width: 800px;
+padding: 40px;
+border: 1px solid rgba(0,0,0,.2);
+background: #fff;
+box-shadow: 0 1px 3px rgba(0,0,0,.1);
 }
 
 .tabTablaResultados section {
-  display: none;
-  padding: 30px 20px 0 20px;
-      background: rgba(0,0,0, 0.8);
-    width: 104%;
-    margin-left: -2%;
-    margin-right: -2%;
-    position: relative;
-    z-index: 0;
-    margin-top: -10px;
-	-webkit-border-radius: 5px;
-	-moz-border-radius: 5px;
-	border-radius: 5px;
-	height: auto;
-    max-height: 250px;
-    overflow-y: auto;
+display: none;
+padding: 30px 20px 0 20px;
+    background: rgba(0,0,0, 0.8);
+  width: 104%;
+  margin-left: -2%;
+  margin-right: -2%;
+  position: relative;
+  z-index: 0;
+  margin-top: -10px;
+-webkit-border-radius: 5px;
+-moz-border-radius: 5px;
+border-radius: 5px;
+height: auto;
+  max-height: 250px;
+  overflow-y: auto;
 }
 
 .tabTablaResultados input {
-  display: none;
+display: none;
 }
 .tabTablaResultados label.tituloTab:hover{cursor:none; color:#FFFFFF; background:none;}
 
 .tabTablaResultados label {
-  display: inline-block;
-  margin: 7px 0 -1px;
-  padding: 2px 30px;
-  text-align: center;
-  color: #FFF;
-  border: 1px solid transparent;
-  position:relative;
-  z-index:2;
+display: inline-block;
+margin: 7px 0 -1px;
+padding: 2px 30px;
+text-align: center;
+color: #FFF;
+border: 1px solid transparent;
+position:relative;
+z-index:2;
 }
 
 .tabTablaResultados label:before {
-  font-family: fontawesome;
-  font-weight: normal;
-  margin-right: 10px;
+font-family: fontawesome;
+font-weight: normal;
+margin-right: 10px;
 }
 
 /*.tabTablaResultados label[for*='tabActiva']:before { content: '\f1cb'; }
@@ -284,106 +302,107 @@
 .tabTablaResultados label[for*='tabAtendida']:before { content: '\f171'; }*/
 
 .tabTablaResultados label:hover {
-  cursor: pointer;
-  background:#0395ab;
-  -webkit-border-radius: 5px;
-	-moz-border-radius: 5px;
-	border-radius: 5px;
+cursor: pointer;
+background:#0395ab;
+-webkit-border-radius: 5px;
+-moz-border-radius: 5px;
+border-radius: 5px;
 }
 
 .tabTablaResultados input:checked + label {
-  color: #00b8d4;
-  border: 1px solid #abc;
-  border-top: none;
-  border-bottom: 1px solid #fff;
-  background:#023542;
-  -webkit-border-radius: 5px;
-	-moz-border-radius: 5px;
-	border-radius: 5px;
-	font-weight:400;
+color: #00b8d4;
+border: 1px solid #abc;
+border-top: none;
+border-bottom: 1px solid #fff;
+background:#023542;
+-webkit-border-radius: 5px;
+-moz-border-radius: 5px;
+border-radius: 5px;
+font-weight:400;
 }
 
 .tabTablaResultados #tabActiva:checked ~ #contentTab1,
 .tabTablaResultados #tabEspera:checked ~ #contentTab2,
 .tabTablaResultados #tabAbandonada:checked ~ #contentTab3,
 .tabTablaResultados #tabAtendida:checked ~ #contentTab4 {
-  display: block;
-  padding-bottom:20px;
+display: block;
+padding-bottom:20px;
 }
 #contentTab1 .tablaAlerta{border-bottom:1px }
 .icnActiva{
-	width:20px;
-	height:20px;
-	background:url(../images/icnActiva.svg) center center no-repeat;
-	background-size:cover;
-	display:inline-block;
-	margin-right:10px;
-	vertical-align:middle;
+width:20px;
+height:20px;
+background:url(../images/icnActiva.svg) center center no-repeat;
+background-size:cover;
+display:inline-block;
+margin-right:10px;
+vertical-align:middle;
 }
 .tabTablaResultados input:checked + label .icnActiva {background:url(../images/icnActivaAzul.svg) center center no-repeat;}
 .icnEspera{
-	width:20px;
-	height:20px;
-	background:url(../images/icnEspera.svg) center center no-repeat;
-	background-size:cover;
-	display:inline-block;
-	margin-right:10px;
-	vertical-align:middle;
+width:20px;
+height:20px;
+background:url(../images/icnEspera.svg) center center no-repeat;
+background-size:cover;
+display:inline-block;
+margin-right:10px;
+vertical-align:middle;
 }
 .tabTablaResultados input:checked + label .icnEspera {background:url(../images/icnEsperaAzul.svg) center center no-repeat;}
 .icnAbandonada{
-	width:20px;
-	height:20px;
-	background:url(../images/icnAbandonada.svg) center center no-repeat;
-	background-size:cover;
-	display:inline-block;
-	margin-right:10px;
-	vertical-align:middle;
+width:20px;
+height:20px;
+background:url(../images/icnAbandonada.svg) center center no-repeat;
+background-size:cover;
+display:inline-block;
+margin-right:10px;
+vertical-align:middle;
 }
 .tabTablaResultados input:checked + label .icnAbandonada {background:url(../images/icnAbandonadaAzul.svg) center center no-repeat;}
 .icnAtendida{
-	width:20px;
-	height:20px;
-	background:url(../images/icnAtendida.svg) center center no-repeat;
-	background-size:cover;
-	display:inline-block;
-	margin-right:10px;
-	vertical-align:middle;
+width:20px;
+height:20px;
+background:url(../images/icnAtendida.svg) center center no-repeat;
+background-size:cover;
+display:inline-block;
+margin-right:10px;
+vertical-align:middle;
 }
 .tabTablaResultados input:checked + label .icnAtendida {background:url(../images/icnAtendidaAzul.svg) center center no-repeat;}
-.botonesTabla i{color: #FFF; font-size:14px; margin-right:10px}
+.botonesTabla i{color: #FFF; font-size:14px; margin-right:10px; cursor: pointer;}
 .botonesTabla i:hover{opacity:0.6;}
 .botonesTabla{
-	position: absolute;
-    right: 20px;
-    top: 15px;
-	z-index:2;
+position: absolute;
+  right: 20px;
+  top: 15px;
+z-index:2;
 }
 .icnCerrarTabla{
-	width:12px;
-	height:12px;
-	background:url(../images/icnCerrarBlanco.svg) center center no-repeat;
-	background-size:cover;
-	display:inline-block;
-	margin-right:10px;
+width:12px;
+height:12px;
+background:url(../images/icnCerrarBlanco.svg) center center no-repeat;
+background-size:cover;
+display:inline-block;
+margin-right:10px;
 }
 .icnCerrarTabla:hover{cursor:pointer; opacity:0.7;}
 .icnMaximizarTabla{ display: none; position: fixed; bottom: 0px; right: 250px; z-index: 99;
-  background: rgba(8,97,120,1);
-  padding: 3px 10px;
-  -webkit-border-top-left-radius: 5px;
+background: rgba(8,97,120,1);
+padding: 3px 10px;
+-webkit-border-top-left-radius: 5px;
 -webkit-border-top-right-radius: 5px;
 -moz-border-radius-topleft: 5px;
 -moz-border-radius-topright: 5px;
 border-top-left-radius: 5px;
 border-top-right-radius: 5px;
+cursor: pointer;
 }
 .contenidoTablaResultados table thead tr th, .contenidoTablaResultados table tbody tr td{padding: 5px 10px;}
 .contenidoTablaResultados table tbody tr:nth-child(even) {background: #086178; color:#E1E1E1;}
 .contenidoTablaResultados table tbody tr:nth-child(odd) {background: #4D4D4D; color:#E1E1E1;}
 .contenidoTablaResultados table tbody tr.filaSeleccionada{background: #023542; color:#fff;}
 .icnMinimizarTabla:focus ~ .tabTablaResultados {
-  display: none;
+display: none;
 }
 
 
@@ -391,66 +410,66 @@ border-top-right-radius: 5px;
 
 /***switch boton****/
 .switch {
-  position: relative;
-  display: inline-block;
-  width: 20px;
-  height: 10px;
+position: relative;
+display: inline-block;
+width: 20px;
+height: 10px;
 }
 .tabTablaResultados label.switch{padding: 2px 15px;}
 
 .switch input {
-  opacity: 0;
-  width: 0;
-  height: 0;
+opacity: 0;
+width: 0;
+height: 0;
 }
 
 .slider {
-  position: absolute;
-  cursor: pointer;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: #d0d0d2;
-  -webkit-transition: .4s;
-  transition: .4s;
+position: absolute;
+cursor: pointer;
+top: 0;
+left: 0;
+right: 0;
+bottom: 0;
+background-color: #d0d0d2;
+-webkit-transition: .4s;
+transition: .4s;
 }
 
 .slider:before {
-  position: absolute;
-  content: "";
-  height: 13px;
-  width: 13px;
-  left: 0px;
-  bottom: -3px;
-  background-color:#00B2E2;
-  -webkit-transition: .4s;
-  transition: .4s;
+position: absolute;
+content: "";
+height: 13px;
+width: 13px;
+left: 0px;
+bottom: -3px;
+background-color:#00B2E2;
+-webkit-transition: .4s;
+transition: .4s;
 }
 
 input:checked + .slider {
-  background-color: #4d4d4f;
+background-color: #4d4d4f;
 }
 
 input:focus + .slider {
-  box-shadow: 0 0 1px #2196F3;
+box-shadow: 0 0 1px #2196F3;
 }
 
 input:checked + .slider:before {
-  -webkit-transform: translateX(20px);
-  -ms-transform: translateX(20px);
-  transform: translateX(20px);
-  background:#039be6;
+-webkit-transform: translateX(20px);
+-ms-transform: translateX(20px);
+transform: translateX(20px);
+background:#039be6;
 }
 
 /* Rounded sliders */
 .slider.round {
-  border-radius: 34px;
-  border: 1px solid #00B2E2;
+border-radius: 34px;
+border: 1px solid #00B2E2;
 }
 
 .slider.round:before {
-  border-radius: 50%;
+border-radius: 50%;
 }
 
 
@@ -460,89 +479,75 @@ input:checked + .slider:before {
 
 /*********z-index tabla**********/
 .wrapper .sidebar{
-  z-index: 3;
+z-index: 3;
 }
 
 /*************estilos botones datos complementarios***************/
 .infoComplementa button{background: none; border: none;}
 .envIcnCorporacion{
-  width:50px;
-	height:50px;
-	border:1px solid red;
-	-webkit-border-radius: 25px;
-	-moz-border-radius: 25px;
-	border-radius: 25px;
-	float:left;
-	margin-right:4px;
-	margin-bottom:4px;
-	cursor:pointer;
-	text-align:center;
+width:50px;
+height:50px;
+border:1px solid red;
+-webkit-border-radius: 25px;
+-moz-border-radius: 25px;
+border-radius: 25px;
+float:left;
+margin-right:4px;
+margin-bottom:4px;
+cursor:pointer;
+text-align:center;
 
 }
 .envIcnCorporacion img{ width:40px; max-height:40px; margin-top:4px;}
 
-.envIcnCorporacionON{
-  width:50px;
-	height:50px;
-	border:4px solid LawnGreen   ;
-	-webkit-border-radius: 25px;
-	-moz-border-radius: 25px;
-	border-radius: 25px;
-	float:left;
-	margin-right:4px;
-	margin-bottom:4px;
-	cursor:pointer;
-	text-align:center;
-
-}
-.envIcnCorporacionON img{ width:40px; max-height:40px; margin-top:4px;}
+ 
 .envIcnPrioridadRojo, .envIcnPrioridadAmarillo, .envIcnPrioridadVerde{
-	width:50px;
-	height:50px;
-	/*background:#FFF;*/
-	display:inline-block;
-	-webkit-border-radius: 50%;
-	-moz-border-radius: 50%;
-	border-radius: 50%;
-	text-align:center;
-	cursor:pointer;
+width:50px;
+height:50px;
+/*background:#FFF;*/
+display:inline-block;
+-webkit-border-radius: 50%;
+-moz-border-radius: 50%;
+border-radius: 50%;
+text-align:center;
+cursor:pointer;
 }
 .iconosCorporacion img{vertical-align:text-top;}
 .infoPersonas{
-	width:45px;
-	height:45px;
-	background: transparent url(/assets/images/icnPersonasAzul.svg) center center no-repeat;
-	display:inline-block;
+width:45px;
+height:45px;
+background: transparent url(/assets/images/icnPersonasAzul.svg) center center no-repeat;
+display:inline-block;
 }
 .infoPersonas:hover{
-	background: transparent url(/assets/images/icnPersonasAzulOff.svg) center center no-repeat;
+background: transparent url(/assets/images/icnPersonasAzulOff.svg) center center no-repeat;
 }
 .infoAutos{
-	width:45px;
-	height:45px;
-	background: transparent url(/assets/images/icnAutoAzul.svg) center center no-repeat;
-	display:inline-block;
+width:45px;
+height:45px;
+background: transparent url(/assets/images/icnAutoAzul.svg) center center no-repeat;
+display:inline-block;
 }
 .infoAutos:hover{
-	background: transparent url(/assets/images/icnAutoAzulOff.svg) center center no-repeat;
+background: transparent url(/assets/images/icnAutoAzulOff.svg) center center no-repeat;
 }
 .infoDatos{
-	width:45px;
-	height:45px;
-	background: transparent url(/assets/images/icnInfoComplementariaAzul.svg) center center no-repeat;
-	display:inline-block;
+width:45px;
+height:45px;
+background: transparent url(/assets/images/icnInfoComplementariaAzul.svg) center center no-repeat;
+display:inline-block;
 }
 .infoDatos:hover{
-	background: transparent url(/assets/images/icnInfoComplementariaAzulOff.svg) center center no-repeat;
+background: transparent url(/assets/images/icnInfoComplementariaAzulOff.svg) center center no-repeat;
 }
 .infoArmas{
-	width:45px;
-	height:45px;
-	background: transparent url(/assets/images/icnArmaAzul.svg) center center no-repeat;
-	display:inline-block;
+width:45px;
+height:45px;
+background: transparent url(/assets/images/icnArmaAzul.svg) center center no-repeat;
+display:inline-block;
 }
 .infoArmas:hover{
-	background: transparent url(/assets/images/icnArmaAzulOff.svg) center center no-repeat;
+background: transparent url(/assets/images/icnArmaAzulOff.svg) center center no-repeat;
 }
 
 #envolventeDatos i{font-size:18px; color:#EEE; text-shadow: 1px 2px 4px #555;}
@@ -558,29 +563,29 @@ input:checked + .slider:before {
 /*******contenedor numero telefono******/
 .contNumero{position:relative;}
 #prefolioSpan{
-    position: absolute;
-    left: 45px;
-    bottom: -13px;
+  position: absolute;
+  left: 45px;
+  bottom: -13px;
 }
 
 /******ventana estatus usuarios******/
-.user-info span{font-size: 13px;}
+.user-info span{font-size: 13px; color: #007bff;}
 .user-info span:hover{text-decoration: none; cursor: pointer;}
 .user-info #collapseExample{
-  position: absolute;
-  margin-left: -90px;
+position: absolute;
+margin-left: -90px;
 }
 #collapseExample .nav .nav-item{width:100%;}
 .estatusUsuario{
-  margin-top: 5px;
-	background: #333;
-	-webkit-border-bottom-right-radius: 5px;
-	-webkit-border-bottom-left-radius: 5px;
-	-moz-border-radius-bottomright: 5px;
-	-moz-border-radius-bottomleft: 5px;
-	border-bottom-right-radius: 5px;
-	border-bottom-left-radius: 5px;
-  font-size: 11px;
+margin-top: 5px;
+background: #333;
+-webkit-border-bottom-right-radius: 5px;
+-webkit-border-bottom-left-radius: 5px;
+-moz-border-radius-bottomright: 5px;
+-moz-border-radius-bottomleft: 5px;
+border-bottom-right-radius: 5px;
+border-bottom-left-radius: 5px;
+font-size: 11px;
 }
 .estatusUsuario li{padding:2px 10px; border-bottom:1px solid #003366;}
 .estatusUsuario li:hover{background:#006699; cursor:pointer;}
@@ -592,3 +597,8 @@ input:checked + .slider:before {
 /************icono de adminstracion colores**************/
 .fixed-plugin .fa-2x {font-size: 1em;}
 div.fixed-plugin{width:32px;}
+
+/*************boton minimizar*************/
+.navbar-minimize .mat-raised-button.btn.btn-white{background-color: #222;}
+.navbar-minimize .mat-raised-button.btn.btn-white:hover{background-color: #333;}
+.navbar-minimize .btn.btn-just-icon.btn-white.btn-fab.btn-round.mat-raised-button.cdk-focused.cdk-mouse-focused{background: #444;}
