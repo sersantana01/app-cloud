@@ -602,3 +602,9 @@ div.fixed-plugin{width:32px;}
 .navbar-minimize .mat-raised-button.btn.btn-white{background-color: #222;}
 .navbar-minimize .mat-raised-button.btn.btn-white:hover{background-color: #333;}
 .navbar-minimize .btn.btn-just-icon.btn-white.btn-fab.btn-round.mat-raised-button.cdk-focused.cdk-mouse-focused{background: #444;}
+
+
+.selectedRowEvento {background-color: gray;}
+
+
+.notificationMsg {z-index:3000 !important ;}

@@ -21,13 +21,13 @@ export class NotificacionService {
         message:msj      //'Welcome to <b>Material Dashboard</b> - a beautiful dashboard for every web developer.'
     }, {
         type: msjType,
-        delay: 500,
-       timer: 1000,
+        delay: 700,
+       timer: 2000,
         placement: {
             from: from,
             align: align
         },
-        template: '<div data-notify="container" class="col-xs-11 col-sm-3 alert alert-{0} alert-with-icon" role="alert">' +
+        template: '<div id="notifier"  data-notify="container" class="notificationMsg col-xs-11 col-sm-3 alert alert-{0} alert-with-icon" role="alert">' +
           '<button mat-raised-button type="button" aria-hidden="true" class="close" data-notify="dismiss">  <i class="material-icons">close</i></button>' +
           '<i class="material-icons" data-notify="icon">notifications</i> ' +
           '<span data-notify="title">{1}</span> ' +

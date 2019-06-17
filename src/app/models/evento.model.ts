@@ -4,7 +4,9 @@ export class Evento {
 
  public prefolio:string;
 
- public motivo: string;
+  public motivo: any;
+  
+  public motivoNombre: string;
   public descripcion: string;
   public prioridad: string;
   
@@ -13,13 +15,15 @@ export class Evento {
   public idDispositivoReportado: string;
   public fechaInicio: string;            //de preferencia guardar el dato en tipo long
   public fechaFin: string;               //de preferencia guardar el dato en tipo long
-  public origen: string;
+  public origen: any;
+  public origenNombre: string;
   public estatus: string;
   public idContacto: string;
   public estatusCaptura: string;
   public idPuntoInteres: string;
   public idMacroEvento: string;
   public creadoPor: string;
+  public creadoPorNombre: string;
   
   public idDescripcionEvento: string;
   
@@ -29,8 +33,17 @@ export class Evento {
   public latitud: string;
   public longitud: string;
   public zonaPatrullaje: string;
- public modificadoPor: string;
+  public modificadoPor: string;
   public denunciante: Denunciante;
+
+  
+  public tiempo:string;
+  public ciudad:string;
+  public municipio:string;
+  public fechaRecepcion:string;
+  public colonia:string;
+  public tipoTelefono:string; 
+
   
   public listaInstituciones=[];
   

@@ -28,8 +28,6 @@ import {GoogleMapService} from '../../../maps/fullscreenmap/google-map.service';
 export class RegistroLlamadaComponent implements OnInit {
 
  
-  @ViewChild('customNotification') customNotificationTmpl;
-
  private readonly notifier: NotificacionService;
 
  /////////////DATOS POR OBTENER DE SESION////////////////
@@ -74,8 +72,8 @@ export class RegistroLlamadaComponent implements OnInit {
 
    ////////////////////////////////ENDPOINTS LLAMADA REAL/////////////////////////////////
     
-   //public endpointMotivos ="http://localhost:9091/obtenerMotivos";   
-   //public endpointInst ="http://localhost:9091/obtenerInstituciones"; 
+   // public endpointMotivos ="http://localhost:9091/obtenerMotivos";   
+    //public endpointInst ="http://localhost:9091/obtenerInstituciones"; 
   // public endpointSaveEvento="http://localhost:9091/saveEvento";  
    //public endpointUpdateDesc="http://localhost:9091/updateDescripcion";       
   // public endpointModificarEvento="http://localhost:9091/updateEvento";
@@ -83,16 +81,22 @@ export class RegistroLlamadaComponent implements OnInit {
    //public endpointSaveEvento="http://localhost:9091/saveEvento";  
    //public endpointUpdateDesc="http://localhost:9091/updateDescripcion"; 
 
-   public endopointGrabacion= "http://3.14.155.2:6769/grabarAuronix";
-  
-  //public endpointSaveEvento="http://localhost:9091/api/llamadaReal/saveEvento";   
-   public endpointSaveEvento="http://3.14.155.2:9091/api/llamadaReal/saveEvento";   
-   public endpointUpdateDesc="http://3.14.155.2:9091/api/llamadaReal/updateDescripcion";  
-   //public endpointUpdateDesc="http://localhost:9091/api/llamadaReal/updateDescripcion";  
-   public endpointMotivos ="http://3.14.155.2:9091/api/llamadaReal/obtenerMotivos";
-  // public endpointMotivos ="http://localhost:9091/api/llamadaReal/obtenerMotivos";
-   public endpointInst ="http://3.14.155.2:9091/api/llamadaReal/obtenerInstituciones";   
+   public endopointGrabacion= "http://3.14.155.2:6769/grabarAuronix";  
+   //public endpointSaveEvento="http://3.14.155.2:9091/api/llamadaReal/saveEvento";   
+   public endpointUpdateDesc="http://3.14.155.2:9091/api/llamadaReal/updateDescripcion";   
+   public endpointMotivos ="http://localhost:9091/api/llamadaReal/obtenerMotivos"; 
+   public endpointInst ="http://localhost:9091/api/llamadaReal/obtenerInstituciones";   
    public endpointModificarEvento="http://3.14.155.2:9091/api/llamadaReal/updateEvento";
+
+   
+   public endpointBitacoraEvento="http://localhost:9091/api/llamadaReal/registroBitacoraEvento";
+   
+   public endpointSaveEvento="http://localhost:9091/api/llamadaReal/saveEvento";   
+
+   public endpointAsignarInstitucion="http://localhost:9091/api/llamadaReal/asignarInstitucionEvento";
+   
+   //public endpointBitacoraEvento="http://3.14.155.2:9091/api/llamadaReal/registroBitacoraEvento";
+
 
 
 
@@ -193,6 +197,29 @@ constructor(public dataShared: DataSharedService,
     this.setMapCenter("19.4411109", "-99.1465073");//latitudDenunciante: "19.434050" longitudDenunciante: "-99.199056"
  
  }
+
+
+ public saveBitacoraEvento(bitacora:any){
+
+
+  var callBitacora={};
+
+  callBitacora["bitacora"]=bitacora;
+
+
+
+
+  this.restCaller.sendCall(callBitacora,this.endpointBitacoraEvento).subscribe( //llamadada a restcaller
+    (data) => { 
+
+        console.log(data); 
+    
+     });
+
+
+
+ }
+
  
  public getMotivos(){ //metodo para obtener lista de motivos
    var call = {};
@@ -209,15 +236,23 @@ constructor(public dataShared: DataSharedService,
    call["nombreStoreProcedure"] = "cat_motivo";
    call["nombreMs"] = "MS-LLAMADA-REAL";
    call["param"] = params;
-  this.restCaller.sendCall(call,this.endpointMotivos).subscribe( //llamadada a restcaller
+
+
+   var callMotivos={};
+   callMotivos["uuid"]=this.uuid;    
+  this.restCaller.sendCall(callMotivos,this.endpointMotivos).subscribe( //llamadada a restcaller
     (data) => { 
 
-         console.log(data);
+        // console.log(data);
          var lista= JSON.parse(data["responseData"]);
          this.itemsSelectMotivos=lista["items"];
-    
+ 
      });
  }
+
+
+
+
 
  public getInstituciones(){///////////Metodo para obtener las instituciones relacionadas a una prioridad
  
@@ -252,7 +287,13 @@ constructor(public dataShared: DataSharedService,
       call["nombreMs"] = "MS-LLAMADA-REAL";
       call["param"] = params;
  
-     this.restCaller.sendCall(call,this.endpointInst).subscribe(// llamadada a restcaller
+
+
+      var callInstituciones = {};
+      callInstituciones["uuid"]=this.uuid;      
+      callInstituciones["idMotivo"]=this.eventoTmp.motivo["id_motivo"];
+
+     this.restCaller.sendCall(callInstituciones,this.endpointInst).subscribe(// llamadada a restcaller
        (data) => {
         //   this.itemsSelectInstituciones=data["items"];
   
@@ -266,7 +307,28 @@ constructor(public dataShared: DataSharedService,
 
           // console.log(  this.eventoTmp.motivo["prioridad"]);
 
-            this.setPreseleccionPrioridad(  this.eventoTmp.motivo["prioridad"]);
+            this.setPreseleccionPrioridad(  this.eventoTmp.motivo["prioridad"]   );
+
+
+
+              ///////////////////////////////////BITACORA///////////////////////            
+
+              /*
+              var bitacora={};
+              bitacora["uuid"]=this.uuid;
+              bitacora["idEvento"]="162";
+              bitacora["descripcionBitacora"]="TRANSMISION_DE_LA_LLAMADA";              
+              // bitacora["idTipoMovBitacora"]="2";            
+              // bitacora["idMovimientoRecurso"];
+              //bitacora["idInstitucion"];
+              // bitacora["direccionIp"];
+              bitacora["fechaHoraMovimiento"]= new Date().getTime(); 
+              this.saveBitacoraEvento(bitacora);
+              */
+
+              /////////////////////////////////////////////////////////////////////
+
+
      });
 
        /*this.openPop (this.eventoTmp.motivo["prioridad"]);
@@ -315,13 +377,13 @@ constructor(public dataShared: DataSharedService,
 
  public customSearchFn(busqueda: string, item: any) { //busqueda por id_motivo Y por nombre_motivo para <ng-select>
        busqueda = busqueda.toLocaleLowerCase();
-       var cadena_idMotivo=item.id_motivo+"";
+       var cadena_idMotivo=item.id_catologo_nacional+"";
 
        var cadena_nombreMotivo=item.nombre_motivo.toLocaleLowerCase()+"";
 
        //regresa true si la encuentra en cualquiera de las dos condiciones
        return cadena_idMotivo.indexOf(busqueda) > -1 || cadena_nombreMotivo.indexOf(busqueda) > -1  ;
-   }
+  }
 
 
    public selectInstitucion(event,idInstitucion) {           //Metodo para ir guardando las instituciones que se seleccionan
@@ -345,7 +407,7 @@ constructor(public dataShared: DataSharedService,
      } 
    }
 
-   public guardarEvento (){
+   public guardarEvento (){                      //METODO PARA ENVIAR UN EVENTO PARA GUARDAR EN BD
 
        let validacion=this.validacionesEvento();
 
@@ -359,6 +421,7 @@ constructor(public dataShared: DataSharedService,
        this.eventoTmp.descripcion=tryit;
 
         var dateFinal= new Date();
+        /*
         var call = {};
         var params=[];
 
@@ -368,6 +431,7 @@ constructor(public dataShared: DataSharedService,
         param["valor"]=this.uuid;
 
         params.push(param);
+        */
 
         var evento= {};
        
@@ -382,10 +446,9 @@ constructor(public dataShared: DataSharedService,
      //   evento["fechaFin"]=dateFinal.getTime();
         evento["origen"]="LLAMADA";           /////////////////////////////////////////CAMBIAR ESTOS DATOS AL OBTENERLOS DE MS
         evento["estatus"]="CULMINADO";       /////////////////////////////////////////CAMBIAR ESTOS DATOS AL OBTENERLOS DE MS
-        evento["estatusCaptura"]="ATENDIDA";////////////////////////////////////////CAMBIAR ESTOS DATOS AL OBTENERLOS DE MS
+        evento["estatusCaptura"]="ATENDIDA";////////////////////////////////////////ESTE DATO NO CAMBIA NUNCA PUES ES EL ESTADO QUE SE CREA EN ESTE PUNTO
         evento["creadoPor"]=this.session_id_user;/////////////////////////////////////CAMBIAR ESTOS DATOS AL OBTENERLOS DE MS
         evento["numeroTelefonico"]= Number($("#numeroTelefono").val()) ;
-
        
         evento["latitud"]=this.eventoTmp.latitud; 
         evento["longitud"]=this.eventoTmp.longitud; 
@@ -393,7 +456,10 @@ constructor(public dataShared: DataSharedService,
 
         evento["listaInstituciones"]=this.eventoTmp.listaInstituciones;
 
+       
+       // evento["FechaCapturaFinal"]=
 
+        /*
         var paramEvento= {};
         paramEvento["nombreParametro"]="evento";
         paramEvento["tipo"]="Clase";
@@ -405,21 +471,49 @@ constructor(public dataShared: DataSharedService,
         call["nombreStoreProcedure"] = "evento";
         call["nombreMs"] = "MS-LLAMADA-REAL";
         call["param"] = params;
+        */
 
-        this.restCaller.sendCall(call,this.endpointSaveEvento).subscribe(//llamadada a restcaller
+
+        var callSaveEvento={};
+        
+        callSaveEvento["uuid"]= this.uuid;
+        callSaveEvento["evento"]=evento;
+
+
+        this.restCaller.sendCall(callSaveEvento,this.endpointSaveEvento).subscribe(//llamadada a restcaller
           (data) => {
                console.log(data);         
 
                var respuesta= JSON.parse(data["responseData"]); 
 
-               if(respuesta["ID_EVE"]!=undefined){
+               if(respuesta["ID_EVE"]!=undefined && respuesta["ID_EVE"]!= null ){
                 this.eventoTmp.idEvento=respuesta["ID_EVE"];
                 this.eventoTmp.idDescripcionEvento=respuesta["ID_DESC"];
                 this.notifier.showNotification ('top','center', 'Evento registrado con exito', 'success' );
                 $( "#id_evento" ).addClass( this.eventoTmp.prioridad+"_text" );
+
+                let fechaAsignacion= new Date().getTime();
+
+              //  for(var x=0;x<this.eventoTmp.listaInstituciones.length;x++){
+               //  this.guardarAsignacionInstitucionEvento(this.eventoTmp.listaInstituciones[x] , fechaAsignacion);
+            //   }
                // this.openPop (this.eventoTmp.prioridad);
                 this.disabledMotivos();
                 this. actualizarLlamada();//LLAMADA A OBSERVABLE
+
+
+                var bitacora={};
+                bitacora["uuid"]=this.uuid;
+                bitacora["idEvento"]=this.eventoTmp.idEvento;
+                bitacora["descripcionBitacora"]="TRANSMISION_DE_LA_LLAMADA";              
+                // bitacora["idTipoMovBitacora"]="2";            
+                // bitacora["idMovimientoRecurso"];
+                //bitacora["idInstitucion"];
+                // bitacora["direccionIp"];
+                bitacora["fechaHoraMovimiento"]= new Date().getTime(); 
+                this.saveBitacoraEvento(bitacora);
+ 
+
                }else{
                 this.notifier.showNotification ('top','center', 'Ocurrio un error al intentar guardar el evento. Intente de nuevo.', 'danger' );
                }
@@ -454,7 +548,29 @@ constructor(public dataShared: DataSharedService,
        return validacion;
    }
 
-   public openPop (prioridad){         ///Metodo para controlar el elemento Popover de prioridades
+ 
+
+
+
+  public transmitirEventoDespachador(){ //metodo para obtener lista de motivos
+   
+    
+    var callTransmitir={};
+
+    callTransmitir['uuid']=this.uuid;
+
+
+    this.restCaller.sendCall(callTransmitir,this.endpointAsignarInstitucion).subscribe( //llamadada a restcaller
+     (data) => { 
+ 
+          console.log(data); 
+     
+      });
+  }
+
+
+
+    public openPop (prioridad){         ///Metodo para controlar el elemento Popover de prioridades
 
       this.popPrioridad=prioridad;
       $("#button_pop").click();
@@ -550,7 +666,19 @@ constructor(public dataShared: DataSharedService,
            call["nombreMs"] = "MS-LLAMADA-REAL";
            call["tipo"]="POST";
            call["param"] = params;
-           this.restCaller.sendCall(call,this.endpointUpdateDesc).subscribe(//llamadada a restcaller
+
+
+
+
+           var callUpdateEventoDescripcion={};
+        
+           callUpdateEventoDescripcion["uuid"]= this.uuid;
+           callUpdateEventoDescripcion["evento"]=evento;
+   
+
+
+
+           this.restCaller.sendCall(callUpdateEventoDescripcion,this.endpointUpdateDesc).subscribe(//llamadada a restcaller
              (data) => {
                    //this.itemsSelectMotivos=data["items"];
                    console.log(data);
@@ -606,13 +734,7 @@ constructor(public dataShared: DataSharedService,
           //alertify.logPosition('bottom left').maxLogItems(6).error("Seleccione un motivo primero");
           this.notifier.showNotification ('top','center', 'Seleccionar ubicacion ', 'danger' );
            flag= false;
-        }
-        /*
-        if( this.eventoTmp.longitud ==null || this.eventoTmp.longitud=="" ){  //si el motivo esta seleccionado
-          //alertify.logPosition('bottom left').maxLogItems(6).error("Seleccione un motivo primero");
-          this.notifier.showNotification ('top','center', 'Seleccionar ubicacion ' );
-           flag= false;
-        }*/
+        } 
 
          if( this.eventoTmp.motivo ==null || this.eventoTmp.motivo=="" ){  //si el motivo esta seleccionado
            //alertify.logPosition('bottom left').maxLogItems(6).error("Seleccione un motivo primero");
@@ -782,18 +904,20 @@ constructor(public dataShared: DataSharedService,
         params.push(param);
 
         var evento= {};
-        evento["motivo"]=this.selectedMotivo.id_motivo;
-        /*
-        evento["descripcion"]= $("#ev_descripcion").val().trim();*/
-        //evento["descripcion"]=   this.descripcionEvento;
-        evento["prioridad"]=this.eventoTmp.prioridad;
+        
 
        // evento["fechaInicio"]=date.getTime();
-        evento["modificadoPor"]=this.session_id_user;
+        evento["modificadoPor"]=this.session_id_user; 
 
-        evento["latitud"]="-41.5555";
-        evento["longitud"]="39.00001";
-        evento["zonaPatrullaje"]="2";        
+        var tiempoCapturaFin= {};
+        tiempoCapturaFin["uuid"]=this.uuid;
+       // tiempoCapturaFin["fechaTiempo"]=new Date().getTime();
+        tiempoCapturaFin["idEvento"]= this.eventoTmp.idEvento;
+     //   tiempoCapturaFin["idTiempo"]=   ////////////////////////////////////////////////////////////PONER ESTE DATO
+
+
+        evento["tiempoCaptura"]=tiempoCapturaFin;
+
         evento["idEvento"]=this.eventoTmp.idEvento;
 
         var paramEvento= {};
@@ -809,7 +933,16 @@ constructor(public dataShared: DataSharedService,
         call["tipo"]="PUT";
         call["param"] = params;
 
-        this.restCaller.sendCall(call,this.endpointModificarEvento).subscribe(//llamadada a restcaller
+
+
+
+        var callUpdateEvento={};
+        
+        callUpdateEvento["uuid"]= this.uuid;
+        callUpdateEvento["evento"]=evento;
+
+
+        this.restCaller.sendCall(callUpdateEvento,this.endpointModificarEvento).subscribe(//llamadada a restcaller
           (data) => {
              var respuesta= JSON.parse(data["responseData"]); 
              if(Number(respuesta["ACTUALIZADO"])>0){
@@ -859,6 +992,69 @@ constructor(public dataShared: DataSharedService,
     //////////////////////////////UBICACION DE GOOGLE///////////////////////////////////////////////////////////
   
    }
+
+   
+   public sendBitacoraEvento( ){
+  
+        var call = {};
+        var params=[];
+
+        var param= {};
+        param["nombreParametro"]="uuid";
+        param["tipo"]="String";
+        param["valor"]=this.uuid;
+
+        params.push(param);
+
+        var evento= {};
+       
+        evento["uuid"]=          this.uuid;
+        evento["motivo"]=        this.eventoTmp.motivo["id_motivo"];  //modelo evento
+        evento["descripcion"]=   this.eventoTmp.descripcion;
+        evento["prioridad"]=     this.eventoTmp.prioridad; //this.selectedPrioridad;
+
+       // evento["fechaInicio"]=date.getTime();
+        evento["fechaInicio"]=     this.eventoTmp.fechaInicio;
+
+     //   evento["fechaFin"]=dateFinal.getTime();
+        evento["origen"]="LLAMADA";           /////////////////////////////////////////CAMBIAR ESTOS DATOS AL OBTENERLOS DE MS
+        evento["estatus"]="CULMINADO";       /////////////////////////////////////////CAMBIAR ESTOS DATOS AL OBTENERLOS DE MS
+        evento["estatusCaptura"]="ATENDIDA";////////////////////////////////////////CAMBIAR ESTOS DATOS AL OBTENERLOS DE MS
+        evento["creadoPor"]=this.session_id_user;/////////////////////////////////////CAMBIAR ESTOS DATOS AL OBTENERLOS DE MS
+        evento["numeroTelefonico"]= Number($("#numeroTelefono").val()) ;
+
+       
+        evento["latitud"]=this.eventoTmp.latitud; 
+        evento["longitud"]=this.eventoTmp.longitud; 
+        evento["zonaPatrullaje"]="9";////////////////////////////////////////CAMBIAR ESTOS DATOS AL OBTENERLOS DE MS
+
+        evento["listaInstituciones"]=this.eventoTmp.listaInstituciones;
+
+
+        var paramEvento= {};
+        paramEvento["nombreParametro"]="evento";
+        paramEvento["tipo"]="Clase";
+        paramEvento["valor"]=JSON.stringify(evento);
+
+        params.push(paramEvento);
+
+        call["nombrePaquete"] = "telefonista";
+        call["nombreStoreProcedure"] = "evento";
+        call["nombreMs"] = "MS-LLAMADA-REAL";
+        call["param"] = params;
+
+        this.restCaller.sendCall(call,this.endpointBitacoraEvento).subscribe(//llamadada a restcaller
+          (data) => {
+               console.log(data);         
+
+              
+           },(err) => {//CUANDO OCURREN ERRORES DE VALIDACION EN SERVIDOR SE MUESTRAN EN FORMATO ESPECIAL
+ 
+            console.log(err); 
+           }
+        
+        );
+  }
         
         
 
