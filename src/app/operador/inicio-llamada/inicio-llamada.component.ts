@@ -135,7 +135,11 @@ export class InicioLlamadaComponent implements OnInit {
         
         this.inicioGrabacion(this.prefolio, this.accion);
 
-        $("#button_motivo").click();
+       // $("#button_motivo").click();
+
+
+        let btnMotivo=  <HTMLInputElement>(document.getElementById("button_motivo"));
+        btnMotivo.click();
       });
       
   }

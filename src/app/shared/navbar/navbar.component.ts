@@ -21,6 +21,11 @@ declare var $: any;
 })
 
 export class NavbarComponent implements OnInit {
+
+
+
+    @ViewChild('btn_initModalConsultallamada') btnConsultaLlamadaInit:ElementRef;
+
     auth:boolean=false;
     username:string;
 
@@ -254,7 +259,11 @@ export class NavbarComponent implements OnInit {
 
     getMotivosConsultaLlamadas(){
          
-        $("#button_getmotivos_consulta").click();
-       
+       // this.btnConsultaLlamadaInit.nativeElement.click()
+
+      let btnGetMotivosConsulta=  <HTMLInputElement>(document.getElementById("button_getmotivos_consulta"));
+      btnGetMotivosConsulta.click();
+       // $("#button_getmotivos_consulta").click();
+       // angular.element('#myselector').triggerHandler('click');
     }
 }
