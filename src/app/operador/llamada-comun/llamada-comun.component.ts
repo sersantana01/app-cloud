@@ -63,84 +63,37 @@ export class LlamadaComunComponent implements OnInit {
     let urlGetLlamadaComun = 'http://localhost:9088/obtenerCatalogoLlamadaNoProcedente';
 
     this.llamadaComunService.getLlamadaComun(urlGetLlamadaComun, data).subscribe(
-      response => {
+      (response) => {
         this.tipoLlamadaComun = response['items'];
-        console.log(this.tipoLlamadaComun);
       }
     );
   }
 
   public persisteLlamadaComun(id: number): void {
-    let setData = {};
-    let params = [];
-    let paramUno = {};
-    let paramDos = {};
-    let paramTres = {};
-    let paramCuatro = {};
-    let paramCinco = {};
-    let paramSeis = {};
-    let paramSiete = {};
-    let paramOcho = {};
     //let urlSetLlamadaComun = 'http://3.14.155.2:9093/guardarLlamadaComun';
-    let urlSetLlamadaComun = 'http://localhost:9088/guardarLlamadaComun';
+    let urlSetLlamadaComun = 'http://localhost:9088/guardarLlamadaNoProcedente';
     let telefono = $('#numeroTelefono').val();
 
     let prefo = this.prefolio;
     let coordX = this.x;
     let coordY = this.y;
+
+    let json = {};
     
     if(this.llamadaNoPreferente !== null) {
-      paramUno['nombreParametro'] = 'uuid';
-      paramUno['tipo'] = 'String';
-      paramUno['valor'] = this.uuid;
+      json['uuid'] = this.uuid;
+      json['idTipoNoProcedente'] = id;
+      json['numeroTelefono'] = telefono;
+      json['idUsuario'] = 5;
+      json['creadoPor'] = 2;
+      json['Observacion'] = this.observacionLlamada;
+      json['LATITUD'] = coordX;
+      json['LONGITUD'] = coordY;
 
-      paramDos['nombreParametro'] = 'id_tipo_no_procedente';
-      paramDos['tipo'] = 'int';
-      paramDos['valor'] = id;
-
-      paramTres['nombreParametro'] = 'numero_telefono';
-      paramTres['tipo'] = 'String';
-      paramTres['valor'] = telefono;
-
-      paramCuatro['nombreParametro'] = 'id_usuario';
-      paramCuatro['tipo'] = 'int';
-      paramCuatro['valor'] = 5;
-
-      paramCinco['nombreParametro'] = 'creado_por';
-      paramCinco['tipo'] = 'int';
-      paramCinco['valor'] = 2;
-
-      paramSeis['nombreParametro'] = 'Observacion';
-      paramSeis['tipo'] = 'String';
-      paramSeis['valor'] = this.observacionLlamada;
-
-      paramSiete['nombreParametro'] = 'LATITUD';
-      paramSiete['tipo'] = 'String';
-      paramSiete['valor'] = coordX;
-
-      paramOcho['nombreParametro'] = 'LONGITUD';
-      paramOcho['tipo'] = 'String';
-      paramOcho['valor'] = coordY;
-
-      params.push(paramUno);
-      params.push(paramDos);
-      params.push(paramTres);
-      params.push(paramCuatro);
-      params.push(paramCinco);
-      params.push(paramSeis);
-      params.push(paramSiete);
-      params.push(paramOcho);
-
-      setData['nombreMs'] = 'MS_Llamada_Comun';
-      setData['nombrePaquete'] = 'telefonista';
-      setData['nombreStoreProcedure'] = 'llamada_no_procedente';
-      setData['tipo'] = 'POST';
-      setData['param'] = params;
-
-      this.llamadaComunService.setLlamadaComun(urlSetLlamadaComun, setData).subscribe(
+      this.llamadaComunService.setLlamadaComun(urlSetLlamadaComun, json).subscribe(
         response => {
-          let respuesta = response['ID_DIRECCION'];
-          if(respuesta != '' || respuesta != null) {
+          let respuesta = response['INSERTADO'];
+          if(respuesta == 1 ) {
             this.llamadaNoPreferente = null;
             this.observacionLlamada = '';
             this.validar = false;

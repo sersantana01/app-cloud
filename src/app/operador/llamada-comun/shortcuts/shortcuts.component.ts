@@ -22,26 +22,14 @@ export class ShortcutsComponent implements OnInit {
   @Input() y: string;
 
   ngOnInit() {
-    let getData = {};
-    let params = [];
-    let param = {};
-
-    param['nombreParametro'] = 'uuid';
-    param['tipo'] = 'String';
-    param['valor'] = this.uuid;
-
-    params.push(param);
-
-    getData['nombreMs'] = 'MS_Llamada_Comun';
-    getData['nombrePaquete'] = 'catalogo';
-    getData['nombreStoreProcedure'] = 'cat_tipo_no_procedente';
-    getData['param'] = params;
+    let json = {};
+    json['uuid'] = this.uuid;
     
-    this.getLlamadaComun(getData);
+    this.getLlamadaComun(json);
   }
 
   constructor(
-    notifierService: NotificacionService, 
+    private notifierService: NotificacionService, 
     private grabacion: InicioLlamadaComponent,
     private shortcutsService: ShortcutsService
     ) {
@@ -55,7 +43,7 @@ export class ShortcutsComponent implements OnInit {
 
   public getLlamadaComun(data: any) {
     //let urlGetLlamadaComun = 'http://3.14.155.2:9093/obtenerCatalogoLlamadaComun';
-    let urlGetLlamadaComun = 'http://localhost:9088/obtenerCatalogoLlamadaComun';
+    let urlGetLlamadaComun = 'http://localhost:9088/obtenerCatalogoLlamadaNoProcedente';
     
     this.shortcutsService.getLlamadaComun(urlGetLlamadaComun, data).subscribe(
       response => {
@@ -94,66 +82,25 @@ export class ShortcutsComponent implements OnInit {
   }
 
   public sendIdLLamada(id) {
-    let setData = {};
-    let params = [];
-    let paramUno = {};
-    let paramDos = {};
-    let paramTres = {};
-    let paramCuatro = {};
-    let paramCinco = {};
-    let paramSeis = {};
-    let paramSiete = {};
     //let urlSetLlamadaComun = 'http://3.14.155.2:9093/guardarLlamadaComun';
-    let urlSetLlamadaComun = 'http://localhost:9088/guardarLlamadaComun';
+    let urlSetLlamadaComun = 'http://localhost:9088/guardarLlamadaNoProcedente';
     let telefono = $('#numeroTelefono').val();
 
     
     let coordX = this.x;
     let coordY = this.y;
 
-    paramUno['nombreParametro'] = 'uuid';
-    paramUno['tipo'] = 'String';
-    paramUno['valor'] = this.uuid;
+    let json = {};
 
-    paramDos['nombreParametro'] = 'id_tipo_no_procedente';
-    paramDos['tipo'] = 'int';
-    paramDos['valor'] = id;
+    json['uuid'] = this.uuid;
+    json['idTipoNoProcedente'] = id;
+    json['numeroTelefono'] = telefono;
+    json['idUsuario'] = 5;
+    json['creadoPor'] = 2;
+    json['LATITUD'] = coordX;
+    json['LONGITUD'] = coordY;
 
-    paramTres['nombreParametro'] = 'numero_telefono';
-    paramTres['tipo'] = 'String';
-    paramTres['valor'] = telefono;
-
-    paramCuatro['nombreParametro'] = 'id_usuario';
-    paramCuatro['tipo'] = 'int';
-    paramCuatro['valor'] = 5;
-
-    paramCinco['nombreParametro'] = 'creado_por';
-    paramCinco['tipo'] = 'int';
-    paramCinco['valor'] = 2;
-
-    paramSeis['nombreParametro'] = 'LATITUD';
-    paramSeis['tipo'] = 'String';
-    paramSeis['valor'] = coordX;
-
-    paramSiete['nombreParametro'] = 'LONGITUD';
-    paramSiete['tipo'] = 'String';
-    paramSiete['valor'] = coordY;
-
-    params.push(paramUno);
-    params.push(paramDos);
-    params.push(paramTres);
-    params.push(paramCuatro);
-    params.push(paramCinco);
-    params.push(paramSeis);
-    params.push(paramSiete);
-
-    setData['nombreMs'] = 'MS_Llamada_Comun';
-    setData['nombrePaquete'] = 'telefonista';
-    setData['nombreStoreProcedure'] = 'llamada_no_procedente';
-    setData['tipo'] = 'POST';
-    setData['param'] = params;
-
-    this.showAlert(setData, urlSetLlamadaComun, id);
+    this.showAlert(json, urlSetLlamadaComun, id);
   }
 
   public showAlert(setData, urlSetLlamadaComun, idLlamadaComun) {
@@ -194,8 +141,13 @@ export class ShortcutsComponent implements OnInit {
             }
           }
           $('#botonPuto').prop('disabled', true);
+          $('#botonPuto').css({
+            'cursor': 'pointer',
+            'opacity': '0.6'
+          });
           $('#llamadaNoProcedente').modal('hide');
           $('#numeroTelefono').val('');
+          $('#numeroTelefono').prop('disabled', false);
 
           this.notifier.showNotification('top','center', nombreLlamada ,'success');
         }
