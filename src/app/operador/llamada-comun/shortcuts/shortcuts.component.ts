@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import {NotificacionService} from '../../../notificacion/notificacion.service';
+import { NotificacionService } from '../../../notificacion/notificacion.service';
 import { InicioLlamadaComponent } from '../../../operador/inicio-llamada/inicio-llamada.component';
+import { ShortcutsService } from './shortcuts.service';
 declare var $:any;
 
 
@@ -9,24 +9,59 @@ declare var $:any;
   selector: 'app-shortcuts',
   templateUrl: './shortcuts.component.html',
   styleUrls: ['./shortcuts.component.css'],
+  providers: [ ShortcutsService ],
   host:{ '(window:keydown)' : 'shortcut($event)' }
 })
 export class ShortcutsComponent implements OnInit {
   private readonly notifier: NotificacionService;
-  private uuid: number;
+  private uuid: string = '5';
   private accion = 'Fin';
+  private tipoLlamadaComun: [];
   @Input() prefolio: string;
   @Input() x: string;
   @Input() y: string;
 
   ngOnInit() {
+    let getData = {};
+    let params = [];
+    let param = {};
+
+    param['nombreParametro'] = 'uuid';
+    param['tipo'] = 'String';
+    param['valor'] = this.uuid;
+
+    params.push(param);
+
+    getData['nombreMs'] = 'MS_Llamada_Comun';
+    getData['nombrePaquete'] = 'catalogo';
+    getData['nombreStoreProcedure'] = 'cat_tipo_no_procedente';
+    getData['param'] = params;
+    
+    this.getLlamadaComun(getData);
   }
+
   constructor(
-    private http: HttpClient, 
     notifierService: NotificacionService, 
-    public grabacion: InicioLlamadaComponent
+    private grabacion: InicioLlamadaComponent,
+    private shortcutsService: ShortcutsService
     ) {
     this.notifier = notifierService;
+  }
+
+  public dobleClick(id: number) {
+    this.sendIdLLamada(id);
+    $('#shortcuts').modal('hide');
+  }
+
+  public getLlamadaComun(data: any) {
+    //let urlGetLlamadaComun = 'http://3.14.155.2:9093/obtenerCatalogoLlamadaComun';
+    let urlGetLlamadaComun = 'http://localhost:9088/obtenerCatalogoLlamadaComun';
+    
+    this.shortcutsService.getLlamadaComun(urlGetLlamadaComun, data).subscribe(
+      response => {
+        this.tipoLlamadaComun = response['items'];
+      }
+    );
   }
 
   public shortcut(e: any) {
@@ -68,7 +103,8 @@ export class ShortcutsComponent implements OnInit {
     let paramCinco = {};
     let paramSeis = {};
     let paramSiete = {};
-    let urlSetLlamadaComun = 'http://3.14.155.2:9093/guardarLlamadaComun';
+    //let urlSetLlamadaComun = 'http://3.14.155.2:9093/guardarLlamadaComun';
+    let urlSetLlamadaComun = 'http://localhost:9088/guardarLlamadaComun';
     let telefono = $('#numeroTelefono').val();
 
     
@@ -112,8 +148,8 @@ export class ShortcutsComponent implements OnInit {
     params.push(paramSiete);
 
     setData['nombreMs'] = 'MS_Llamada_Comun';
-    setData['nombrePaquete'] = 'catalogo';
-    setData['nombreStoreProcedure'] = 'cat_tipo_no_procedente';
+    setData['nombrePaquete'] = 'telefonista';
+    setData['nombreStoreProcedure'] = 'llamada_no_procedente';
     setData['tipo'] = 'POST';
     setData['param'] = params;
 
@@ -121,38 +157,41 @@ export class ShortcutsComponent implements OnInit {
   }
 
   public showAlert(setData, urlSetLlamadaComun, idLlamadaComun) {
-    this.http.post(urlSetLlamadaComun, setData).subscribe(
-      (response) => {
-        let respuesta = response['VID'];
+    this.shortcutsService.setLlamadaComun(urlSetLlamadaComun, setData).subscribe(
+      response => {
+        var valida = $('#numeroTelefono').val();
+        let respuesta = response['ID_DIRECCION'];
         let prefo = this.prefolio;
         var nombreLlamada = '';
-        if(respuesta != '' || respuesta != null) {
-          this.grabacion.inicioGrabacion(prefo, this.accion);
-          switch(idLlamadaComun) {
-            case 1:
-              nombreLlamada = 'LLAMADA DE PRUEBA';
-            break;
-            case 2:
-              nombreLlamada = 'LLAMADA DE BROMA POR NIÑOS';
-            break;
-            case 3:
-              nombreLlamada = 'OTRAS LLAMADAS IMPROCEDENTES';
-            break;
-            case 4:
-              nombreLlamada = 'INSULTOS POR ADULTOS/LLAMADA OBSCENA';
-            break;
-            case 5:
-              nombreLlamada = 'LLAMADA INCOMPLETA';
-            break;
-            case 6:
-              nombreLlamada = 'JOVENES/ADULTOS JUGANDO';
-            break;
-            case 7:
-              nombreLlamada = 'TRANSFERENCIA DE LLAMADA';
-            break;
-            case 8:
-              nombreLlamada = 'LLAMADA MUDA';
-            break;
+        if(respuesta !== '' || respuesta !== null) {
+          if(valida.length != 0) {
+            this.grabacion.inicioGrabacion(prefo, this.accion);
+            switch(idLlamadaComun) {
+              case 1:
+                nombreLlamada = 'LLAMADA DE PRUEBA';
+              break;
+              case 2:
+                nombreLlamada = 'LLAMADA DE BROMA POR NIÑOS';
+              break;
+              case 3:
+                nombreLlamada = 'OTRAS LLAMADAS IMPROCEDENTES';
+              break;
+              case 4:
+                nombreLlamada = 'INSULTOS POR ADULTOS/LLAMADA OBSCENA';
+              break;
+              case 5:
+                nombreLlamada = 'LLAMADA INCOMPLETA';
+              break;
+              case 6:
+                nombreLlamada = 'JOVENES/ADULTOS JUGANDO';
+              break;
+              case 7:
+                nombreLlamada = 'TRANSFERENCIA DE LLAMADA';
+              break;
+              case 8:
+                nombreLlamada = 'LLAMADA MUDA';
+              break;
+            }
           }
           $('#botonPuto').prop('disabled', true);
           $('#llamadaNoProcedente').modal('hide');

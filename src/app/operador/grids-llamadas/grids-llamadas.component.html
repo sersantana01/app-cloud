@@ -296,17 +296,13 @@
                             <th>Municipio</th>
                             <th>Colonia</th>
                             <th>Descripci&oacute;n</th>
-                            <th>Ver
-                                <a href="javascript:void(0)" (click)="refresh()">
-                                    <i class="material-icons">cached</i>
-                                </a>
-                            </th>
+                            <th>Ver</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr *ngFor="let llamadaAtendida of llamadasAtendidas">
                             <td>{{llamadaAtendida.folio}}</td>
-                            <td>{{llamadaAtendida.fecha_creacion}}</td>
+                            <td>{{llamadaAtendida.fecha}}</td>
                             <td>{{llamadaAtendida.numero_telefono}}</td>
                             <td>{{llamadaAtendida.cuenta}}</td>
                             <td>{{llamadaAtendida.nombre_motivo}}</td>

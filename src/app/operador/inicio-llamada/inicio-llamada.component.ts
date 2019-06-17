@@ -38,6 +38,10 @@ export class InicioLlamadaComponent implements OnInit {
 
 
       $('#botonPuto').prop('disabled', false);
+      $('#botonPuto').css({
+        'cursor': 'pointer',
+        'opacity': 'inherit'
+      });
       $('#numeroTelefono').prop('disabled', true);
       this.fechaInicioLlamada= (new Date()).getTime();
       this.obtenerLista();
