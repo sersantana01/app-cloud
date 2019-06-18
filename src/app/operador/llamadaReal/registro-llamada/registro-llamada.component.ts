@@ -168,9 +168,7 @@ constructor(public dataShared: DataSharedService,
 
      this.subscriptionUbicacion = this.dataShared.ubicacionActualObservable$.subscribe((data ) => {
       // this.ITEMS = data;
-        console.log(  data);  
-        console.log(this.eventoTmp);        
-        console.log( this.eventoTmp.prefolio!= null && this.eventoTmp.idEvento!=null );
+ 
         if(this.eventoTmp.prefolio!= null && this.eventoTmp.idEvento==null ){
 
           let ubicacion: Ubicacion = data;
@@ -486,16 +484,18 @@ constructor(public dataShared: DataSharedService,
 
                var respuesta= JSON.parse(data["responseData"]); 
  
-
+             
 
                if(respuesta["v_id_evento"]!=undefined && respuesta["v_id_evento"]!= null ){
-                this.eventoTmp.idEvento=respuesta["v_id_evento  "];
+                this.eventoTmp.idEvento=respuesta["v_id_evento"];
+
                 //this.eventoTmp.idDescripcionEvento=respuesta["ID_DESC"];
  
                 this.notifier.showNotification ('top','center', 'Evento registrado con exito', 'success' );
                 $( "#id_evento" ).addClass( this.eventoTmp.prioridad+"_text" );
 
                 let fechaAsignacion= new Date().getTime();
+                this.eventoTmp.fechaFin=fechaAsignacion+"";
 
               //  for(var x=0;x<this.eventoTmp.listaInstituciones.length;x++){
                //  this.guardarAsignacionInstitucionEvento(this.eventoTmp.listaInstituciones[x] , fechaAsignacion);
@@ -514,8 +514,7 @@ constructor(public dataShared: DataSharedService,
                 //bitacora["idInstitucion"];
                 // bitacora["direccionIp"];
                 bitacora["fechaHoraMovimiento"]= new Date().getTime(); 
-                this.saveBitacoraEvento(bitacora);
- 
+                //this.saveBitacoraEvento(bitacora); 
 
                }else{
                 this.notifier.showNotification ('top','center', 'Ocurrio un error al intentar guardar el evento. Intente de nuevo.', 'danger' );
@@ -560,7 +559,10 @@ constructor(public dataShared: DataSharedService,
     
     var callTransmitir={};
 
-    callTransmitir['uuid']=this.uuid;
+    callTransmitir['uuid']=this.uuid;    
+    callTransmitir['ip']=this.uuid;    
+    callTransmitir['usuario']=this.uuid;    
+    callTransmitir['idEvento']=this.uuid;
 
 
     this.restCaller.sendCall(callTransmitir,this.endpointAsignarInstitucion).subscribe( //llamadada a restcaller
@@ -577,6 +579,8 @@ constructor(public dataShared: DataSharedService,
   public terminarLlamadaTiempo(){ //metodo para obtener lista de motivos
    
     
+    var tiempoFinCaptura= new Date().getTime();
+ 
     var callTiempoCaptura={};
 
     callTiempoCaptura['uuid']=this.uuid;
@@ -586,19 +590,10 @@ constructor(public dataShared: DataSharedService,
     callTiempoCaptura['fechaTiempo']=this.uuid;
     callTiempoCaptura['idEvento']=this.eventoTmp.idEvento;
     
-    callTiempoCaptura['creadoPor']=this.uuid;    
-    callTiempoCaptura['duracion']=this.uuid;
+    callTiempoCaptura['creadoPor']=this.session_id_user;    
+    callTiempoCaptura['duracion']=tiempoFinCaptura;
  
-    /*
-    id_tipo_tiempo,
-    id_institucion,
-    duracion,
-    fecha_tiempo,
-    id_evento,
-    id_recurso,
-    creado_por
-    */
-
+    
 
     this.restCaller.sendCall(callTiempoCaptura,    this.endpointSaveTiempos).subscribe( //llamadada a restcaller
      (data) => { 
@@ -615,11 +610,11 @@ constructor(public dataShared: DataSharedService,
     
     callTiempoTransmision['idTipoTiempo']="13";// "id_tipo_tiempo": 13,  "nombre_tipo_tiempo": "TIEMPO_TRANSMISION"
  
-    callTiempoTransmision['fechaTiempo']=this.uuid;
+    callTiempoTransmision['fechaTiempo']=this.eventoTmp.fechaFin;
     callTiempoTransmision['idEvento']=this.eventoTmp.idEvento;
     
-    callTiempoTransmision['creadoPor']=this.uuid;    
-    callTiempoTransmision['duracion']=this.uuid;
+    callTiempoTransmision['creadoPor']=this.session_id_user;    
+    //callTiempoTransmision['duracion']=this.uuid;
   
     this.restCaller.sendCall(callTiempoTransmision,    this.endpointSaveTiempos).subscribe( //llamadada a restcaller
      (data) => { 
