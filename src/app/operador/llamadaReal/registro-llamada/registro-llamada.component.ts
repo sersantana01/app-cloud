@@ -89,7 +89,7 @@ export class RegistroLlamadaComponent implements OnInit {
    public endpointModificarEvento="http://3.14.155.2:9091/api/llamadaReal/updateEvento";   
    public endpointBitacoraEvento="http://3.14.155.2:9091/api/llamadaReal/registroBitacoraEvento";
    
-   public endpointSaveEvento="http://3.14.155.2:9091/api/llamadaReal/saveEvento";   
+     public endpointSaveEvento="http://3.14.155.2:9091/api/llamadaReal/saveEvento";   
 
    public endpointAsignarInstitucion="http://3.14.155.2:9091/api/llamadaReal/asignarInstitucionEvento";
     
@@ -98,6 +98,7 @@ export class RegistroLlamadaComponent implements OnInit {
    public endpointSaveTiempos="http://localhost:9091/guardaTiempo"; 
 
 
+   //public endpointSaveEvento="http://localhost:9091/api/llamadaReal/saveEvento";   
 
    public eventoTmp: Evento;
    public subscription: Subscription;   
@@ -444,8 +445,8 @@ constructor(public dataShared: DataSharedService,
 
      //   evento["fechaFin"]=dateFinal.getTime();
         evento["origen"]="LLAMADA";           /////////////////////////////////////////CAMBIAR ESTOS DATOS AL OBTENERLOS DE MS
-        evento["estatus"]="CULMINADO";       /////////////////////////////////////////CAMBIAR ESTOS DATOS AL OBTENERLOS DE MS
-        evento["estatusCaptura"]="ATENDIDA";////////////////////////////////////////ESTE DATO NO CAMBIA NUNCA PUES ES EL ESTADO QUE SE CREA EN ESTE PUNTO
+        evento["estatus"]="ACTIVO";       /////////////////////////////////////////CAMBIAR ESTOS DATOS AL OBTENERLOS DE MS
+        evento["estatusCaptura"]="ACTIVO";////////////////////////////////////////ESTE DATO NO CAMBIA NUNCA PUES ES EL ESTADO QUE SE CREA EN ESTE PUNTO
         evento["creadoPor"]=this.session_id_user;/////////////////////////////////////CAMBIAR ESTOS DATOS AL OBTENERLOS DE MS
         evento["numeroTelefonico"]= Number($("#numeroTelefono").val()) ;
        
@@ -484,14 +485,13 @@ constructor(public dataShared: DataSharedService,
                console.log(data);         
 
                var respuesta= JSON.parse(data["responseData"]); 
-
-                respuesta={};
-                respuesta["ID_EVE"]=data;
+ 
 
 
-               if(respuesta["ID_EVE"]!=undefined && respuesta["ID_EVE"]!= null ){
-                this.eventoTmp.idEvento=respuesta["ID_EVE"];
-                this.eventoTmp.idDescripcionEvento=respuesta["ID_DESC"];
+               if(respuesta["v_id_evento"]!=undefined && respuesta["v_id_evento"]!= null ){
+                this.eventoTmp.idEvento=respuesta["v_id_evento  "];
+                //this.eventoTmp.idDescripcionEvento=respuesta["ID_DESC"];
+ 
                 this.notifier.showNotification ('top','center', 'Evento registrado con exito', 'success' );
                 $( "#id_evento" ).addClass( this.eventoTmp.prioridad+"_text" );
 
