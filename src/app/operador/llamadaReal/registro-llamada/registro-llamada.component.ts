@@ -86,24 +86,16 @@ export class RegistroLlamadaComponent implements OnInit {
    public endpointUpdateDesc="http://3.14.155.2:9091/api/llamadaReal/updateDescripcion";   
    public endpointMotivos ="http://3.14.155.2:9091/api/llamadaReal/obtenerMotivos"; 
    public endpointInst ="http://3.14.155.2:9091/api/llamadaReal/obtenerInstituciones";   
-   public endpointModificarEvento="http://3.14.155.2:9091/api/llamadaReal/updateEvento";
-
-   
+   public endpointModificarEvento="http://3.14.155.2:9091/api/llamadaReal/updateEvento";   
    public endpointBitacoraEvento="http://3.14.155.2:9091/api/llamadaReal/registroBitacoraEvento";
    
    public endpointSaveEvento="http://3.14.155.2:9091/api/llamadaReal/saveEvento";   
 
    public endpointAsignarInstitucion="http://3.14.155.2:9091/api/llamadaReal/asignarInstitucionEvento";
-
-
-
-
-
-
-
-   
+    
    //public endpointBitacoraEvento="http://3.14.155.2:9091/api/llamadaReal/registroBitacoraEvento";
 
+   public endpointSaveTiempos="http://localhost:9091/guardaTiempo"; 
 
 
 
@@ -493,6 +485,10 @@ constructor(public dataShared: DataSharedService,
 
                var respuesta= JSON.parse(data["responseData"]); 
 
+                respuesta={};
+                respuesta["ID_EVE"]=data;
+
+
                if(respuesta["ID_EVE"]!=undefined && respuesta["ID_EVE"]!= null ){
                 this.eventoTmp.idEvento=respuesta["ID_EVE"];
                 this.eventoTmp.idDescripcionEvento=respuesta["ID_DESC"];
@@ -568,6 +564,64 @@ constructor(public dataShared: DataSharedService,
 
 
     this.restCaller.sendCall(callTransmitir,this.endpointAsignarInstitucion).subscribe( //llamadada a restcaller
+     (data) => { 
+ 
+          console.log(data); 
+     
+      });
+  }
+
+
+  
+
+  public terminarLlamadaTiempo(){ //metodo para obtener lista de motivos
+   
+    
+    var callTiempoCaptura={};
+
+    callTiempoCaptura['uuid']=this.uuid;
+    
+    callTiempoCaptura['idTipoTiempo']="14";// "id_tipo_tiempo": 14,  "nombre_tipo_tiempo": "TIEMPO_CAPTURA"
+ 
+    callTiempoCaptura['fechaTiempo']=this.uuid;
+    callTiempoCaptura['idEvento']=this.eventoTmp.idEvento;
+    
+    callTiempoCaptura['creadoPor']=this.uuid;    
+    callTiempoCaptura['duracion']=this.uuid;
+ 
+    /*
+    id_tipo_tiempo,
+    id_institucion,
+    duracion,
+    fecha_tiempo,
+    id_evento,
+    id_recurso,
+    creado_por
+    */
+
+
+    this.restCaller.sendCall(callTiempoCaptura,    this.endpointSaveTiempos).subscribe( //llamadada a restcaller
+     (data) => { 
+ 
+          console.log(data); 
+     
+      });
+
+
+          
+    var callTiempoTransmision={};
+
+    callTiempoTransmision['uuid']=this.uuid;
+    
+    callTiempoTransmision['idTipoTiempo']="13";// "id_tipo_tiempo": 13,  "nombre_tipo_tiempo": "TIEMPO_TRANSMISION"
+ 
+    callTiempoTransmision['fechaTiempo']=this.uuid;
+    callTiempoTransmision['idEvento']=this.eventoTmp.idEvento;
+    
+    callTiempoTransmision['creadoPor']=this.uuid;    
+    callTiempoTransmision['duracion']=this.uuid;
+  
+    this.restCaller.sendCall(callTiempoTransmision,    this.endpointSaveTiempos).subscribe( //llamadada a restcaller
      (data) => { 
  
           console.log(data); 
