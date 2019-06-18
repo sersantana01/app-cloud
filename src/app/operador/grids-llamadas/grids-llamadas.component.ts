@@ -20,22 +20,10 @@ export class GridsLlamadasComponent implements OnInit {
   }
 
   public refreshLlamadasAtendidas() {
-    let getData = {};
-    let params = [];
-    let param = {};
+    let json = {};
+    json['uuid'] = this.uuid;
 
-    param['nombreParametro'] = 'uuid';
-    param['tipo'] = 'String';
-    param['valor'] = this.uuid;
-
-    params.push(param);
-
-    getData['nombreMs'] = 'MS_Grid_Llamadas';
-    getData['nombrePaquete'] = 'telefonista';
-    getData['nombreStoreProcedure'] = 'llam_atendidas';
-    getData['param'] = params;
-
-    this.getLlamadasAtendidas(getData);
+    this.getLlamadasAtendidas(json);
   }
 
   public setXY(x: number, y: number) {

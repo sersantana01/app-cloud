@@ -1,4 +1,3 @@
-
 <div class="modal fade " id="modalRastreoVehiculo" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-xl" role="document">
     <div class="modal-content">
@@ -16,14 +15,14 @@
               <div class="col-md-3">
                 <label class="etiqueta">Folio:</label>
                 <br />
-                <label>Desde:</label><input name="" type="text" class="cajaTexto" />
-                <label>Hasta:</label><input name="" type="text" class="cajaTexto" />
+                <label>Desde:</label><input [(ngModel)]="desdeFolio" name="" type="text" class="cajaTexto" />
+                <label>Hasta:</label><input [(ngModel)]="hastaFolio" name="" type="text" class="cajaTexto" />
               </div>
               <div class="col-md-3">
                 <label class="etiqueta">Fecha:</label>
                 <br />
-                <label>Desde:</label><input name="" type="text" class="cajaTexto" />
-                <label>Hasta:</label><input name="" type="text" class="cajaTexto" />
+                <label>Desde:</label><input [(ngModel)]="desdeFecha" name="" type="text" class="cajaTexto" />
+                <label>Hasta:</label><input [(ngModel)]="hastaFecha" name="" type="text" class="cajaTexto" />
               </div>
               <div class="col-md-3">
                 <label class="etiqueta">Motivo:</label>
@@ -34,7 +33,8 @@
                             bindLabel="nombre_motivo"
                             searchable="true"
                             placeholder="Selecciona un motivo"
-                            [(ngModel)]="eventoTmp.motivo"
+                            [searchFn]="customSearchFn"
+                            [(ngModel)]="motivoSeleccionado"
                             notFoundText="No se encontró">
                 </ng-select>
                 --> 
@@ -42,14 +42,14 @@
               <div class="col-md-3">
                 <label class="etiqueta">Calle:</label>
                 <br />
-                <input name="" type="text" class="cajaTexto" />
+                <input [(ngModel)]="calle" name="" type="text" class="cajaTexto" />
               </div>
             </div>
             <div class="row content p-3">
               <div class="col-md-3">
                 <label class="etiqueta">Colonia:</label>
                 <br />
-                <input name="" type="text" class="cajaTexto" />
+                <input [(ngModel)]="colonia" name="" type="text" class="cajaTexto" />
               </div>
               <div class="col-md-3">
                 <label class="etiqueta">Tipo de veh&iacute;culo:</label>
@@ -57,10 +57,11 @@
                <!-- <ng-select  class="selector" 
                             id="selectTipoVehiculo" 
                             [items]="tipoVehiculo"
-                            bindLabel="nombre_motivo"
+                            bindLabel="nombre_tipo"
                             searchable="true"
                             placeholder="Selecciona un tipo de vehículo"
-                            [(ngModel)]="eventoTmp.motivo"
+                            [searchFn]="customSearchFn"
+                            [(ngModel)]="tipoVehiculoSeleccionado"
                             notFoundText="No se encontró">
                 </ng-select>
               --> 
@@ -68,27 +69,34 @@
               <div class="col-md-3">
                 <label class="etiqueta">Marca:</label>
                 <br />
-              <!--  <ng-select  class="selector" 
+                <ng-select  class="selector"
+                            (change)="insertaIdMarca()"
                             id="selectMarca" 
                             [items]="marca"
-                            bindLabel="nombre_motivo"
+                            bindLabel="marca"
                             searchable="true"
                             placeholder="Selecciona una marca"
-                            [(ngModel)]="eventoTmp.motivo"
+                            [searchFn]="customSearchFn"
+                            [(ngModel)]="marcaSeleccionada"
                             notFoundText="No se encontró">
                 </ng-select>
               --> 
               </div>
-              <div class="col-md-3">
-                <label class="etiqueta">Modelo:</label>
+              <div class="col-md-3" >
+                <label class="etiqueta">Modelo:</label><!-- 
+                <label for="test">
+                    <input type="checkbox" name="test" id="checkModelo">
+                    Ingresar modelo manualmente
+                  </label> -->
                 <br />
               <!--  <ng-select  class="selector" 
                             id="selectModelo" 
                             [items]="modelo"
-                            bindLabel="nombre_motivo"
+                            bindLabel="modelo"
                             searchable="true"
+                            [searchFn]="customSearchFn"
                             placeholder="Selecciona un modelo"
-                            [(ngModel)]="eventoTmp.motivo"
+                            [(ngModel)]="modeloSeleccionado"
                             notFoundText="No se encontró">
                 </ng-select>
               --> 
@@ -98,12 +106,12 @@
               <div class="col-md-3">
                 <label class="etiqueta">Placa #:</label>
                 <br />
-                <input name="" type="text" class="cajaTexto" />
+                <input [(ngModel)]="numeroPlaca" name="" type="text" class="cajaTexto" />
               </div>
               <div class="col-md-3">
                 <label class="etiqueta">No. Serie:</label>
                 <br />
-                <input name="" type="text" class="cajaTexto" />
+                <input [(ngModel)]="numeroSerie" name="" type="text" class="cajaTexto" />
               </div>
               <div class="col-md-3">
                 <label class="etiqueta">Color:</label>
@@ -111,10 +119,11 @@
               <!--  <ng-select  class="selector" 
                             id="selectColor" 
                             [items]="color"
-                            bindLabel="nombre_motivo"
+                            bindLabel="nombre_color"
                             searchable="true"
                             placeholder="Selecciona un color"
-                            [(ngModel)]="eventoTmp.motivo"
+                            [searchFn]="customSearchFn"
+                            [(ngModel)]="colorSeleccionado"
                             notFoundText="No se encontró">
                 </ng-select>
               --> 
@@ -125,10 +134,10 @@
               <!--  <ng-select  class="selector" 
                             id="selectRastreo" 
                             [items]="rastreo"
-                            bindLabel="nombre_motivo"
+                            bindLabel="nombre_estatus_rastreo"
                             searchable="true"
                             placeholder="Selecciona un rastreo"
-                            [(ngModel)]="eventoTmp.motivo"
+                            [(ngModel)]="rastreoSeleccionado"
                             notFoundText="No se encontró">
                 </ng-select>
               --> 
@@ -138,16 +147,7 @@
               <div class="col-md-3">
                 <label class="etiqueta">Año:</label>
                 <br />
-            <!--    <ng-select  class="selector" 
-                            id="selectAnio" 
-                            [items]="anio"
-                            bindLabel="nombre_motivo"
-                            searchable="true"
-                            placeholder="Selecciona un anio"
-                            [(ngModel)]="eventoTmp.motivo"
-                            notFoundText="No se encontró">
-                </ng-select>
-              --> 
+                <input [(ngModel)]="anio" name="" type="text" class="cajaTexto" />
               </div>
               <div class="col-md-3">
                 <label class="etiqueta">Antig&uuml;edad:</label>
@@ -155,10 +155,10 @@
              <!--   <ng-select  class="selector" 
                             id="selectAntiguedad" 
                             [items]="antiguedad"
-                            bindLabel="nombre_motivo"
+                            bindLabel="nombre_antiguedad"
                             searchable="true"
                             placeholder="Selecciona una antigüedad"
-                            [(ngModel)]="eventoTmp.motivo"
+                            [(ngModel)]="antiguedadSeleccionada"
                             notFoundText="No se encontró">
                 </ng-select>
               --> 
@@ -166,13 +166,13 @@
               <div class="col-md-6">
                 <label class="etiqueta">Señas particulares:</label>
                 <br />
-                <textarea name="" cols="" rows="" class="areaTexto"></textarea>
+                <textarea [(ngModel)]="seniasParticulares" name="" cols="" rows="" class="areaTexto"></textarea>
               </div>
             </div>
             <div class="row contenedorBotones p-3">
               <div class="col-12">
-                <button type="button" class="botonModal btn btn-primary">Buscar</button>
-                <button type="button" class="botonModal btn btn-secondary">Borrar</button>
+                <button type="button" class="botonModal btn btn-primary" (click)="enviar()">Buscar</button>
+                <button type="button" class="botonModal btn btn-secondary" (click)="borrar()">Borrar</button>
               </div>
             </div>
             <hr />

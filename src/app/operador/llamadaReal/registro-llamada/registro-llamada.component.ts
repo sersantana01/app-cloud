@@ -84,16 +84,23 @@ export class RegistroLlamadaComponent implements OnInit {
    public endopointGrabacion= "http://3.14.155.2:6769/grabarAuronix";  
    //public endpointSaveEvento="http://3.14.155.2:9091/api/llamadaReal/saveEvento";   
    public endpointUpdateDesc="http://3.14.155.2:9091/api/llamadaReal/updateDescripcion";   
-   public endpointMotivos ="http://localhost:9091/api/llamadaReal/obtenerMotivos"; 
-   public endpointInst ="http://localhost:9091/api/llamadaReal/obtenerInstituciones";   
+   public endpointMotivos ="http://3.14.155.2:9091/api/llamadaReal/obtenerMotivos"; 
+   public endpointInst ="http://3.14.155.2:9091/api/llamadaReal/obtenerInstituciones";   
    public endpointModificarEvento="http://3.14.155.2:9091/api/llamadaReal/updateEvento";
 
    
-   public endpointBitacoraEvento="http://localhost:9091/api/llamadaReal/registroBitacoraEvento";
+   public endpointBitacoraEvento="http://3.14.155.2:9091/api/llamadaReal/registroBitacoraEvento";
    
-   public endpointSaveEvento="http://localhost:9091/api/llamadaReal/saveEvento";   
+   public endpointSaveEvento="http://3.14.155.2:9091/api/llamadaReal/saveEvento";   
 
-   public endpointAsignarInstitucion="http://localhost:9091/api/llamadaReal/asignarInstitucionEvento";
+   public endpointAsignarInstitucion="http://3.14.155.2:9091/api/llamadaReal/asignarInstitucionEvento";
+
+
+
+
+
+
+
    
    //public endpointBitacoraEvento="http://3.14.155.2:9091/api/llamadaReal/registroBitacoraEvento";
 

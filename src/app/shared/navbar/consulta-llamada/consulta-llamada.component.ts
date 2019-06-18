@@ -20,10 +20,16 @@ export class ConsultaLlamadaComponent implements OnInit {
   private readonly notifier: NotificacionService;
 
   public uuid=5;
-  public endpointMotivos ="http://localhost:9091/api/llamadaReal/obtenerMotivos";
+
   
-  public endpointOrigenes="http://localhost:9091/api/llamadaReal/obtenerOrigenes";
-  public endpointBusqueda ="http://localhost:9091/api/consultas/consultaLlamada";
+
+  public endpointMotivos ="http://3.14.155.2:9091/api/llamadaReal/obtenerMotivos";
+    public endpointOrigenes="http://3.14.155.2:9091/api/llamadaReal/obtenerOrigenes";
+  public endpointBusqueda ="http://3.14.155.2:9091/api/consultas/consultaLlamada";
+/*
+  public endpointMotivos ="http://localhost:9091/api/llamadaReal/obtenerMotivos";
+    public endpointOrigenes="http://localhost:9091/api/llamadaReal/obtenerOrigenes";
+  public endpointBusqueda ="http://localhost:9091/api/consultas/consultaLlamada";*/
   //public endpointBusqueda ="http://3.14.155.2:9091/api/llamadaReal/consultaLlamada";
      
    

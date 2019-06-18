@@ -83,7 +83,7 @@ import {
     MatStepperModule, 
         
     RouterModule, CommonModule, MatButtonModule, FormsModule , NgSelectModule , NgbModule],
-    declarations: [ NavbarComponent, InicioLlamadaComponent, LlamadaComunComponent, ShortcutsComponent, ConsultaLlamadaComponent, TelefonosEmergenciaComponent ],
+    declarations: [ NavbarComponent, InicioLlamadaComponent, LlamadaComunComponent, ShortcutsComponent, ConsultaLlamadaComponent, TelefonosEmergenciaComponent, RastreoVehiculoComponent ],
    
     providers: [
       { provide: MatPaginatorIntl, useValue: getEspanolPaginatorIntl() }
