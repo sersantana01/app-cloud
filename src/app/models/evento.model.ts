@@ -44,6 +44,11 @@ export class Evento {
   public colonia:string;
   public tipoTelefono:string; 
 
+
+/////////////////////////DATOS DENUNCIANTE///////////////////////////////////////////
+
+
+
   
   public listaInstituciones=[];
   

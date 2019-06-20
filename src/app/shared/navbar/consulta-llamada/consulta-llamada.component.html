@@ -27,15 +27,21 @@
               <div class="row content p-3">
                 <div class="col-md-3">
                   <label class="etiqueta">Ciudad:</label>
-                  <br />
-                  <select name="" class="selector">
-                    <option>SELECCIONAR</option>
-                  </select>
+                  <ng-select name="ciudades"  class="selector" id="selectCiudad" [items]="itemsSelectCiudades"                 
+                  searchable="false"
+                  bindLabel="nombre_municipio"
+                  placeholder="Selecciona una ciudad" 
+                  [(ngModel)]="consultaCiudad" >
+                </ng-select>
                 </div>
                 <div class="col-md-3">
                   <label class="etiqueta">Colonia:</label>
-                  <br />
-                  <input [(ngModel)]="this.busq_colonia" name="busq_colonia" type="text" class="cajaTexto" />
+                  <ng-select name="colonias"  class="selector" id="selectColonia" [items]="itemsSelectColonias"                 
+                  searchable="false"
+                  bindLabel="nombre_colonia"
+                  placeholder="Selecciona una colonia" 
+                  [(ngModel)]="consultaColonia" >
+                </ng-select>
                 </div>
                 <div class="col-md-3">
                   <label class="etiqueta">Calle:</label>
@@ -113,12 +119,25 @@
                   <div class="row">
                       <div class="col-md-6">
                           <label>Desde:</label>
-                          <input type="text" name="rangoFechaInicialDetencion" id="fechaInicialConsultaLlamada" value="Fecha inicial" class="cajaTexto" readonly="readonly" /> 
-                      </div>
+                          <mat-form-field>
+                              <input disabled
+                              
+                              (dateChange)="setFinal()"
+                              name="fechaDesde" [(ngModel)]="busq_fechaDesde"  matInput [matDatepicker]="picker1" placeholder="Fecha Inicio">
+                              <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                              <mat-datepicker disabled="false" #picker1></mat-datepicker>
+                            </mat-form-field>
+                        </div>
                       <div class="col-md-6">
                           <label>Hasta:</label>
-                          <input type="text" name="rangoFechaFinalDetencion" id="fechaFinalConsultaLlamada" value="Fecha final" class="cajaTexto" readonly="readonly" />
-                      </div>
+                          <mat-form-field>
+                              <input  disabled
+                              (dateChange)="setInicio()"
+                               name="fechaHasta" [(ngModel)]="busq_fechaHasta"  matInput [matDatepicker]="picker2" placeholder="Fecha Inicio">
+                              <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                              <mat-datepicker disabled="false" #picker2></mat-datepicker>
+                            </mat-form-field>  
+                        </div>
                   </div>
                </div>
                <div class="col-md-6">
@@ -127,24 +146,32 @@
                       <textarea  [(ngModel)]="busq_desc" name="busq_desc" cols="" rows="" class="areaTexto"></textarea>
                 </div>
               </div>
+
               <div class="row content p-3">
                 <div class="col-md-3">
                   <label class="etiqueta">Lugar:</label>
                   <br />
                   <input name="" type="text" class="cajaTexto" />
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-2">
                   <label class="etiqueta">Estatus:</label>
-                  <br />
-                  <select name="" class="selector">
-                    <option>SELECCIONAR</option>
-                  </select>
+                  <ng-select name="estatuses"  class="selector" id="selectEstatus" [items]="itemsSelectEstatus"                 
+                    searchable="false"
+                    placeholder="Selecciona un estatus" 
+                    [(ngModel)]="consultaEstatus" >
+                  </ng-select>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-3">
+                    <label class="etiqueta">General(*):</label>
+                    <br />
+                    <input [(ngModel)]="this.busq_general" name="busq_general" type="text" class="cajaTexto" />
+                
+                </div>
+                <div class="col-md-3">
                   <div class="row contenedorBotones p-3">
                     <div class="col-6">
                       </div>
-                      <div class="col-6 nopadding">
+                      <div class="col-12 nopadding">
                         <button (click)="testMyEvento();" type="button" class="botonModal btn btn-primary">Buscar</button>
                         <input type="reset" value="Borrar" class="botonModal btn btn-secondary">
                       </div>
@@ -174,59 +201,20 @@
 
                         <tr *ngFor="let evento of listaLlamadasCoincidencia; let i=index;" [id]="'row_' + (i+1)" (click)="setLlamadaActual(i)">
                             <td>{{i+1}}</td>
-                            <td>{{evento.fechaRecepcion}}</td>
-                            <td>{{evento.motivoNombre}}</td>
-                            <td>{{evento.idEvento}}</td>
-                            <td>{{evento.numeroTelefonico}}</td>
-                            <td>{{evento.municipio}}</td>
-                            <td>{{evento.colonia}}</td>
-                            <td>{{evento.creadoPorNombre}}</td>
+                            <td>**{{evento.fechaRecepcion}}**</td>
+                            <td>{{evento.nombre_motivo}}</td>
+                            <td>{{evento.folio}}</td>
+                            <td>{{evento.numero_telefono}}</td>
+                            <td>{{evento.nombre_municipio}}</td>
+                            <td>{{evento.nombre_colonia}}</td>
+                            <td>**{{evento.creadoPorNombre}}**</td>
                             <td><a href="#"><img src="../assets/images/iconosTablas/icnRecurrente.svg" class="icnSvg"/></a></td>
                             <td><a href="#"><img src="../assets/images/iconosTablas/icnDiadema.svg" class="icnSvg"/></a></td>
                             <td><a href="#"><img src="../assets/images/iconosTablas/icnEditar.svg" class="icnSvg"/></a></td> 
                           </tr>
 
                       <tr>
-                        <!-- 
-                        <td>1</td>
-                        <td>2019-03-14 16:56:00</td>
-                        <td>APOYO/AMBULANTAJE</td>
-                        <td>0021000100000012540</td>
-                        <td>312313123</td>
-                        <td>SAN ANDRES CHOLULA</td>
-                        <td>TOSCANA</td>
-                        <td>OPERADOR1</td>
-                        <td><a href="#"><img src="../assets/images/iconosTablas/icnRecurrente.svg" class="icnSvg"/></a></td>
-                        <td><a href="#"><img src="../assets/images/iconosTablas/icnDiadema.svg" class="icnSvg"/></a></td>
-                        <td><a href="#"><img src="../assets/images/iconosTablas/icnEditar.svg" class="icnSvg"/></a></td> 
-                      </tr>
-                      <tr>
-                        <td>2</td>
-                        <td>2019-03-14 16:56:00</td>
-                        <td>APOYO/AMBULANTAJE</td>
-                        <td>0021000100000012540</td>
-                        <td>312313123</td>
-                        <td>SAN ANDRES CHOLULA</td>
-                        <td>TOSCANA</td>
-                        <td>OPERADOR1</td>
-                        <td><a href="#"><img src="../assets/images/iconosTablas/icnRecurrente.svg" class="icnSvg"/></a></td>
-                        <td><a href="#"><img src="../assets/images/iconosTablas/icnDiadema.svg" class="icnSvg"/></a></td>
-                        <td><a href="#"><img src="../assets/images/iconosTablas/icnEditar.svg" class="icnSvg"></a></td> 
-                      </tr>
-                      <tr>
-                        <td>3</td>
-                        <td>2019-03-14 16:56:00</td>
-                        <td>APOYO/AMBULANTAJE</td>
-                        <td>0021000100000012540</td>
-                        <td>312313123</td>
-                        <td>SAN ANDRES CHOLULA</td>
-                        <td>TOSCANA</td>
-                        <td>OPERADOR1</td>
-                        <td><a href="#"><img src="../assets/images/iconosTablas/icnRecurrente.svg" class="icnSvg"/></a></td>
-                        <td><a href="#"><img src="../assets/images/iconosTablas/icnDiadema.svg" class="icnSvg"/></a></td>
-                        <td><a href="#"><img src="../assets/images/iconosTablas/icnEditar.svg" class="icnSvg"></a></td> 
-                      </tr>
-                      -->
+                       
                     </tbody>
                   </table>
               </div>

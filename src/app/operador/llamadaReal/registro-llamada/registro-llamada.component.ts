@@ -87,15 +87,15 @@ export class RegistroLlamadaComponent implements OnInit {
    public endpointMotivos ="http://3.14.155.2:9091/api/llamadaReal/obtenerMotivos"; 
    public endpointInst ="http://3.14.155.2:9091/api/llamadaReal/obtenerInstituciones";   
    public endpointModificarEvento="http://3.14.155.2:9091/api/llamadaReal/updateEvento";   
-   public endpointBitacoraEvento="http://3.14.155.2:9091/api/llamadaReal/registroBitacoraEvento";
+   public endpointBitacoraEvento="http://localhost:9091/api/llamadaReal/registroBitacoraEvento";
    
-     public endpointSaveEvento="http://3.14.155.2:9091/api/llamadaReal/saveEvento";   
+     public endpointSaveEvento="http://localhost:9091/api/llamadaReal/saveEvento";   
 
    public endpointAsignarInstitucion="http://3.14.155.2:9091/api/llamadaReal/asignarInstitucionEvento";
     
    //public endpointBitacoraEvento="http://3.14.155.2:9091/api/llamadaReal/registroBitacoraEvento";
 
-   public endpointSaveTiempos="http://localhost:9091/guardaTiempo"; 
+   public endpointSaveTiempos="http://localhost:9091/api/llamadaReal/guardaTiempo"; 
 
 
    //public endpointSaveEvento="http://localhost:9091/api/llamadaReal/saveEvento";   
@@ -483,9 +483,7 @@ constructor(public dataShared: DataSharedService,
                console.log(data);         
 
                var respuesta= JSON.parse(data["responseData"]); 
- 
-             
-
+  
                if(respuesta["v_id_evento"]!=undefined && respuesta["v_id_evento"]!= null ){
                 this.eventoTmp.idEvento=respuesta["v_id_evento"];
 
@@ -514,7 +512,7 @@ constructor(public dataShared: DataSharedService,
                 //bitacora["idInstitucion"];
                 // bitacora["direccionIp"];
                 bitacora["fechaHoraMovimiento"]= new Date().getTime(); 
-                //this.saveBitacoraEvento(bitacora); 
+                this.saveBitacoraEvento(bitacora); 
 
                }else{
                 this.notifier.showNotification ('top','center', 'Ocurrio un error al intentar guardar el evento. Intente de nuevo.', 'danger' );
@@ -587,11 +585,11 @@ constructor(public dataShared: DataSharedService,
     
     callTiempoCaptura['idTipoTiempo']="14";// "id_tipo_tiempo": 14,  "nombre_tipo_tiempo": "TIEMPO_CAPTURA"
  
-    callTiempoCaptura['fechaTiempo']=this.uuid;
+    callTiempoCaptura['fechaTiempo']=this.eventoTmp.fechaInicio;
     callTiempoCaptura['idEvento']=this.eventoTmp.idEvento;
     
     callTiempoCaptura['creadoPor']=this.session_id_user;    
-    callTiempoCaptura['duracion']=tiempoFinCaptura;
+  //  callTiempoCaptura['duracion']=tiempoFinCaptura;
  
     
 
@@ -901,7 +899,7 @@ constructor(public dataShared: DataSharedService,
      }
 
      public callReset(){                   //metodo para iniciar el reseteo de la llamada/evento
-      
+      this.terminarLlamadaTiempo();
        $("#button_header_reset").click();  //se manda llamar el evento que se encuentra en header
      }
     
