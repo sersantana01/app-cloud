@@ -2,7 +2,8 @@
   <div class="modal-dialog modal-xl" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title">Armas involucradas</h5>
+        <h5 class="modal-title" id="RegistroTitle">Armas involucradas</h5>
+        <h5 class="modal-title" id="EditarArmaTitle">Editar Registro</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -107,44 +108,17 @@
           <br>
           <div class="row contenedorBotones p-3">
             <div class="col-md-12">
-              <button type="button" class="btn btn-info boton-add" id="boton-add" (click)="insertArmas()">Agregar</button>
+              <button type="button" class="btn btn-info boton-add" id="boton-agregarArma" (click)="insertArmas()">Agregar</button>
             </div>
           </div>
-          <div class="row contenedorBotones p-3 boton-editar hide" id="boton-editar">
+          <div class="row contenedorBotones p-3 boton-editar" id="botones-editarArma">
             <div class="col-md-12">
               <button type="button" class="botonModal btn btn-primary" id="bntGuardarEditarArma" (click)="save()">Guardar</button>
               <button type="button" class="botonModal btn btn-secondary" id="bntCancelarEditarArma" (click)="close()">Cancelar</button>
             </div>
           </div>
-        </div><!--termina envolventeAgregarArma   -->
-
-        <div class="EditarArma hide" id="EditarArma">
-          <h3>Registro a editar</h3>
-          <div class="row content p-3">
-            <div class="col-3">
-              <label class="etiqueta">Marca:</label>
-              <br />
-              <input type="text" class="cajaTexto" name="marca" [(ngModel)]="model.marca"/>
-            </div>
-            <div class="col-3">
-              <label class="etiqueta">Modelo:</label>
-              <br />
-              <input  type="text" class="cajaTexto" name="modelo" [(ngModel)]="model.modelo"/>
-            </div>
-            <div class="col-3">
-              <label class="etiqueta">No. De serie / Matr&iacute;cula:</label>
-              <br />
-              <input type="text" class="cajaTexto" name="matricula" [(ngModel)]="model.matricula"/>
-            </div>
-            <div class="col-3">
-              <label class="etiqueta">Observaciones:</label>
-              <br />
-              <textarea cols="" rows="" class="areaTexto" name="observaciones" [(ngModel)]="model.observaciones"></textarea>
-            </div>
-          </div>
-
         </div>
-        <!--termina envolventeEditarArma   -->
+        <!--envolventeAgregarArma -->
       </div>
       <!-- termina modal-body -->
       <br>

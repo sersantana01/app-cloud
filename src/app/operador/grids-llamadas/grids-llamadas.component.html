@@ -36,17 +36,17 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let llamadaAtendida of llamadasAtendidas">
-                            <td>{{llamadaAtendida.folio}}</td>
-                            <td>{{llamadaAtendida.fecha}}</td>
-                            <td>{{llamadaAtendida.numero_telefono}}</td>
-                            <td>{{llamadaAtendida.cuenta}}</td>
-                            <td>{{llamadaAtendida.nombre_motivo}}</td>
-                            <td>{{llamadaAtendida.nombre_municipio}}</td>
-                            <td>{{llamadaAtendida.nombre_colonia}}</td>
-                            <td>{{llamadaAtendida.descripcion}}</td>
+                        <tr *ngFor="let llamadaActiva of llamadasActivas">
+                            <td>{{llamadaActiva.folio}}</td>
+                            <td>{{llamadaActiva.fecha}}</td>
+                            <td>{{llamadaActiva.numero_telefono}}</td>
+                            <td>{{llamadaActiva.cuenta}}</td>
+                            <td>{{llamadaActiva.nombre_motivo}}</td>
+                            <td>{{llamadaActiva.nombre_municipio}}</td>
+                            <td>{{llamadaActiva.nombre_colonia}}</td>
+                            <td>{{llamadaActiva.descripcion}}</td>
                             <td>
-                                <a href="javascript:void(0)" role="button" (click)="setXY(llamadaAtendida.latitud, llamadaAtendida.longitud)"><i class='fas fa-globe'></i></a>
+                                <a href="javascript:void(0)" role="button" (click)="setXY(llamadaActiva.latitud, llamadaActiva.longitud)"><i class='fas fa-globe'></i></a>
                             </td>
                         </tr>
                     </tbody>

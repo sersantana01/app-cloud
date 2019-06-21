@@ -73,6 +73,8 @@ export class VehiculosComponent implements OnInit {
   constructor(private http: HttpClient) { }
 
   ngOnInit() {
+    document.getElementById('EditarAutoTitle').style.display = 'none';
+    document.getElementById('botonesEditarAuto').style.display = 'none';
     this.dataSource.paginator = this.paginator;
     this.getCarType();
     this.getCarBrand();
@@ -216,13 +218,19 @@ export class VehiculosComponent implements OnInit {
         });
   }
   editAuto(item) {
-    const shadesEl = document.querySelector('.envolventeAgregarVehiculo');
+    document.getElementById('RegistroAutoTitle').style.display = 'none';
+    document.getElementById('tabla-auto').style.display = 'none';
+    document.getElementById('EditarAutoTitle').style.display = 'block';
+    document.getElementById('envolventeAgregarVehiculo').style.display = 'block';
+    document.getElementById('botonInsertarAuto').style.display = 'none';
+    document.getElementById('botonesEditarAuto').style.display = 'block';
+/*    const shadesEl = document.querySelector('.envolventeAgregarVehiculo');
     const shadesE2 = document.querySelector('.EditarAuto');
     const shadesE3 = document.querySelector('.tabla-auto');
     shadesEl.classList.add('hide');
     shadesE3.classList.add('hide');
     shadesE2.classList.remove('hide');
-    shadesE2.classList.add('show');
+    shadesE2.classList.add('show');*/
     console.log('Edit item');
     console.log(item);
     this.editedIndex = this.dataRow.indexOf(item);
@@ -272,12 +280,18 @@ export class VehiculosComponent implements OnInit {
           this.fetchAutos();
         }
     );
-    const shadesE1 = document.querySelector('.envolventeAgregarVehiculo');
+    document.getElementById('RegistroTitle').style.display = 'block';
+    document.getElementById('tabla-arma').style.display = 'block';
+    document.getElementById('envolventeAgregarArma').style.display = 'block';
+    document.getElementById('boton-agregarArma').style.display = 'block';
+    document.getElementById('botones-editarArma').style.display = 'none';
+    document.getElementById('EditarArmaTitle').style.display = 'none';
+/*    const shadesE1 = document.querySelector('.envolventeAgregarVehiculo');
     const shadesE2 = document.querySelector('.EditarAuto');
     const shadesE3 = document.querySelector('.tabla-auto');
     shadesE1.classList.remove('hide');
     shadesE2.classList.add('hide');
-    shadesE3.classList.remove('hide');
+    shadesE3.classList.remove('hide');*/
     this.model.selectedTipo = null;
     this.model.selectedMarca = null;
     this.model.selectedModelo = null;

@@ -9,4 +9,7 @@ export class GridsLlamadasService {
     public getLlamadasAtendidas(url: string, data: any): Observable<any> {
         return this.http.post(url, data);
     }
+    public getLlamadasActivas(url: string, data: any): Observable<any> {
+        return this.http.post(url, data);
+    }
 }
