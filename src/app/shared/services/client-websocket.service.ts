@@ -38,8 +38,8 @@ export class ClientWebsocketService  {
 
         if(mensaje.x!=null && mensaje.y!=null){
           this.dataSharedService.setUbicacionLlamada(mensaje.x, mensaje.y,"");/////////////PONER ZONA PATRULLAJE EN EL 3er parametro
- 
-        } 
+
+        }
       });
       //this.mensaje.tipo = 'NUEVO_USUARIO';
       //this.mensaje.idUsuario = '76';
