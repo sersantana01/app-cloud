@@ -36,36 +36,17 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr class="filaSeleccionada">
+                        <tr *ngFor="let llamadaAtendida of llamadasAtendidas">
+                            <td>{{llamadaAtendida.folio}}</td>
+                            <td>{{llamadaAtendida.fecha}}</td>
+                            <td>{{llamadaAtendida.numero_telefono}}</td>
+                            <td>{{llamadaAtendida.cuenta}}</td>
+                            <td>{{llamadaAtendida.nombre_motivo}}</td>
+                            <td>{{llamadaAtendida.nombre_municipio}}</td>
+                            <td>{{llamadaAtendida.nombre_colonia}}</td>
+                            <td>{{llamadaAtendida.descripcion}}</td>
                             <td>
-                                121314321432523
-                            </td>
-                            <td>
-                                22-02-2019 13:20:34
-                            </td>
-                            <td>
-                                5521219376
-                            </td>
-                            <td>
-                                Juan Bernal
-                            </td>
-                            <td>
-                                M&eacute;dico / intoxicaci&oacute;n
-                            </td>
-                            <td>
-                                San Felipe
-                            </td>
-                            <td>
-                                Lomas
-                            </td>
-                            <td>
-                                Descripci&oacute;n de la llamada
-                            </td>
-                            <td>
-                                <label class="switch">
-                                    <input type="checkbox" checked>
-                                    <span class="slider round"></span>
-                                </label>
+                                <a href="javascript:void(0)" role="button" (click)="setXY(llamadaAtendida.latitud, llamadaAtendida.longitud)"><i class='fas fa-globe'></i></a>
                             </td>
                         </tr>
                     </tbody>
@@ -118,10 +99,7 @@
                                 Descripci&oacute;n de la llamada
                             </td>
                             <td>
-                                <label class="switch">
-                                    <input type="checkbox">
-                                    <span class="slider round"></span>
-                                </label>
+                                <a href="javascript:void(0)" role="button" (click)="setXY(llamadaAtendida.latitud, llamadaAtendida.longitud)"><i class='fas fa-globe'></i></a>
                             </td>
                         </tr>
                         <tr class="filaSeleccionada">
@@ -150,10 +128,7 @@
                                 Descripci&oacute;n de la llamada
                             </td>
                             <td>
-                                <label class="switch">
-                                    <input type="checkbox" checked>
-                                    <span class="slider round"></span>
-                                </label>
+                                <a href="javascript:void(0)" role="button" (click)="setXY(llamadaAtendida.latitud, llamadaAtendida.longitud)"><i class='fas fa-globe'></i></a>
                             </td>
                         </tr>
                         <tr>
@@ -182,10 +157,7 @@
                                 Descripci&oacute;n de la llamada
                             </td>
                             <td>
-                                <label class="switch">
-                                    <input type="checkbox">
-                                    <span class="slider round"></span>
-                                </label>
+                                <a href="javascript:void(0)" role="button" (click)="setXY(llamadaAtendida.latitud, llamadaAtendida.longitud)"><i class='fas fa-globe'></i></a>
                             </td>
                         </tr>
                     </tbody>
@@ -238,10 +210,7 @@
                                 Descripci&oacute;n de la llamada
                             </td>
                             <td>
-                                <label class="switch">
-                                    <input type="checkbox">
-                                    <span class="slider round"></span>
-                                </label>
+                                <a href="javascript:void(0)" role="button" (click)="setXY(llamadaAtendida.latitud, llamadaAtendida.longitud)"><i class='fas fa-globe'></i></a>
                             </td>
                         </tr>
                         <tr class="filaSeleccionada">
@@ -270,10 +239,7 @@
                                 Descripci&oacute;n de la llamada
                             </td>
                             <td>
-                                <label class="switch">
-                                    <input type="checkbox" checked>
-                                    <span class="slider round"></span>
-                                </label>
+                                <a href="javascript:void(0)" role="button" (click)="setXY(llamadaAtendida.latitud, llamadaAtendida.longitud)"><i class='fas fa-globe'></i></a>
                             </td>
                         </tr>
                     </tbody>

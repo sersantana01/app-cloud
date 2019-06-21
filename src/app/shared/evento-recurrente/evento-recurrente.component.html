@@ -1,0 +1,81 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <title>Documento sin título</title>
+</head>
+
+<body>
+
+<!-- Modal eventos cercanos-->
+<div class="modal fade" id="modalEventosCercanos" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalRastreoVehiculoLabel">Eventos cercanos</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"> <span aria-hidden="true">&times;</span> </button>
+      </div>
+      <div class="modal-body">
+        <!--inicia contenido eventos cercanos -->
+
+        <div class="contGeneral">
+          <div class="container-fluid">
+            <div class="row titulo">
+              <div class="col-12">
+                <h1>Eventos cercanos</h1>
+              </div>
+            </div>
+            <div class="row content">
+              <div class="col-md-12"> <span class="inatrucciones">Seleccione un evento para registrar recurrencia</span> </div>
+            </div>
+            <div class="row">
+              <div class="col-12">
+                <table class="table">
+                  <thead>
+                  <tr>
+                    <th>Folio</th>
+                    <th>Motivo</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <tr>
+                    <td><a href="#">01800807796</a></td>
+                    <td><a href="#">Abandono de persona</a></td>
+                  </tr>
+                  <tr>
+                    <td><a href="#">2222733739</a></td>
+                    <td><a href="#">Abandono de persona</a></td>
+                  </tr>
+                  <tr>
+                    <td><a href="#">5555555555</a></td>
+                    <td><a href="#">Abuso de autoridad</a></td>
+                  </tr>
+                  <tr>
+                    <td><a href="#">0891213123212</a></td>
+                    <td><a href="#">Abuso de autoridad</a></td>
+                  </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          <!--container-fluid -->
+        </div>
+        <!--contGeneral -->
+
+        <!--termina contenido eventos cercanos -->
+      </div>
+      <div class="modal-footer">
+        <div class="row contenedorBotones">
+          <div class="col-12">
+            <button type="button" class="botonModal btn btn-primary" (click)="guardar()">Aceptar</button>
+            <button type="button" class="botonModal btn btn-secondary" data-dismiss="modal">Cancelar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!--termina modal eventos cercanos -->
+</body>
+</html>
