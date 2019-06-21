@@ -76,7 +76,7 @@ cursor:pointer;
   margin-bottom:4px;
   cursor:pointer;
   text-align:center;
-  
+
   }
  .iconoPrioridadPreseleccionada img{ width:40px; max-height:40px;  }
 
@@ -500,7 +500,7 @@ text-align:center;
 }
 .envIcnCorporacion img{ width:40px; max-height:40px; margin-top:4px;}
 
- 
+
 .envIcnPrioridadRojo, .envIcnPrioridadAmarillo, .envIcnPrioridadVerde{
 width:50px;
 height:50px;
@@ -608,3 +608,7 @@ div.fixed-plugin{width:32px;}
 
 
 .notificationMsg {z-index:3000 !important ;}
+
+
+/****************estilo para modales al frente*****************/
+.main-panel .navbar.navbar-absolute{z-index: 3;}
