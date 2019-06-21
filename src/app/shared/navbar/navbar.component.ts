@@ -266,4 +266,13 @@ export class NavbarComponent implements OnInit {
        // $("#button_getmotivos_consulta").click();
        // angular.element('#myselector').triggerHandler('click');
     }
+
+    
+    public logout():void{
+        this.authService.logout();
+     
+        this.router.navigate(['/pages/login']);
+     
+     
+         }
 }

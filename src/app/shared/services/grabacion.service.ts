@@ -1,32 +1,48 @@
 import { Injectable } from '@angular/core';
 
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHandler, HttpHeaders } from '@angular/common/http';
+
+import {AuthService} from '../../pages/login/auth.service';
+import { Observable } from 'rxjs';
+import {Grabacion} from '../../models/grabacion.model'
+import { HashLocationStrategy } from '@angular/common';
 
 @Injectable({
   providedIn: 'root'
 })
 export class GrabacionService {
+ 
 
 status:string = '';
 
-  constructor(private http: HttpClient) { }
+private httpHeaders = new  HttpHeaders({'Content-Type': 'application/json'});
 
-  grabarAuronix(pre, fActual, accion) {
-    this.http
-      .post('http://3.14.155.2:6769/grabarAuronix', {
-        prefolio: pre,
-        fechaGrabacion: fActual,
-        accion: accion,
-        ipOperador: '102.22.1.11'
-      })
-      .subscribe(data => {
 
-        this.status = data['estatus'];
-      //  alert(this.status);
-      
-      });
 
-      
-      return this.status;
-    }
+  constructor(private http: HttpClient, private authService: AuthService) { }
+
+
+  private  agregarAuthorizationHeaer(){
+    let token =   this.authService.token;
+
+
+     if( token != null){
+       return this.httpHeaders.append('Authorization', 'Bearer ' + token);
+     }
+
+     return this.httpHeaders;
+
+  }
+
+
+  public grabacion(grabacion : Grabacion):Observable<any>{
+   
+   let urlEndpoint = 'http://3.14.155.2:6769/solictudGrabacion';
+    return this.http.post<any>(urlEndpoint, grabacion,  { headers: this.agregarAuthorizationHeaer()}).pipe();
+  }
+
+
+
+
+
   }
