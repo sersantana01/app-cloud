@@ -47,7 +47,6 @@ export class GridsLlamadasComponent implements OnInit {
 
   public getLlamadasAtendidas(data: any) {
     let urlGetLlamadasAtendidas = 'http://3.14.155.2:9094/obtenerLlamadasAtendidas';
-    //let urlGetLlamadasAtendidas = 'http://localhost:8999/obtenerLlamadasAtendidas';
 
     this.gridsLlamadasService.getLlamadasAtendidas(urlGetLlamadasAtendidas, data).subscribe(
       response => {
@@ -63,7 +62,7 @@ export class GridsLlamadasComponent implements OnInit {
   }
 
   public getLlamadasAtivas(data: any) {
-    const urlGetLlamadasActivas = 'http://localhost:8999/obtenerLlamadasActivas';
+    const urlGetLlamadasActivas = 'http://3.14.155.2:9094/obtenerLlamadasActivas';
     this.gridsLlamadasService.getLlamadasActivas(urlGetLlamadasActivas, data).subscribe(
         response => {
          this.llamadasActivas = response['items'];
