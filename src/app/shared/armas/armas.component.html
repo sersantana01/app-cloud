@@ -1,0 +1,241 @@
+<div class="modal fade" id="armasModal" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog modal-xl" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Armas involucradas</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="envolventeAgregarArma" id="envolventeAgregarArma">
+
+          <div class="row content p-3">
+            <div class="col-md-4">
+              <label class="etiqueta">Tipo de arma:</label>
+              <br/>
+
+              <ng-select class="selector" id="selectArma" [items]="itemsSelectArmas"
+                         bindLabel="nombre_tipo"
+                         bindValue="id_tipo_arma"
+                         placeholder="Selecciona un arma"
+                         [(ngModel)]="model.selectedArma">
+              </ng-select>
+              <br>
+              <span id="validate" *ngIf="validate">
+                        <p>*Debes seleccionar un tipo de arma</p>
+                  </span>
+              <br>
+            </div>
+            <div class="col-md-4">
+              <label class="etiqueta">Categoría de arma:</label>
+              <br/>
+
+              <ng-select class="selector" id="selectCat" [items]="itemsCatArmas"
+                         bindLabel="nombre_categoria"
+                         bindValue="id_categoria_arma"
+                         placeholder="Selecciona una categoria de arma"
+                         [(ngModel)]="model.selectedCat">
+              </ng-select>
+            </div>
+            <div class="col-md-4">
+              <label class="etiqueta">Marca:</label>
+              <br />
+              <input type="text" class="cajaTexto" name="marca" [(ngModel)]="model.marca"/>
+            </div>
+            <div class="col-md-4">
+              <label class="etiqueta">Modelo:</label>
+              <br />
+              <input  type="text" class="cajaTexto" name="modelo" [(ngModel)]="model.modelo"/>
+            </div>
+            <div class="col-md-4 form-group" [class.has-error]="matricula.invalid && matricula.touched">
+              <label for="matricula" class="etiqueta control-label">No. De serie / Matr&iacute;cula:</label>
+              <br />
+              <input id="matricula" type="text" class="cajaTexto" name="matricula"
+                     #matricula="ngModel"[(ngModel)]="model.matricula"/>
+              <span class="help-block"
+                    *ngIf="matricula.invalid && matricula.touched">
+                            Ingresa sólo numeros
+                          </span>
+            </div>
+            <div class="col">
+              <label class="etiqueta">Observaciones:</label>
+              <br />
+              <textarea cols="" rows="" class="areaTexto" name="observaciones" [(ngModel)]="model.observaciones"></textarea>
+            </div>
+          </div>
+          <div class="row titulo p-3">
+            <h5>Portador</h5>
+          </div>
+          <div class="row content p-3">
+            <div class="col-md-4">
+              <label class="etiqueta">Nombre:</label>
+              <br />
+              <input type="text" class="cajaTexto" [(ngModel)]="model.nombre"/>
+            </div>
+            <div class="col-md-4">
+              <label class="etiqueta">Apellido Paterno:</label>
+              <br />
+              <input type="text" class="cajaTexto" [(ngModel)]="model.aPaterno"/>
+            </div>
+            <div class="col-md-4">
+              <label class="etiqueta">Apellido Materno:</label>
+              <br />
+              <input type="text" class="cajaTexto" [(ngModel)]="model.aMaterno"/>
+            </div>
+          </div>
+          <div class="row titulo p-3">
+            <h5>Registro</h5>
+          </div>
+          <div class="row content p-3">
+            <div class="col-md-4">
+              <label class="etiqueta">Folio de credencial:</label>
+              <br />
+              <input type="text" class="cajaTexto" disabled/>
+            </div>
+            <div class="col-md-4">
+              <label class="etiqueta">Corporaci&oacute;n:</label>
+              <br />
+              <input type="text" class="cajaTexto" disabled/>
+            </div>
+            <div class="col-md-4">
+              <label class="etiqueta">Vigencia:</label>
+              <br />
+              <input type="date" id="date" class="cajaTexto" [(ngModel)]="model.vigencia"/><img src="../../assets/images/si-glyph-button-error.svg" id="icnFechaArmas" style="display:none;"/>
+            </div>
+          </div>
+          <br>
+          <div class="row contenedorBotones p-3">
+            <div class="col-md-12">
+              <button type="button" class="btn btn-info boton-add" id="boton-add" (click)="insertArmas()">Agregar</button>
+            </div>
+          </div>
+          <div class="row contenedorBotones p-3 boton-editar hide" id="boton-editar">
+            <div class="col-md-12">
+              <button type="button" class="botonModal btn btn-primary" id="bntGuardarEditarArma" (click)="save()">Guardar</button>
+              <button type="button" class="botonModal btn btn-secondary" id="bntCancelarEditarArma" (click)="close()">Cancelar</button>
+            </div>
+          </div>
+        </div><!--termina envolventeAgregarArma   -->
+
+        <div class="EditarArma hide" id="EditarArma">
+          <h3>Registro a editar</h3>
+          <div class="row content p-3">
+            <div class="col-3">
+              <label class="etiqueta">Marca:</label>
+              <br />
+              <input type="text" class="cajaTexto" name="marca" [(ngModel)]="model.marca"/>
+            </div>
+            <div class="col-3">
+              <label class="etiqueta">Modelo:</label>
+              <br />
+              <input  type="text" class="cajaTexto" name="modelo" [(ngModel)]="model.modelo"/>
+            </div>
+            <div class="col-3">
+              <label class="etiqueta">No. De serie / Matr&iacute;cula:</label>
+              <br />
+              <input type="text" class="cajaTexto" name="matricula" [(ngModel)]="model.matricula"/>
+            </div>
+            <div class="col-3">
+              <label class="etiqueta">Observaciones:</label>
+              <br />
+              <textarea cols="" rows="" class="areaTexto" name="observaciones" [(ngModel)]="model.observaciones"></textarea>
+            </div>
+          </div>
+
+        </div>
+        <!--termina envolventeEditarArma   -->
+      </div>
+      <!-- termina modal-body -->
+      <br>
+      <!--      <button type="button" class="botonModal btn btn-primary" style="width:30%" id="icnEditarArma">Ejemplo boton editar registro</button>-->
+      <!-- data-table -->
+      <div class="mat-elevation-z8 data-table tabla-arma" id="tabla-arma">
+        <table mat-table [dataSource]="dataSource" matSort aria-label="Elements" class="tabla100">
+          <!-- Id Column -->
+          <ng-container matColumnDef="nombre_tipo">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Tipo de arma</mat-header-cell>
+            <mat-cell *matCellDef="let row">{{row.nombre_tipo}}</mat-cell>
+          </ng-container>
+
+          <!-- Name Column -->
+          <ng-container matColumnDef="nombre_categoria">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Categoría de arma</mat-header-cell>
+            <mat-cell *matCellDef="let row">{{row.nombre_categoria}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="marca">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Marca</mat-header-cell>
+            <mat-cell *matCellDef="let row">{{row.marca}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="modelo">
+            <mat-header-cell *matHeaderCellDef>Modelo</mat-header-cell>
+            <mat-cell *matCellDef="let row">{{row.modelo}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="matricula">
+            <mat-header-cell *matHeaderCellDef>Matricula</mat-header-cell>
+            <mat-cell *matCellDef="let row">{{row.matricula}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="observaciones">
+            <mat-header-cell *matHeaderCellDef>Observaciones</mat-header-cell>
+            <mat-cell *matCellDef="let row">{{row.observaciones}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="nombre_portador">
+            <mat-header-cell *matHeaderCellDef>Nombre</mat-header-cell>
+            <mat-cell *matCellDef="let row">{{row.nombre_portador}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="apellido_paterno">
+            <mat-header-cell *matHeaderCellDef>Apellido paterno</mat-header-cell>
+            <mat-cell *matCellDef="let row">{{row.apellido_paterno}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="apellido_materno">
+            <mat-header-cell *matHeaderCellDef>Apellido materno</mat-header-cell>
+            <mat-cell *matCellDef="let row">{{row.apellido_materno}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="vigencia_registro">
+            <mat-header-cell *matHeaderCellDef>Vigencia</mat-header-cell>
+            <mat-cell *matCellDef="let row">{{row.vigencia_registro}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="Editar">
+            <th mat-header-cell *matHeaderCellDef> Editar </th>
+            <td mat-cell *matCellDef="let row">
+              <button mat-icon-button (click)="editArma(row)">
+                <mat-icon>edit</mat-icon>
+              </button>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="Eliminar">
+            <th mat-header-cell *matHeaderCellDef> Eliminar </th>
+            <td mat-cell *matCellDef="let row">
+              <button mat-icon-button (click)="deleteArma(row)">
+                <mat-icon>delete_forever</mat-icon>
+              </button>
+            </td>
+          </ng-container>
+
+          <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+        </table>
+
+        <mat-paginator #paginator
+                       [length]="dataSource.data.length"
+                       [pageIndex]="0"
+                       [pageSize]="5" showFirstLastButtons>
+        </mat-paginator>
+      </div> <!-- end data-table -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-info">Aceptar</button>
+        <button type="button" class="btn btn-info" data-dismiss="modal">Cancelar</button>
+      </div>
+    </div>
+  </div>
+</div>

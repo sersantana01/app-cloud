@@ -89,7 +89,7 @@ export class RegistroLlamadaComponent implements OnInit {
    public endpointModificarEvento="http://3.14.155.2:9091/api/llamadaReal/updateEvento";   
    public endpointBitacoraEvento="http://localhost:9091/api/llamadaReal/registroBitacoraEvento";
    
-     public endpointSaveEvento="http://localhost:9091/api/llamadaReal/saveEvento";   
+     public endpointSaveEvento="http://172.168.13.25:9091/api/llamadaReal/saveEvento";
 
    public endpointAsignarInstitucion="http://3.14.155.2:9091/api/llamadaReal/asignarInstitucionEvento";
     

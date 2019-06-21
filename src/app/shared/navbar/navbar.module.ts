@@ -13,7 +13,8 @@ import { ConsultaLlamadaComponent } from './consulta-llamada/consulta-llamada.co
 import { TelefonosEmergenciaComponent } from './telefonos-emergencia/telefonos-emergencia.component';
 import { RastreoVehiculoComponent } from '../../operador/rastreo-vehiculo/rastreo-vehiculo.component';
 import { ActualizarDirectorioComponent } from '../../operador/actualizar-directorio/actualizar-directorio.component';
-
+import {EventoRecurrenteComponent} from '../evento-recurrente/evento-recurrente.component';
+import {LlamadaRecurrenteBotonComponent} from '../llamada-recurrente-boton/llamada-recurrente-boton.component';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
 import {getEspanolPaginatorIntl,MY_FORMATS} from '../../shared/paginatorEspanol/paginator-espanol'
  
@@ -52,6 +53,8 @@ import {
     
   } from '@angular/material';
 
+
+
 @NgModule({
     imports: [ 
         
@@ -87,7 +90,7 @@ import {
     MatStepperModule, 
         
     RouterModule, CommonModule, MatButtonModule, FormsModule , NgSelectModule , NgbModule],
-    declarations: [ NavbarComponent, InicioLlamadaComponent, LlamadaComunComponent, ShortcutsComponent, ConsultaLlamadaComponent, TelefonosEmergenciaComponent, RastreoVehiculoComponent, ActualizarDirectorioComponent ],
+    declarations: [ NavbarComponent, InicioLlamadaComponent, LlamadaComunComponent, ShortcutsComponent, ConsultaLlamadaComponent, TelefonosEmergenciaComponent, RastreoVehiculoComponent, ActualizarDirectorioComponent, EventoRecurrenteComponent, LlamadaRecurrenteBotonComponent ],
    
     providers: [
         { provide: MatPaginatorIntl, useValue: getEspanolPaginatorIntl()},

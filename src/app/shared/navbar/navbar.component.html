@@ -29,7 +29,7 @@
     <div class="contIconosMenu"  *ngIf="auth" >
       <a id="botonPuto" role="button" data-toggle="modal" data-target="#llamadaNoProcedente" title="Llamada no procedente"><img
   src="assets/images/icnLlamadaComun2.svg" alt="Llamada no procedente"></a>
-      <a href="#" data-toggle="modal" data-target="#ejemploModal" title="Llamada recurrente"><img
+      <a href="#" data-toggle="modal" data-target="#modalLlamadaRecurrente" title="Evento recurrente"><img
           src="assets/images/icnLlamadaIncidencia.svg" alt="Llamada comun"></a>
       <a data-backdrop="static" data-keyboard="false"  role="button"  data-toggle="modal" data-target="#modalConsultaLlamada" title="Consultar llamada"><img
         (click)="getMotivosConsultaLlamadas();"   src="assets/images/icnConsultaLlamada.svg" alt="Consultar Llamada"></a>
@@ -176,3 +176,7 @@
 <app-consulta-llamada></app-consulta-llamada>
  
 <app-telefonos-emergencia></app-telefonos-emergencia>
+
+<app-evento-recurrente></app-evento-recurrente>
+
+<app-llamada-recurrente-boton></app-llamada-recurrente-boton>
