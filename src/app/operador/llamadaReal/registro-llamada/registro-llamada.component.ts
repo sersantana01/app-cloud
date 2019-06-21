@@ -306,31 +306,10 @@ constructor(public dataShared: DataSharedService,
           // console.log(  this.eventoTmp.motivo["prioridad"]);
 
             this.setPreseleccionPrioridad(  this.eventoTmp.motivo["prioridad"]   );
-
-
-
-              ///////////////////////////////////BITACORA///////////////////////            
-
-              /*
-              var bitacora={};
-              bitacora["uuid"]=this.uuid;
-              bitacora["idEvento"]="162";
-              bitacora["descripcionBitacora"]="TRANSMISION_DE_LA_LLAMADA";              
-              // bitacora["idTipoMovBitacora"]="2";            
-              // bitacora["idMovimientoRecurso"];
-              //bitacora["idInstitucion"];
-              // bitacora["direccionIp"];
-              bitacora["fechaHoraMovimiento"]= new Date().getTime(); 
-              this.saveBitacoraEvento(bitacora);
-              */
-
-              /////////////////////////////////////////////////////////////////////
-
+ 
 
      });
-
-       /*this.openPop (this.eventoTmp.motivo["prioridad"]);
-       this.noPopover=false;*/
+ 
        }
  }
 
@@ -454,24 +433,7 @@ constructor(public dataShared: DataSharedService,
 
         evento["listaInstituciones"]=this.eventoTmp.listaInstituciones;
 
-       
-       // evento["FechaCapturaFinal"]=
-
-        /*
-        var paramEvento= {};
-        paramEvento["nombreParametro"]="evento";
-        paramEvento["tipo"]="Clase";
-        paramEvento["valor"]=JSON.stringify(evento);
-
-        params.push(paramEvento);
-
-        call["nombrePaquete"] = "telefonista";
-        call["nombreStoreProcedure"] = "evento";
-        call["nombreMs"] = "MS-LLAMADA-REAL";
-        call["param"] = params;
-        */
-
-
+ 
         var callSaveEvento={};
         
         callSaveEvento["uuid"]= this.uuid;
@@ -548,10 +510,7 @@ constructor(public dataShared: DataSharedService,
        return validacion;
    }
 
- 
-
-
-
+  
   public transmitirEventoDespachador(){ //metodo para obtener lista de motivos
    
     
@@ -719,9 +678,7 @@ constructor(public dataShared: DataSharedService,
            call["nombreStoreProcedure"] = "Descripcion_evento";
            call["nombreMs"] = "MS-LLAMADA-REAL";
            call["tipo"]="POST";
-           call["param"] = params;
-
-
+           call["param"] = params; 
 
 
            var callUpdateEventoDescripcion={};
@@ -729,9 +686,7 @@ constructor(public dataShared: DataSharedService,
            callUpdateEventoDescripcion["uuid"]= this.uuid;
            callUpdateEventoDescripcion["evento"]=evento;
    
-
-
-
+ 
            this.restCaller.sendCall(callUpdateEventoDescripcion,this.endpointUpdateDesc).subscribe(//llamadada a restcaller
              (data) => {
                    //this.itemsSelectMotivos=data["items"];
