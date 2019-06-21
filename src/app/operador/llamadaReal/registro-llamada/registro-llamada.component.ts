@@ -18,6 +18,8 @@ import { Subscription,interval,Observable } from 'rxjs';
 import {NotificacionService} from '../../../notificacion/notificacion.service';
 import {GoogleMapService} from '../../../maps/fullscreenmap/google-map.service';
 
+import { Grabacion } from '../../../models/grabacion.model';
+
 
 @Component({
   encapsulation:ViewEncapsulation.None,
@@ -26,7 +28,7 @@ import {GoogleMapService} from '../../../maps/fullscreenmap/google-map.service';
   styleUrls: ['./registro-llamada.component.css']
 })
 export class RegistroLlamadaComponent implements OnInit {
-
+  grabacion: Grabacion;
  
  private readonly notifier: NotificacionService;
 
@@ -871,8 +873,34 @@ constructor(public dataShared: DataSharedService,
       
        var date = new Date();
        let dateGrabacion = moment(date).format('DD/MM/YYYY HH:mm:ss');
-       this.grabacionService.grabarAuronix(this.eventoTmp.prefolio, dateGrabacion, "Inicio");
 
+       let localIp=localStorage.getItem('LOCAL_IP');
+       this.grabacion = new Grabacion();
+
+       this.grabacion.accion = 'INICIO';
+       this.grabacion.prefolio=this.eventoTmp.prefolio;
+       this.grabacion.fechaGrabacion="";
+       this.grabacion.ip = localIp;
+       this.grabacion.nombreUsuario = "OPERADOR1";
+       this.grabacion.idUsuario = "";
+    
+    
+    
+         
+        this.grabacionService.grabacion(this.grabacion).subscribe(response => {
+          let jsonRespuesta = JSON.parse(atob(response ) ) ;
+         
+      
+        }, error =>{
+         
+               if(error.status == 400){
+               
+               }else if(error.status == 401) {
+               
+               }
+              }
+          
+          );
      }
 
 
@@ -880,7 +908,38 @@ constructor(public dataShared: DataSharedService,
  
        var date = new Date();
        let dateGrabacion = moment(date).format('DD/MM/YYYY HH:mm:ss');
-       this.grabacionService.grabarAuronix(this.eventoTmp.prefolio, dateGrabacion, "Final");
+
+       let localIp=localStorage.getItem('LOCAL_IP');
+       this.grabacion = new Grabacion();
+
+       this.grabacion.accion = 'FIN';
+       this.grabacion.prefolio=this.eventoTmp.prefolio;
+       this.grabacion.fechaGrabacion="";
+       this.grabacion.ip = localIp;
+       this.grabacion.nombreUsuario = "OPERADOR1";
+       this.grabacion.idUsuario = "";
+    
+    
+    
+         
+        this.grabacionService.grabacion(this.grabacion).subscribe(response => {
+          let jsonRespuesta = JSON.parse(atob(response ) ) ;
+         
+      
+        }, error =>{
+         
+               if(error.status == 400){
+               
+               }else if(error.status == 401) {
+               
+               }
+              }
+          
+          );
+
+
+
+     
 
      }
     
