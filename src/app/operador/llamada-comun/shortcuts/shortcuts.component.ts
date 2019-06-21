@@ -42,8 +42,7 @@ export class ShortcutsComponent implements OnInit {
   }
 
   public getLlamadaComun(data: any) {
-    //let urlGetLlamadaComun = 'http://3.14.155.2:9093/obtenerCatalogoLlamadaComun';
-    let urlGetLlamadaComun = 'http://localhost:9088/obtenerCatalogoLlamadaNoProcedente';
+    let urlGetLlamadaComun = 'http://3.14.155.2:9093/obtenerCatalogoLlamadaNoProcedente';
     
     this.shortcutsService.getLlamadaComun(urlGetLlamadaComun, data).subscribe(
       response => {
@@ -82,8 +81,7 @@ export class ShortcutsComponent implements OnInit {
   }
 
   public sendIdLLamada(id) {
-    //let urlSetLlamadaComun = 'http://3.14.155.2:9093/guardarLlamadaComun';
-    let urlSetLlamadaComun = 'http://localhost:9088/guardarLlamadaNoProcedente';
+    let urlSetLlamadaComun = 'http://3.14.155.2:9093/guardarLlamadaNoProcedente';
     let telefono = $('#numeroTelefono').val();
 
     

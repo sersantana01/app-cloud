@@ -58,6 +58,8 @@ export class ArmasComponent implements OnInit {
   constructor(private http: HttpClient) { }
 
   ngOnInit() {
+    document.getElementById('botones-editarArma').style.display = 'none';
+    document.getElementById('EditarArmaTitle').style.display = 'none';
     this.dataSource.paginator = this.paginator;
     this.getArmas();
     this.getCatArmas();
@@ -149,12 +151,19 @@ export class ArmasComponent implements OnInit {
         });
   }
   editArma(item) {
-    const shadesE1 = document.querySelector('.boton-editar');
+    document.getElementById('RegistroTitle').style.display = 'none';
+    document.getElementById('tabla-arma').style.display = 'none';
+    document.getElementById('EditarArmaTitle').style.display = 'block';
+    document.getElementById('envolventeAgregarArma').style.display = 'block';
+    document.getElementById('boton-agregarArma').style.display = 'none';
+    document.getElementById('botones-editarArma').style.display = 'block';
+
+/*    const shadesE1 = document.querySelector('.boton-editar');
     const shadesE2 = document.querySelector('.tabla-arma');
     const shadesE3 = document.querySelector('.boton-add');
     shadesE1.classList.remove('hide');
     shadesE2.classList.add('hide');
-    shadesE3.classList.add('hide');
+    shadesE3.classList.add('hide');*/
     console.log('Edit item');
     console.log(item);
     this.editedIndex = this.rowData.indexOf(item);
@@ -204,21 +213,6 @@ export class ArmasComponent implements OnInit {
     const fechaInvertida = this.fecha.replace(/^(\d{4})-(\d{2})-(\d{2})$/g, '$3/$2/$1');
     const thenum = fechaInvertida.replace( '/', ''); // replace all leading non-digits with nothing
     this.fecha = thenum.replace('/', '');
-    /*const call = {};
-    const param = {};
-    const param1 = {};
-    const param2 = {};
-    const param3 = {};
-    const param4 = {};
-    const param5 = {};
-    const param6 = {};
-    const param7 = {};
-    const param8 = {};
-    const param9 = {};
-    const param10 = {};
-    const param11 = {};
-    const param12 = {};
-    const params = [];*/
     if (this.editedIndex > -1) {
       Object.assign(this.rowData[this.editedIndex], this.editedItem);
       console.log(this.editedItem);
@@ -240,65 +234,6 @@ export class ArmasComponent implements OnInit {
       'apellidoMaterno': this.model.aMaterno,
       'vigenciaRegistro': this.fecha
     };
-
-    /*param['nombreParametro'] = 'uuid';
-    param['tipo'] = 'String';
-    param['valor'] = this.uuid;
-    params.push(param);
-    param1['nombreParametro'] = 'id_evento';
-    param1['tipo'] = 'int';
-    param1['valor'] = $('#id_evento').html().trim();
-    params.push(param1);
-    param2['nombreParametro'] = 'id_arma_involucrada';
-    param2['tipo'] = 'String';
-    param2['valor'] = this.idweapon;
-    params.push(param2);
-    param11['nombreParametro'] = 'id_tipo_arma';
-    param11['tipo'] = 'int';
-    param11['valor'] = this.model.selectedArma;
-    params.push(param11);
-    param12['nombreParametro'] = 'id_categoria_arma';
-    param12['tipo'] = 'int';
-    param12['valor'] = this.model.selectedCat;
-    params.push(param12);
-    param3['nombreParametro'] = 'marca';
-    param3['tipo'] = 'String';
-    param3['valor'] = this.model.marca;
-    params.push(param3);
-    param4['nombreParametro'] = 'modelo';
-    param4['tipo'] = 'String';
-    param4['valor'] = this.model.modelo;
-    params.push(param4);
-    param5['nombreParametro'] = 'matricula';
-    param5['tipo'] = 'String';
-    param5['valor'] = this.model.matricula;
-    params.push(param5);
-    param6['nombreParametro'] = 'observaciones';
-    param6['tipo'] = 'String';
-    param6['valor'] = this.model.observaciones;
-    params.push(param6);
-    param10['nombreParametro'] = 'nombre_portador';
-    param10['tipo'] = 'String';
-    param10['valor'] = this.model.nombre;
-    params.push(param10);
-    param7['nombreParametro'] = 'apellido_paterno';
-    param7['tipo'] = 'String';
-    param7['valor'] = this.model.aPaterno;
-    params.push(param7);
-    param8['nombreParametro'] = 'apellido_materno';
-    param8['tipo'] = 'String';
-    param8['valor'] = this.model.aMaterno;
-    params.push(param8);
-    param9['nombreParametro'] = 'vigencia_registro';
-    param9['tipo'] = 'String';
-    param9['valor'] = this.fecha;
-    params.push(param9);
-    call['tipo'] = 'PUT';
-    call['nombrePaquete'] = 'telefonista';
-    call['nombreStoreProcedure'] = 'arma_involucrada';
-    call['nombreMs'] = 'ms_demo';
-    call['param'] = params;
-    console.log(call);*/
     const endpointArmas = 'http://localhost:8686/api/arma/actualizarRegistroArma';
     this.http.post(endpointArmas, jsonchain).subscribe(
         (data) => {
@@ -306,12 +241,18 @@ export class ArmasComponent implements OnInit {
           this.fetchArmas();
         }
     );
-    const shadesE1 = document.querySelector('.boton-editar');
+    document.getElementById('RegistroTitle').style.display = 'block';
+    document.getElementById('tabla-arma').style.display = 'block';
+    document.getElementById('envolventeAgregarArma').style.display = 'block';
+    document.getElementById('boton-agregarArma').style.display = 'block';
+    document.getElementById('botones-editarArma').style.display = 'none';
+    document.getElementById('EditarArmaTitle').style.display = 'none';
+/*    const shadesE1 = document.querySelector('.boton-editar');
     const shadesE2 = document.querySelector('.tabla-arma');
     const shadesE3 = document.querySelector('.boton-add');
     shadesE1.classList.add('hide');
     shadesE2.classList.remove('hide');
-    shadesE3.classList.remove('hide');
+    shadesE3.classList.remove('hide');*/
     this.model.selectedArma = null;
     this.model.selectedCat = null;
     this.model.marca = '';
@@ -324,12 +265,18 @@ export class ArmasComponent implements OnInit {
     this.model.vigencia = '';
   }
   close() {
-    const shadesE1 = document.querySelector('.boton-editar');
+    document.getElementById('RegistroTitle').style.display = 'block';
+    document.getElementById('tabla-arma').style.display = 'block';
+    document.getElementById('envolventeAgregarArma').style.display = 'block';
+    document.getElementById('boton-agregarArma').style.display = 'block';
+    document.getElementById('botones-editarArma').style.display = 'none';
+    document.getElementById('EditarArmaTitle').style.display = 'none';
+/*    const shadesE1 = document.querySelector('.boton-editar');
     const shadesE2 = document.querySelector('.tabla-arma');
     const shadesE3 = document.querySelector('.boton-add');
     shadesE1.classList.add('hide');
     shadesE2.classList.remove('hide');
-    shadesE3.classList.remove('hide');
+    shadesE3.classList.remove('hide');*/
     setTimeout(() => {
       this.editedItem = Object.assign({}, this.defaultItem);
       this.editedIndex = -1;

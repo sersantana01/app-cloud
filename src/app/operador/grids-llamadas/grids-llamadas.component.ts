@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from "@angular/common/http";
+import { HttpClient } from '@angular/common/http';
 import { GridsLlamadasService } from './grids-llamadas.service';
 declare var $: any;
 
@@ -12,11 +12,13 @@ declare var $: any;
 export class GridsLlamadasComponent implements OnInit {
   private uuid: string = '5';
   public llamadasAtendidas: [];
+  public llamadasActivas: [];
 
   constructor(private http: HttpClient, private gridsLlamadasService: GridsLlamadasService) { }
 
   ngOnInit() {
     this.refreshLlamadasAtendidas();
+    this.refreshLlamadasActivas();
   }
 
   public refreshLlamadasAtendidas() {
@@ -25,7 +27,12 @@ export class GridsLlamadasComponent implements OnInit {
 
     this.getLlamadasAtendidas(json);
   }
+  public refreshLlamadasActivas() {
+    const json = {};
+    json['uuid'] = this.uuid;
 
+    this.getLlamadasAtivas(json);
+  }
   public setXY(x: number, y: number) {
     this.setMapCenter(x, y);
   }
@@ -39,8 +46,7 @@ export class GridsLlamadasComponent implements OnInit {
   }
 
   public getLlamadasAtendidas(data: any) {
-    //let urlGetLlamadasAtendidas = 'http://3.14.155.2:9094/obtenerLlamadasAtendidas';
-    let urlGetLlamadasAtendidas = 'http://localhost:8999/obtenerLlamadasAtendidas';
+    let urlGetLlamadasAtendidas = 'http://3.14.155.2:9094/obtenerLlamadasAtendidas';
 
     this.gridsLlamadasService.getLlamadasAtendidas(urlGetLlamadasAtendidas, data).subscribe(
       response => {
@@ -52,6 +58,20 @@ export class GridsLlamadasComponent implements OnInit {
       (response) => {
         this.llamadasAtendidas = response["items"];
       }
+    );
+  }
+
+  public getLlamadasAtivas(data: any) {
+    const urlGetLlamadasActivas = 'http://3.14.155.2:9094/obtenerLlamadasActivas';
+    this.gridsLlamadasService.getLlamadasActivas(urlGetLlamadasActivas, data).subscribe(
+        response => {
+         this.llamadasActivas = response['items'];
+        }
+    );
+    this.http.post(urlGetLlamadasActivas, data).subscribe(
+        (response) => {
+          this.llamadasActivas = response['items'];
+        }
     );
   }
 
