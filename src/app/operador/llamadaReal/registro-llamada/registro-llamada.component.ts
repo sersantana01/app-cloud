@@ -87,17 +87,18 @@ export class RegistroLlamadaComponent implements OnInit {
    public endpointMotivos ="http://3.14.155.2:9091/api/llamadaReal/obtenerMotivos"; 
    public endpointInst ="http://3.14.155.2:9091/api/llamadaReal/obtenerInstituciones";   
    public endpointModificarEvento="http://3.14.155.2:9091/api/llamadaReal/updateEvento";   
-   public endpointBitacoraEvento="http://3.14.155.2:9091/api/llamadaReal/registroBitacoraEvento";
+   public endpointBitacoraEvento="http://localhost:9091/api/llamadaReal/registroBitacoraEvento";
    
-   public endpointSaveEvento="http://3.14.155.2:9091/api/llamadaReal/saveEvento";   
+     public endpointSaveEvento="http://localhost:9091/api/llamadaReal/saveEvento";   
 
    public endpointAsignarInstitucion="http://3.14.155.2:9091/api/llamadaReal/asignarInstitucionEvento";
     
    //public endpointBitacoraEvento="http://3.14.155.2:9091/api/llamadaReal/registroBitacoraEvento";
 
-   public endpointSaveTiempos="http://localhost:9091/guardaTiempo"; 
+   public endpointSaveTiempos="http://localhost:9091/api/llamadaReal/guardaTiempo"; 
 
 
+   //public endpointSaveEvento="http://localhost:9091/api/llamadaReal/saveEvento";   
 
    public eventoTmp: Evento;
    public subscription: Subscription;   
@@ -167,9 +168,7 @@ constructor(public dataShared: DataSharedService,
 
      this.subscriptionUbicacion = this.dataShared.ubicacionActualObservable$.subscribe((data ) => {
       // this.ITEMS = data;
-        console.log(  data);  
-        console.log(this.eventoTmp);        
-        console.log( this.eventoTmp.prefolio!= null && this.eventoTmp.idEvento!=null );
+ 
         if(this.eventoTmp.prefolio!= null && this.eventoTmp.idEvento==null ){
 
           let ubicacion: Ubicacion = data;
@@ -444,8 +443,8 @@ constructor(public dataShared: DataSharedService,
 
      //   evento["fechaFin"]=dateFinal.getTime();
         evento["origen"]="LLAMADA";           /////////////////////////////////////////CAMBIAR ESTOS DATOS AL OBTENERLOS DE MS
-        evento["estatus"]="CULMINADO";       /////////////////////////////////////////CAMBIAR ESTOS DATOS AL OBTENERLOS DE MS
-        evento["estatusCaptura"]="ATENDIDA";////////////////////////////////////////ESTE DATO NO CAMBIA NUNCA PUES ES EL ESTADO QUE SE CREA EN ESTE PUNTO
+        evento["estatus"]="ACTIVO";       /////////////////////////////////////////CAMBIAR ESTOS DATOS AL OBTENERLOS DE MS
+        evento["estatusCaptura"]="ACTIVO";////////////////////////////////////////ESTE DATO NO CAMBIA NUNCA PUES ES EL ESTADO QUE SE CREA EN ESTE PUNTO
         evento["creadoPor"]=this.session_id_user;/////////////////////////////////////CAMBIAR ESTOS DATOS AL OBTENERLOS DE MS
         evento["numeroTelefonico"]= Number($("#numeroTelefono").val()) ;
        
@@ -484,18 +483,17 @@ constructor(public dataShared: DataSharedService,
                console.log(data);         
 
                var respuesta= JSON.parse(data["responseData"]); 
+  
+               if(respuesta["v_id_evento"]!=undefined && respuesta["v_id_evento"]!= null ){
+                this.eventoTmp.idEvento=respuesta["v_id_evento"];
 
-                respuesta={};
-                respuesta["ID_EVE"]=data;
-
-
-               if(respuesta["ID_EVE"]!=undefined && respuesta["ID_EVE"]!= null ){
-                this.eventoTmp.idEvento=respuesta["ID_EVE"];
-                this.eventoTmp.idDescripcionEvento=respuesta["ID_DESC"];
+                //this.eventoTmp.idDescripcionEvento=respuesta["ID_DESC"];
+ 
                 this.notifier.showNotification ('top','center', 'Evento registrado con exito', 'success' );
                 $( "#id_evento" ).addClass( this.eventoTmp.prioridad+"_text" );
 
                 let fechaAsignacion= new Date().getTime();
+                this.eventoTmp.fechaFin=fechaAsignacion+"";
 
               //  for(var x=0;x<this.eventoTmp.listaInstituciones.length;x++){
                //  this.guardarAsignacionInstitucionEvento(this.eventoTmp.listaInstituciones[x] , fechaAsignacion);
@@ -514,8 +512,7 @@ constructor(public dataShared: DataSharedService,
                 //bitacora["idInstitucion"];
                 // bitacora["direccionIp"];
                 bitacora["fechaHoraMovimiento"]= new Date().getTime(); 
-                this.saveBitacoraEvento(bitacora);
- 
+                this.saveBitacoraEvento(bitacora); 
 
                }else{
                 this.notifier.showNotification ('top','center', 'Ocurrio un error al intentar guardar el evento. Intente de nuevo.', 'danger' );
@@ -560,7 +557,10 @@ constructor(public dataShared: DataSharedService,
     
     var callTransmitir={};
 
-    callTransmitir['uuid']=this.uuid;
+    callTransmitir['uuid']=this.uuid;    
+    callTransmitir['ip']=this.uuid;    
+    callTransmitir['usuario']=this.uuid;    
+    callTransmitir['idEvento']=this.uuid;
 
 
     this.restCaller.sendCall(callTransmitir,this.endpointAsignarInstitucion).subscribe( //llamadada a restcaller
@@ -577,28 +577,21 @@ constructor(public dataShared: DataSharedService,
   public terminarLlamadaTiempo(){ //metodo para obtener lista de motivos
    
     
+    var tiempoFinCaptura= new Date().getTime();
+ 
     var callTiempoCaptura={};
 
     callTiempoCaptura['uuid']=this.uuid;
     
     callTiempoCaptura['idTipoTiempo']="14";// "id_tipo_tiempo": 14,  "nombre_tipo_tiempo": "TIEMPO_CAPTURA"
  
-    callTiempoCaptura['fechaTiempo']=this.uuid;
+    callTiempoCaptura['fechaTiempo']=this.eventoTmp.fechaInicio;
     callTiempoCaptura['idEvento']=this.eventoTmp.idEvento;
     
-    callTiempoCaptura['creadoPor']=this.uuid;    
-    callTiempoCaptura['duracion']=this.uuid;
+    callTiempoCaptura['creadoPor']=this.session_id_user;    
+  //  callTiempoCaptura['duracion']=tiempoFinCaptura;
  
-    /*
-    id_tipo_tiempo,
-    id_institucion,
-    duracion,
-    fecha_tiempo,
-    id_evento,
-    id_recurso,
-    creado_por
-    */
-
+    
 
     this.restCaller.sendCall(callTiempoCaptura,    this.endpointSaveTiempos).subscribe( //llamadada a restcaller
      (data) => { 
@@ -615,11 +608,11 @@ constructor(public dataShared: DataSharedService,
     
     callTiempoTransmision['idTipoTiempo']="13";// "id_tipo_tiempo": 13,  "nombre_tipo_tiempo": "TIEMPO_TRANSMISION"
  
-    callTiempoTransmision['fechaTiempo']=this.uuid;
+    callTiempoTransmision['fechaTiempo']=this.eventoTmp.fechaFin;
     callTiempoTransmision['idEvento']=this.eventoTmp.idEvento;
     
-    callTiempoTransmision['creadoPor']=this.uuid;    
-    callTiempoTransmision['duracion']=this.uuid;
+    callTiempoTransmision['creadoPor']=this.session_id_user;    
+    //callTiempoTransmision['duracion']=this.uuid;
   
     this.restCaller.sendCall(callTiempoTransmision,    this.endpointSaveTiempos).subscribe( //llamadada a restcaller
      (data) => { 
@@ -906,7 +899,7 @@ constructor(public dataShared: DataSharedService,
      }
 
      public callReset(){                   //metodo para iniciar el reseteo de la llamada/evento
-      
+      this.terminarLlamadaTiempo();
        $("#button_header_reset").click();  //se manda llamar el evento que se encuentra en header
      }
     

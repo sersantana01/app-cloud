@@ -8,11 +8,15 @@ import {Evento} from '../../../models/evento.model';
 import {Denunciante} from '../../../models/denunciante.model';
 
 import {NotificacionService} from '../../../notificacion/notificacion.service';
+import {MatDatepickerInputEvent} from '@angular/material/datepicker';
+ 
 
 @Component({
   selector: 'app-consulta-llamada',
   templateUrl: './consulta-llamada.component.html',
-  styleUrls: ['./consulta-llamada.component.css']
+  styleUrls: ['./consulta-llamada.component.css'],
+ 
+ 
 })
 export class ConsultaLlamadaComponent implements OnInit {
 
@@ -24,20 +28,29 @@ export class ConsultaLlamadaComponent implements OnInit {
   
 
   public endpointMotivos ="http://3.14.155.2:9091/api/llamadaReal/obtenerMotivos";
-    public endpointOrigenes="http://3.14.155.2:9091/api/llamadaReal/obtenerOrigenes";
-  public endpointBusqueda ="http://3.14.155.2:9091/api/consultas/consultaLlamada";
+  public endpointOrigenes="http://3.14.155.2:9091/api/llamadaReal/obtenerOrigenes";
+  public endpointBusqueda ="http://localhost:9091/api/llamadaReal/consultaLlamada";
+  
+  public endpointEventoById ="http://localhost:9091/api/llamadaReal/getEventoById";
 /*
   public endpointMotivos ="http://localhost:9091/api/llamadaReal/obtenerMotivos";
     public endpointOrigenes="http://localhost:9091/api/llamadaReal/obtenerOrigenes";
   public endpointBusqueda ="http://localhost:9091/api/consultas/consultaLlamada";*/
   //public endpointBusqueda ="http://3.14.155.2:9091/api/llamadaReal/consultaLlamada";
      
-   
+
+  public endpointMunicipios = "http://172.168.13.26:8888/api/telefonoemergencia/getMunicipios";
+  public endpointColonias = "http://172.168.13.26:8888/api/telefonoemergencia/getColonias";
+  
+    
   public itemsSelectMotivos=[];   //Lista de motivos 
   
   public itemsSelectOrigenes=[];   //Lista de motivos 
   
   public itemsSelectPrioridad=["URGENTE","RAPIDA","NORMAL"];     
+  public itemsSelectEstatus=["HISTORICO","ATENDIDA","ACTIVO","CULMINADO","TERMINADO"];
+  public itemsSelectCiudades=[   ];
+  public itemsSelectColonias=[   ];
 
   public eventoSeleccionado: Evento;
 
@@ -46,9 +59,12 @@ export class ConsultaLlamadaComponent implements OnInit {
 
 
   public consultaMotivo:any;     //motivo seleccionado
-  public consultaOrigen:any;     //motivo seleccionado
+  public consultaOrigen:any;     
   public consultaPrioridad:any;
   public consultaEstatus:any;
+  public consultaCiudad:any;
+  public consultaColonia:any;
+  
   public busq_ciudad;  
   public busq_colonia;
   public busq_calle;
@@ -61,8 +77,12 @@ export class ConsultaLlamadaComponent implements OnInit {
   public busq_latitud; //x
   public busq_longitud;//y
 
+  public busq_general;
+
   public rolUsuario;
 
+  public busq_fechaDesde;
+  public busq_fechaHasta;  
 
 
   public offsetNext=0; // variable para controlar el paginado hacia la BD
@@ -74,6 +94,34 @@ export class ConsultaLlamadaComponent implements OnInit {
 
   public hasMore;
 
+
+  
+  setFinal() {
+  //  this.events.push(`${type}: ${event.value}`);
+      //alert("GOL");
+ 
+      //console.log("TR");
+ 
+      var fecFinal= new Date(this.busq_fechaDesde);
+
+      fecFinal.setDate(fecFinal.getDate()+1);
+
+      this.busq_fechaHasta=      fecFinal;
+  }
+
+  
+  setInicio() {
+    //  this.events.push(`${type}: ${event.value}`);
+        
+        //console.log("TR");
+
+      var fecInicio = new Date(this.busq_fechaHasta);
+      fecInicio.setDate(fecInicio.getDate()-1);
+        
+      this.busq_fechaDesde= fecInicio;
+  
+    }
+  
 
 
   public testData: any ={
@@ -246,6 +294,9 @@ export class ConsultaLlamadaComponent implements OnInit {
   this.eventoSeleccionado.denunciante=new Denunciante();
 
 
+
+  
+
   }
 
 
@@ -374,14 +425,14 @@ getOffset(data){
 
 
 
-     this.listaLlamadasCoincidencia.push(ev1);
-     this.listaLlamadasCoincidencia.push(ev2);
-     this.listaLlamadasCoincidencia.push(ev3);
+  //   this.listaLlamadasCoincidencia.push(ev1);
+  //   this.listaLlamadasCoincidencia.push(ev2);
+  //   this.listaLlamadasCoincidencia.push(ev3);
 
 
      //this.eventoSeleccionado=ev1;
 
-    console.log(this.listaLlamadasCoincidencia);
+  //  console.log(this.listaLlamadasCoincidencia);
 
 
 
@@ -405,7 +456,40 @@ getOffset(data){
 
          this.mostrarBusquedas=false;
 
-         this.eventoSeleccionado=this.listaLlamadasCoincidencia[index];
+        ////////////// this.eventoSeleccionado=this.listaLlamadasCoincidencia[index];
+
+          let elemTmp= this.listaLlamadasCoincidencia[index];
+
+          this.eventoSeleccionado.idEvento= elemTmp["id_evento"];
+        //  this.eventoSeleccionado.latitud
+        //  this.eventoSeleccionado.longitud
+          this.eventoSeleccionado.ciudad = elemTmp["nombre_municipio"];
+          this.eventoSeleccionado.colonia = elemTmp["nombre_colonia"];
+       //   this.eventoSeleccionado.creadoPor = elemTmp["nombre_municipio"];
+       //   this.eventoSeleccionado.creadoPorNombre = elemTmp["nombre_municipio"];
+          this.eventoSeleccionado.descripcion = elemTmp["descripcion"];
+          this.eventoSeleccionado.estatus = elemTmp["estatus"];
+          this.eventoSeleccionado.estatusCaptura = elemTmp["estatus"];
+      //    this.eventoSeleccionado.fechaInicio = elemTmp["nombre_municipio"];
+       //   this.eventoSeleccionado.fechaRecepcion = elemTmp["nombre_municipio"];
+       //   this.eventoSeleccionado.motivo = elemTmp["nombre_municipio"];
+          this.eventoSeleccionado.motivoNombre = elemTmp["nombre_motivo"];
+          this.eventoSeleccionado.municipio = elemTmp["nombre_municipio"];
+          this.eventoSeleccionado.numeroTelefonico = elemTmp["numero_telefono"];
+          this.eventoSeleccionado.origen = elemTmp["nombre_origen"];
+          this.eventoSeleccionado.origenNombre = elemTmp["nombre_origen"];
+          this.eventoSeleccionado.prioridad  = elemTmp["prioridad"];
+
+          let denunciante : Denunciante = new Denunciante();
+
+          denunciante.nombre="ESTELA";
+          denunciante.apMaterno="BANKS";
+          denunciante.apPaterno="PEREZ";
+          denunciante.direccion="CALLE Z, NUMERO 35";
+          denunciante.telefono="64433213";
+          denunciante.tipo="DENUNCIANTE";
+
+          this.eventoSeleccionado.denunciante= denunciante;
 
 
   }
@@ -422,6 +506,34 @@ public getMotivos(){ //metodo para obtener lista de motivos
                  
      });
  }
+ 
+
+ public getMunicipios(){ //metodo para obtener lista de motivos
+  
+  var callMotivos={};
+  callMotivos["uuid"]=this.uuid;    
+  this.restCaller.sendCall(callMotivos,this.endpointMunicipios).subscribe( //llamadada a restcaller
+   (data) => {  
+     ///  console.log(data);
+        var lista= data;//JSON.parse(data["responseData"]);
+        this.itemsSelectCiudades=lista["items"];
+                
+    });
+}
+
+
+public getColonias(){ //metodo para obtener lista de motivos
+  
+  var callMotivos={};
+  callMotivos["uuid"]=this.uuid;    
+  this.restCaller.sendCall(callMotivos,this.endpointColonias).subscribe( //llamadada a restcaller
+   (data) => {  
+     ///  console.log(data);
+        var lista=data;// JSON.parse(data["responseData"]);
+        this.itemsSelectColonias =lista["items"];
+                
+    });
+}
 
 
  
@@ -447,11 +559,29 @@ public limpiarCampos(){ //metodo para obtener lista de motivos
 }
 
 
+
+public getEventoById(){ //metodo para obtener lista de motivos
+  
+  var callEvento={};
+  callEvento["uuid"]=this.uuid;    
+  callEvento["idEvento"]=this.eventoSeleccionado.idEvento;
+  this.restCaller.sendCall(callEvento,this.endpointEventoById).subscribe( //llamadada a restcaller
+   (data) => {  
+
+     
+     var lista= JSON.parse(data["responseData"]);
+     this.itemsSelectOrigenes=lista["items"];
+               
+    });
+}
+
  public initModal(){
 
 
   this.getMotivos();
   this.getOrigenes();
+  this.getColonias();
+  this.getMunicipios(); 
 
  }
 
@@ -464,66 +594,88 @@ public limpiarCampos(){ //metodo para obtener lista de motivos
 
   var flagConsulta=false;
 
-  if(this.consultaMotivo!=null){
+  if((this.busq_fechaHasta!=null && this.busq_fechaHasta!="") && (this.busq_fechaDesde!=null && this.busq_fechaDesde!="" )  ){
+
+
+ 
+
+
+  if(this.consultaMotivo!=null && this.consultaMotivo!=""){
   callBusqueda["consultaMotivo"]=this.consultaMotivo["id_motivo"];     //motivo seleccionado
   flagConsulta=true;
   }
-  if(this.consultaOrigen!=null){
+  if(this.consultaOrigen!=null && this.consultaOrigen !="" ){
   callBusqueda["consultaOrigen"]=this.consultaOrigen["id_origen"];     //origen seleccionado
   flagConsulta=true;
   }
-  if(this.consultaPrioridad!=null){
-  callBusqueda["consultaPrioridad"]=this.consultaPrioridad.trim();
+  if(this.consultaPrioridad!=null && this.consultaPrioridad!=""){
+  callBusqueda["consultaPrioridad"]=this.consultaPrioridad;
   flagConsulta=true;
   }
-  if(this.consultaEstatus!=null){
-  callBusqueda["consultaEstatus"]=this.consultaEstatus.trim();
+  if(this.consultaEstatus!=null && this.consultaEstatus !=""){
+  callBusqueda["consultaEstatus"]=this.consultaEstatus;
   flagConsulta=true;
   }
-  if(this.busq_ciudad!=null){
-  callBusqueda["busqCiudad"]=this.busq_ciudad.trim();  
+  if(this.consultaCiudad!=null && this.consultaCiudad !=""){
+  callBusqueda["busqCiudad"]=this.consultaCiudad.id_municipio;  
   flagConsulta=true;
   } 
-  if(this.busq_colonia!=null){
-  callBusqueda["busqColonia"]=this.busq_colonia.trim();
+  if(this.consultaColonia!=null && this.consultaColonia !=""){
+  callBusqueda["busqColonia"]=this.consultaColonia.id_colonia;
   flagConsulta=true;
   }
-  if(this.busq_calle!=null){
+  if(this.busq_calle!=null && this.busq_calle.trim()!=""){
   callBusqueda["busqCalle"]=this.busq_calle.trim();
   flagConsulta=true;
   }
-  if(this.busq_claveOper!=null){
+  if(this.busq_claveOper!=null && this.busq_claveOper.trim()!=""){
   callBusqueda["busqClaveOper"]=this.busq_claveOper.trim();
   flagConsulta=true;
   }
-  if(this.busq_folioDesde!=null){
+
+  if(this.busq_fechaDesde!=null && this.busq_fechaDesde!=""){
+    callBusqueda["busqFechaDesde"]= new Date(this.busq_fechaDesde).getTime();
+    flagConsulta=true;
+  }
+  if(this.busq_fechaHasta!=null && this.busq_fechaHasta!="" ){
+    callBusqueda["busqFechaHasta"]=new Date(this.busq_fechaHasta).getTime();  
+    flagConsulta=true;
+  }
+
+
+  if(this.busq_folioDesde!=null &&  this.busq_folioDesde.trim()!=""){
   callBusqueda["busqFolioDesde"]=this.busq_folioDesde.trim();
   flagConsulta=true;
   }
-  if(this.busq_folioHasta!=null){
+  if(this.busq_folioHasta!=null && this.busq_folioHasta.trim()!=""){
   callBusqueda["busqFolioHasta"]=this.busq_folioHasta.trim();  
   flagConsulta=true;
   }
-  if(this.busq_numeroTelefono!=null){
+  if(this.busq_numeroTelefono!=null && this.busq_numeroTelefono.trim()!=""){
   callBusqueda["busqNumeroTelefono"]=this.busq_numeroTelefono.trim();
   flagConsulta=true;
   }
-  if(this.busq_desc!=null){
+  if(this.busq_desc!=null && this.busq_desc.trim()!=""){
   callBusqueda["busqDesc"]=this.busq_desc.trim();
   flagConsulta=true;
   }
-  if(this.busq_latitud!=null){
+  if(this.busq_latitud!=null && this.busq_latitud.trim()!=""){
   callBusqueda["busqLatitud"]=this.busq_latitud.trim(); //x
   flagConsulta=true;
   }
-  if(this.busq_longitud!=null){
+  if(this.busq_longitud!=null && this.busq_longitud.trim()!="" ){
   callBusqueda["busqLongitud"]=this.busq_longitud.trim();//y
   flagConsulta=true;
   }
-  if(this.rolUsuario!=null){
+  if(this.rolUsuario!=null && this.rolUsuario.trim()!=""){
   callBusqueda["rolUsuario"]=this.rolUsuario.trim();
   flagConsulta=true;
   }
+
+  if(this.busq_general!=null && this.busq_general.trim()!=""){
+    callBusqueda["busqGeneral"]=this.busq_general.trim();
+    flagConsulta=true;
+    }
 
 
   console.log("BEFORE PAGINADO>>>>>>>>>>>>>>>>>>>>>>>>"+paginado);
@@ -543,12 +695,23 @@ public limpiarCampos(){ //metodo para obtener lista de motivos
 
   }
 
+
+  console.log("|||||||||||||||||||||||||||||||||||");
+  console.log(this.busq_fechaDesde);
+  
+  console.log(this.busq_fechaHasta);
+
   if(flagConsulta){
 
   this.restCaller.sendCall(callBusqueda,this.endpointBusqueda).subscribe( //llamadada a restcaller
    (data) => {  
        
-        console.log(data);
+        console.log(data["responseData"]);
+
+        var lista =  JSON.parse(data["responseData"]);
+        console.log(lista["vSalida"]);
+
+        this.listaLlamadasCoincidencia=lista["vSalida"];
 
         data=this.testData; 
 
@@ -582,6 +745,13 @@ public limpiarCampos(){ //metodo para obtener lista de motivos
 
 
     }
+
+  }else{
+
+    this.notifier.showNotification ('top','center', 'Debe elegir rango de fechas' , 'danger' );
+      
+
+  }
 }
 
  public customSearchFn(busqueda: string, item: any) { //busqueda por id_motivo Y por nombre_motivo para <ng-select>
@@ -607,3 +777,4 @@ public customSearchFnOrigen(busqueda: string, item: any) { //busqueda por id_ori
 
 
 }
+ 

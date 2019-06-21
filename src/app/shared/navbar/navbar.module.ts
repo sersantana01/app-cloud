@@ -14,7 +14,8 @@ import { TelefonosEmergenciaComponent } from './telefonos-emergencia/telefonos-e
 import { RastreoVehiculoComponent } from '../../operador/rastreo-vehiculo/rastreo-vehiculo.component';
 import { ActualizarDirectorioComponent } from '../../operador/actualizar-directorio/actualizar-directorio.component';
 
-import {getEspanolPaginatorIntl} from '../../shared/paginatorEspanol/paginator-espanol'
+import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
+import {getEspanolPaginatorIntl,MY_FORMATS} from '../../shared/paginatorEspanol/paginator-espanol'
  
 import {
     MatAutocompleteModule, 
@@ -46,6 +47,7 @@ import {
     MatToolbarModule,
     MatTooltipModule,
     MatStepperModule,
+    MatDatepickerModule,
     MatPaginatorIntl 
     
   } from '@angular/material';
@@ -81,13 +83,15 @@ import {
     MatTabsModule,
     MatToolbarModule,
     MatTooltipModule,
+    MatDatepickerModule,
     MatStepperModule, 
         
     RouterModule, CommonModule, MatButtonModule, FormsModule , NgSelectModule , NgbModule],
     declarations: [ NavbarComponent, InicioLlamadaComponent, LlamadaComunComponent, ShortcutsComponent, ConsultaLlamadaComponent, TelefonosEmergenciaComponent, RastreoVehiculoComponent, ActualizarDirectorioComponent ],
    
     providers: [
-      { provide: MatPaginatorIntl, useValue: getEspanolPaginatorIntl() }
+        { provide: MatPaginatorIntl, useValue: getEspanolPaginatorIntl()},
+        {provide: MAT_DATE_LOCALE, useValue: 'en-GB'},
     ],
       
     exports: [ NavbarComponent,  MatAutocompleteModule,
@@ -121,5 +125,7 @@ import {
         MatToolbarModule,
         MatTooltipModule ]
 })
-
+ 
 export class NavbarModule {}
+
+
