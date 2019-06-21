@@ -1,9 +1,17 @@
-import { Component, OnInit, ElementRef, OnDestroy } from '@angular/core';
+import { Component, OnInit, ElementRef, OnDestroy, NgZone } from '@angular/core';
 import { Usuario } from './usuario';
 import {AuthService} from './auth.service';
 import { Router } from '@angular/router';
 import { NotificacionService } from '../../notificacion/notificacion.service';
 declare var $: any;
+
+declare global {
+  interface Window {
+    RTCPeerConnection: RTCPeerConnection;
+    mozRTCPeerConnection: RTCPeerConnection;
+    webkitRTCPeerConnection: RTCPeerConnection;
+  }
+}
 
 @Component({
     selector: 'app-login-cmp',
@@ -11,6 +19,10 @@ declare var $: any;
 })
 
 export class LoginComponent implements OnInit, OnDestroy {
+
+  localIp = "";
+  private ipRegex = new RegExp(/([0-9]{1,3}(\.[0-9]{1,3}){3}|[a-f0-9]{1,4}(:[a-f0-9]{1,4}){7})/);
+
     test: Date = new Date();
     private toggleButton: any;
     private sidebarVisible: boolean;
@@ -22,7 +34,8 @@ export class LoginComponent implements OnInit, OnDestroy {
     constructor(private element: ElementRef,  
                 private authService: AuthService, 
                 private router: Router, 
-                private notificacion : NotificacionService) {
+                private notificacion : NotificacionService,
+                private zone: NgZone) {
 
         this.nativeElement = element.nativeElement;
         this.sidebarVisible = false;
@@ -43,7 +56,8 @@ export class LoginComponent implements OnInit, OnDestroy {
         if( this.usuario.username == null || this.usuario.password == null){
             
         /// swal.fire('Error', 'USername o password  vacios', 'error' );
-        this.notificacion.showNotification('top','center', 'usuario o contraseña vacios' , 'danger');
+        this.notificacion.showNotification('top','center', 'usuario o contraseña vacios','danger' );
+ 
          return;
         }
      
@@ -70,7 +84,7 @@ export class LoginComponent implements OnInit, OnDestroy {
         }, error =>{
      
            if(error.status == 400){
-            this.notificacion.showNotification('top','center', 'Usuario o contraseñas incorrectas!', 'danger' );
+            this.notificacion.showNotification('top','center', 'Usuario o contraseñas incorrectas!','danger' );
            //  swal.fire('Error Login', 'Usuario o clave incorrectas!', 'error');
            }else if(error.status == 401) {
             this.notificacion.showNotification('top','center', 'Usuario o contraseñas incorrectas!', 'danger');
@@ -89,6 +103,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 
 
     ngOnInit() {
+      this.determineLocalIp();
         var navbar : HTMLElement = this.element.nativeElement;
         this.toggleButton = navbar.getElementsByClassName('navbar-toggle')[0];
         const body = document.getElementsByTagName('body')[0];
@@ -123,5 +138,33 @@ export class LoginComponent implements OnInit, OnDestroy {
     }
 
 
+
+    private determineLocalIp() {
+      window.RTCPeerConnection = this.getRTCPeerConnection();
+  
+      const pc = new RTCPeerConnection({ iceServers: [] });
+      pc.createDataChannel('');
+      pc.createOffer().then(pc.setLocalDescription.bind(pc));
+  
+      pc.onicecandidate = (ice) => {
+        this.zone.run(() => {
+          if (!ice || !ice.candidate || !ice.candidate.candidate) {
+            return;
+          }
+  
+          this.localIp = this.ipRegex.exec(ice.candidate.candidate)[1];
+          localStorage.setItem('LOCAL_IP', this.localIp);
+  
+          pc.onicecandidate = () => {};
+          pc.close();
+        });
+      };
+    }
+  
+    private getRTCPeerConnection() {
+      return window.RTCPeerConnection ||
+        window.mozRTCPeerConnection ||
+        window.webkitRTCPeerConnection;
+    }
 
 }

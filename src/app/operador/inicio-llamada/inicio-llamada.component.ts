@@ -8,6 +8,8 @@ import {Subscription} from 'rxjs';
 import {DataSharedService} from '../../shared/services/data-shared.service';
 import {Evento} from '../../models/evento.model';
 import {Denunciante} from '../../models/denunciante.model';
+import { Grabacion } from '../../models/grabacion.model';
+
 
 
 @Component({
@@ -18,13 +20,14 @@ import {Denunciante} from '../../models/denunciante.model';
 export class InicioLlamadaComponent implements OnInit {
 
   public habilitar: boolean = false;
+  grabacion: Grabacion;
 
   public callId: string = '';
   lista = 'NINGUNO';
   prefolio = null;
   contadores;
-  accion = 'Intermedio';
-  estatusGrabacion :string ='';
+  accion = 'INICIO';
+ 
   x = null;
   y = null;
 
@@ -165,6 +168,9 @@ export class InicioLlamadaComponent implements OnInit {
   }
 
   inicioGrabacion(pre, accion) {
+
+    let localIp=localStorage.getItem('LOCAL_IP');
+
     let fecha = new Date();
     let fActual = fecha.getDate() + '/' +
             fecha.getMonth() + '/' +
@@ -174,8 +180,34 @@ export class InicioLlamadaComponent implements OnInit {
             fecha.getSeconds();
     // alert(pre + this.accion + fActual);
 
-    this.estatusGrabacion = this.grabacionService.grabarAuronix(pre, fActual, accion);
 
+    this.grabacion = new Grabacion();
+
+   this.grabacion.accion = accion;
+   this.grabacion.prefolio=pre;
+   this.grabacion.fechaGrabacion=fActual;
+   this.grabacion.ip = localIp;
+   this.grabacion.nombreUsuario = "OPERADOR1";
+   this.grabacion.idUsuario = "";
+
+
+
+     
+    this.grabacionService.grabacion(this.grabacion).subscribe(response => {
+      let jsonRespuesta = JSON.parse(atob(response ) ) ;
+     
+  
+    }, error =>{
+     
+           if(error.status == 400){
+           
+           }else if(error.status == 401) {
+           
+           }
+          }
+      
+      );
+    
   }
 
   obtenerUbicacion(numero) {
