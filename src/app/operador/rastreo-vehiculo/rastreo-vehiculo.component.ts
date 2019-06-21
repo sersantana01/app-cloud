@@ -50,10 +50,6 @@ export class RastreoVehiculoComponent implements OnInit {
     this.getCatalogoAntiguedad();
   }
 
-  public enviar() {
-    
-  }
-
   public getCatalogoMotivo() {
     let urlGetMotivo = 'http://3.14.155.2:9091/api/llamadaReal/obtenerMotivos';
 
@@ -168,7 +164,7 @@ export class RastreoVehiculoComponent implements OnInit {
   }
 
   public borrar() {
-    this.desdeFolio = null;
+    this.desdeFolio = '';
     this.hastaFolio = '';
     this.desdeFecha = '';
     this.hastaFecha = '';
@@ -185,6 +181,34 @@ export class RastreoVehiculoComponent implements OnInit {
     this.anio = '';
     this.antiguedadSeleccionada = null;
     this.seniasParticulares = null;
+  }
+
+  public buscar() {
+    let urlBuscarRegistroVehiculo = 'http://localhost:9087/buscarRegistroVehiculo';
+
+    let json = {};
+    json['uuid'] = this.uuid;
+    json['desdeFolio'] = this.desdeFolio;
+    json['hastaFolio'] = this.hastaFolio;
+    json['desdeFecha'] = this.desdeFecha;
+    json['hastaFecha'] = this.hastaFecha;
+    json['idMotivo'] = this.motivoSeleccionado;
+    json['idMarca'] = this.marcaSeleccionada;
+    json['idModelo'] = this.modeloSeleccionado;
+    json['numeroPlaca'] = this.numeroPlaca;
+    json['numeroSerie'] = this.numeroSerie;
+    json['idColor'] = this.colorSeleccionado;
+    json['idEstatusRastreo'] = this.rastreoSeleccionado;
+    json['anio'] = this.anio;
+    json['antiguedad'] = this.antiguedadSeleccionada;
+    json['seniasParticulares'] = this.seniasParticulares;
+
+    this.rastreoVehiculoService.getCatalogoModeloPorNombre(urlBuscarRegistroVehiculo, json).subscribe(
+      (response) => {
+        this.modelo = response['items'];
+      }
+    );
+    
   }
 
   public buscarPorNombre(busqueda: string, item: any) {

@@ -149,7 +149,7 @@
              <ng-select  class="selector" 
                             id="selectAntiguedad" 
                             [items]="antiguedad"
-                            bindLabel="nombre_antiguedad"
+                            bindLabel="z"
                             searchable="true"
                             placeholder="Selecciona una antigüedad"
                             [(ngModel)]="antiguedadSeleccionada"
@@ -164,7 +164,7 @@
             </div>
             <div class="row contenedorBotones p-3">
               <div class="col-12">
-                <button type="button" class="botonModal btn btn-primary" (click)="enviar()">Buscar</button>
+                <button type="button" class="botonModal btn btn-primary" (click)="buscar()">Buscar</button>
                 <button type="button" class="botonModal btn btn-secondary" (click)="borrar()">Borrar</button>
               </div>
             </div>

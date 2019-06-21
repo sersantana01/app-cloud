@@ -8,10 +8,11 @@ import { InicioLlamadaComponent } from '../../operador/inicio-llamada/inicio-lla
 import { LlamadaComunComponent } from '../../operador/llamada-comun/llamada-comun.component';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { ShortcutsComponent} from '../../operador/llamada-comun/shortcuts/shortcuts.component';
+import { ShortcutsComponent } from '../../operador/llamada-comun/shortcuts/shortcuts.component';
 import { ConsultaLlamadaComponent } from './consulta-llamada/consulta-llamada.component';
 import { TelefonosEmergenciaComponent } from './telefonos-emergencia/telefonos-emergencia.component';
 import { RastreoVehiculoComponent } from '../../operador/rastreo-vehiculo/rastreo-vehiculo.component';
+import { ActualizarDirectorioComponent } from '../../operador/actualizar-directorio/actualizar-directorio.component';
 
 import {getEspanolPaginatorIntl} from '../../shared/paginatorEspanol/paginator-espanol'
  
@@ -83,7 +84,7 @@ import {
     MatStepperModule, 
         
     RouterModule, CommonModule, MatButtonModule, FormsModule , NgSelectModule , NgbModule],
-    declarations: [ NavbarComponent, InicioLlamadaComponent, LlamadaComunComponent, ShortcutsComponent, ConsultaLlamadaComponent, TelefonosEmergenciaComponent, RastreoVehiculoComponent ],
+    declarations: [ NavbarComponent, InicioLlamadaComponent, LlamadaComunComponent, ShortcutsComponent, ConsultaLlamadaComponent, TelefonosEmergenciaComponent, RastreoVehiculoComponent, ActualizarDirectorioComponent ],
    
     providers: [
       { provide: MatPaginatorIntl, useValue: getEspanolPaginatorIntl() }
