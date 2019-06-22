@@ -109,6 +109,8 @@ export class InicioLlamadaComponent implements OnInit {
   }
 
   obtenerPrefolioIncidente() {
+
+
     this.http
       .post('http://3.14.155.2:8687/obtenerPrefolioIncidente', {
         nombreMs: 'ms-recibir-incidente',
@@ -131,19 +133,35 @@ export class InicioLlamadaComponent implements OnInit {
       .subscribe(data => {
         this.prefolio = data['RESULTADO'];
 
-
-
-        
-        this.obtenerUbicacion(this.callId);
-        
-        this.inicioGrabacion(this.prefolio, this.accion);
-
        // $("#button_motivo").click();
+       this.inicioGrabacion(this.prefolio, this.accion);
 
+
+        
+       /////////////////////////////////////////SE CREA NUEVA INSTANCIA DE EVENTO
+       let ev=new Evento();
+       ev.numeroTelefonico=this.callId;
+       ev.prefolio = this.prefolio;
+
+      
+       let denun= new Denunciante();
+       denun.latitudDenunciante= '19.4336368';
+       denun.longitudDenunciante='-99.1836388';
+
+       ev.denunciante = denun;
+       ev.fechaInicio=this.fechaInicioLlamada;
+       
+
+       this.callCreaLlamadaEvento(ev);
 
         let btnMotivo=  <HTMLInputElement>(document.getElementById("button_motivo"));
         btnMotivo.click();
       });
+      
+
+      
+     // this.obtenerUbicacion(this.callId);
+        
       
   }
 
@@ -194,7 +212,7 @@ export class InicioLlamadaComponent implements OnInit {
 
      
     this.grabacionService.grabacion(this.grabacion).subscribe(response => {
-      let jsonRespuesta = JSON.parse(atob(response ) ) ;
+     // let jsonRespuesta = JSON.parse(atob(response ) ) ;
      
   
     }, error =>{
@@ -220,23 +238,6 @@ export class InicioLlamadaComponent implements OnInit {
         this.x = data['x'];//latitud
         this.y = data['y'];//longitud
 
-
-        
-        /////////////////////////////////////////SE CREA NUEVA INSTANCIA DE EVENTO
-        let ev=new Evento();
-        ev.numeroTelefonico=this.callId;
-        ev.prefolio = this.prefolio;
-
-
-        let denun= new Denunciante();
-        denun.latitudDenunciante=this.x;
-        denun.longitudDenunciante=this.y;
-
-        ev.denunciante = denun;
-        ev.fechaInicio=this.fechaInicioLlamada;
-        
-
-        this.callCreaLlamadaEvento(ev);
       });
   }
 

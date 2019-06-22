@@ -120,7 +120,7 @@
                       <div class="col-md-6">
                           <label>Desde:</label>
                           <mat-form-field>
-                              <input disabled
+                              <input readonly (click)="picker1.open()"
                               
                               (dateChange)="setFinal()"
                               name="fechaDesde" [(ngModel)]="busq_fechaDesde"  matInput [matDatepicker]="picker1" placeholder="Fecha Inicio">
@@ -131,9 +131,9 @@
                       <div class="col-md-6">
                           <label>Hasta:</label>
                           <mat-form-field>
-                              <input  disabled
+                              <input  readonly (click)="picker2.open()"
                               (dateChange)="setInicio()"
-                               name="fechaHasta" [(ngModel)]="busq_fechaHasta"  matInput [matDatepicker]="picker2" placeholder="Fecha Inicio">
+                               name="fechaHasta" [(ngModel)]="busq_fechaHasta"  matInput [matDatepicker]="picker2" placeholder="Fecha Fin">
                               <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
                               <mat-datepicker disabled="false" #picker2></mat-datepicker>
                             </mat-form-field>  
@@ -161,12 +161,14 @@
                     [(ngModel)]="consultaEstatus" >
                   </ng-select>
                 </div>
+                <!-- 
                 <div class="col-md-3">
                     <label class="etiqueta">General(*):</label>
                     <br />
                     <input [(ngModel)]="this.busq_general" name="busq_general" type="text" class="cajaTexto" />
                 
                 </div>
+                -->
                 <div class="col-md-3">
                   <div class="row contenedorBotones p-3">
                     <div class="col-6">
@@ -201,7 +203,7 @@
 
                         <tr *ngFor="let evento of listaLlamadasCoincidencia; let i=index;" [id]="'row_' + (i+1)" (click)="setLlamadaActual(i)">
                             <td>{{i+1}}</td>
-                            <td>**{{evento.fechaRecepcion}}**</td>
+                            <td>{{getFechaRecepcion(evento.fecha_creacion)}}</td>
                             <td>{{evento.nombre_motivo}}</td>
                             <td>{{evento.folio}}</td>
                             <td>{{evento.numero_telefono}}</td>
@@ -212,6 +214,11 @@
                             <td><a href="#"><img src="../assets/images/iconosTablas/icnDiadema.svg" class="icnSvg"/></a></td>
                             <td><a href="#"><img src="../assets/images/iconosTablas/icnEditar.svg" class="icnSvg"/></a></td> 
                           </tr>
+                        <tr *ngIf="listaLlamadasCoincidencia.length<1">  
+                          NO HUBO RESULTADOS
+
+                        </tr>
+
 
                       <tr>
                        
@@ -222,31 +229,41 @@
 
               <div *ngIf="mostrarBusquedas && listaLlamadasCoincidencia.length>0">
                   <div class="col-12 text-right"> 
-                      <button type="button" class="btn btn-link">
+                      <button disabled="true"  type="button" class="btn btn-link">
                        <img (click)="getBusquedaPorFiltros('FIRST');" src="../assets/images/icnFlechaIzquierdaAzul.svg" /> 
                       </button>
  
-                      <button type="button" class="btn btn-link">        
+                      <button disabled="true"  type="button" class="btn btn-link">        
                         <img (click)="getBusquedaPorFiltros('PREV');" src="../assets/images/icnFlechaIzquierdaAzul.svg" />                       
                       </button>
 
-                      <button type="button" class="btn btn-link">
+                      <button disabled="true"  type="button" class="btn btn-link">
                         <img (click)="getBusquedaPorFiltros('NEXT');" src="../assets/images/icnFlechaDerechaAzul.svg" />                      
                       </button>
-                      <button type="button" class="btn btn-link">
+                      <button disabled="true" type="button" class="btn btn-link">
                         <img (click)="getBusquedaPorFiltros('ULTIMO');" src="../assets/images/icnFlechaDerechaAzul.svg" />
                       
                       </button> 
                     </div>
-
+               
 
               </div>
-
+              <hr />
+              
+              <div class="col-1 text-left">   
+                  <button type="button" class="btn btn-link">                                    
+                     <img (click)="setMostrarBusquedas();" src="../assets/images/icnFlechaIzquierdaAzul.svg" />  
+                  </button> 
+              </div>
+              <!--
               <div *ngIf="!mostrarBusquedas" class="row content p-3 menuIconos">
 
-                  <div class="col-1 text-left">                                       
-                      <img (click)="mostrarBusquedas=true" src="../assets/images/icnFlechaIzquierdaAzul.svg" />  
+                  <div class="col-1 text-left">   
+                      <button type="button" class="btn btn-link">                                    
+                         <img (click)="setMostrarBusquedas();" src="../assets/images/icnFlechaIzquierdaAzul.svg" />  
+                      </button> 
                   </div>
+ 
                 <div class="col-11 text-right">
                     <img src="../assets/images/menu/icnPersonas.svg" />
                       <img src="../assets/images/menu/icnAuto.svg" />
@@ -258,7 +275,8 @@
                       <img src="../assets/images/menu/icnReconocimiento.svg" />
                   </div>
 
-              </div>
+              </div> 
+              -->
               
               <div *ngIf="!mostrarBusquedas">
               <hr />
@@ -268,7 +286,7 @@
                     <div class="col">
                       <label class="etiqueta">Municipio:</label>
                       <br />
-                      <input [disabled]="true"  [(ngModel)]="this.eventoSeleccionado.municipio" name="evento_municipio" type="text" class="cajaTexto" />
+                      <input [disabled]="true" id="evento_municipio"  [(ngModel)]="this.eventoSeleccionado.municipio" name="evento_municipio" type="text" class="cajaTexto" />
                     </div>
                     <div class="col">
                       <label class="etiqueta">Folio:</label>
@@ -353,6 +371,24 @@
               </div>
               <div class="row contenedorBotones p-3">
                 <div class="col-6">
+
+                    <div *ngIf="!mostrarBusquedas" class="row content p-3 menuIconos">
+ 
+       
+                      <div class="col-11 text-right">
+                          <img src="../assets/images/menu/icnPersonas.svg" />
+                            <img src="../assets/images/menu/icnAuto.svg" />
+                            <img src="../assets/images/menu/icnArma.svg" />
+                            <img src="../assets/images/menu/icnCorporacion.svg" />
+                            <img src="../assets/images/menu/icnTelefonista.svg" />
+                            <img src="../assets/images/menu/icnAgregarInfo.svg" />
+                            <img src="../assets/images/menu/icnEditarInfo.svg" />
+                            <img src="../assets/images/menu/icnReconocimiento.svg" />
+                        </div>
+      
+                    </div>
+                    
+
                   </div>
                   <div class="col-6">
                     <button type="button" class="botonModal btn btn-primary"><i class="fa fa-globe" aria-hidden="true"></i> Seleccionar ubicación</button>
@@ -451,7 +487,7 @@
         <div class="modal-footer">
           <div class="row contenedorBotones">
               <div class="col-12">
-                <button type="button" class="botonModal btn btn-primary">Aceptar</button>
+                <button type="button"  class="botonModal btn btn-primary">Aceptar</button>
               <button type="button" class="botonModal btn btn-secondary" data-dismiss="modal">Cancelar</button>
               </div>
           </div>

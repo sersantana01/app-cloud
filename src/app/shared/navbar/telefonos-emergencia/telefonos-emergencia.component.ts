@@ -22,7 +22,7 @@ export class TelefonosEmergenciaComponent implements OnInit {
 
   uuid=5;
 
-  public endpointCatTelEmergencia= "http://172.168.13.26:8888/api/telefonoemergencia/getCatalogoTelefonosEmergencia" ;
+  public endpointCatTelEmergencia= "http:///3.14.155.2:9096/api/telefonoemergencia/getCatalogoTelefonosEmergencia" ;
 
   @ViewChild(MatSort ) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;

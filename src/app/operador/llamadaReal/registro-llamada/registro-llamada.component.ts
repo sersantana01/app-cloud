@@ -888,7 +888,7 @@ constructor(public dataShared: DataSharedService,
     
          
         this.grabacionService.grabacion(this.grabacion).subscribe(response => {
-          let jsonRespuesta = JSON.parse(atob(response ) ) ;
+       //   let jsonRespuesta = JSON.parse(atob(response ) ) ;
          
       
         }, error =>{
@@ -923,7 +923,7 @@ constructor(public dataShared: DataSharedService,
     
          
         this.grabacionService.grabacion(this.grabacion).subscribe(response => {
-          let jsonRespuesta = JSON.parse(atob(response ) ) ;
+        //  let jsonRespuesta = JSON.parse(atob(response ) ) ;
          
       
         }, error =>{
