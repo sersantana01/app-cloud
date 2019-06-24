@@ -16,24 +16,19 @@ export class NotificacionService {
 
     const color = Math.floor((Math.random() * 6) + 1);
 
- 
-    this.counterNofif= this.counterNofif+1;
-
-    console.log(
-      this.counterNofif);
+   
     $.notify({
         icon: 'notifications',
         message:msj      //'Welcome to <b>Material Dashboard</b> - a beautiful dashboard for every web developer.'
     }, {
         type: msjType,
         delay: 500,
-        timer: 4000,
+        timer: 5000,
         placement: {
             from: from,
             align: align
         },
-        template: '<div id="notifier" data-notify="container" class="note_'+this.counterNofif+' notificationMsg col-xs-11 col-sm-3 alert alert-{0} alert-with-icon" role="alert">' +
-          '<button mat-raised-button type="button" aria-hidden="true" class="close" data-notify="dismiss">  <i class="material-icons">close</i></button>' +
+        template: '<div id="notifier" data-notify="container" class="notificationMsg col-xs-11 col-sm-3 alert alert-{0} alert-with-icon" role="alert">' +
           '<i class="material-icons" data-notify="icon">notifications</i> ' +
           '<span data-notify="title">{1}</span> ' +
           '<span data-notify="message">{2}</span>' +
