@@ -85,13 +85,15 @@ export class RegistroLlamadaComponent implements OnInit {
 
    public endopointGrabacion= "http://3.14.155.2:6769/grabarAuronix";  
    //public endpointSaveEvento="http://3.14.155.2:9091/api/llamadaReal/saveEvento";   
-   public endpointUpdateDesc="http://3.14.155.2:9091/api/llamadaReal/updateDescripcion";   
+   //public endpointUpdateDesc="http://3.14.155.2:9091/api/llamadaReal/updateDescripcion";   
+   public endpointUpdateDesc="http://localhost:9091/api/llamadaReal/updateDescripcion";   
+
    public endpointMotivos ="http://3.14.155.2:9091/api/llamadaReal/obtenerMotivos"; 
    public endpointInst ="http://3.14.155.2:9091/api/llamadaReal/obtenerInstituciones";   
    public endpointModificarEvento="http://3.14.155.2:9091/api/llamadaReal/updateEvento";   
    public endpointBitacoraEvento="http:///3.14.155.2:9091/api/llamadaReal/registroBitacoraEvento";
    
-     public endpointSaveEvento="http://172.168.13.25:9091/api/llamadaReal/saveEvento";
+     public endpointSaveEvento="http://3.14.155.2:9091/api/llamadaReal/saveEvento";
 
    public endpointAsignarInstitucion="http://3.14.155.2:9091/api/llamadaReal/asignarInstitucionEvento";
     
@@ -656,10 +658,7 @@ constructor(public dataShared: DataSharedService,
         
            var call = {};
            var params=[];
-           var param= {};
-           param["nombreParametro"]="uuid";
-           param["tipo"]="String";
-           param["valor"]=this.uuid;
+           var param= {}; 
 
            params.push(param);
 
@@ -667,27 +666,17 @@ constructor(public dataShared: DataSharedService,
            evento["descripcion"]=descripcion;
            evento["idDescripcionEvento"]=this.eventoTmp.idDescripcionEvento;
            evento["idEvento"]=this.eventoTmp.idEvento;
-           evento["creadoPor"]=this.session_id_user;
+           evento["creadoPor"]=this.session_id_user;           
+           evento["uuid"]=this.uuid;
 
-           var paramEvento= {};
-           paramEvento["nombreParametro"]="evento";
-           paramEvento["tipo"]="Clase";
-           paramEvento["valor"]=JSON.stringify(evento);
-
-           params.push(paramEvento);
-
-           call["nombrePaquete"] = "telefonista";
-           call["nombreStoreProcedure"] = "Descripcion_evento";
-           call["nombreMs"] = "MS-LLAMADA-REAL";
-           call["tipo"]="POST";
-           call["param"] = params; 
-
+     
 
            var callUpdateEventoDescripcion={};
         
            callUpdateEventoDescripcion["uuid"]= this.uuid;
            callUpdateEventoDescripcion["evento"]=evento;
    
+           console.log(callUpdateEventoDescripcion);
  
            this.restCaller.sendCall(callUpdateEventoDescripcion,this.endpointUpdateDesc).subscribe(//llamadada a restcaller
              (data) => {
