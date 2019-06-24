@@ -495,7 +495,11 @@ public getFechaRecepcion(date: any){
           this.eventoSeleccionado.colonia = elemTmp["nombre_colonia"];
        //   this.eventoSeleccionado.creadoPor = elemTmp["nombre_municipio"];
        //   this.eventoSeleccionado.creadoPorNombre = elemTmp["nombre_municipio"];
-          this.eventoSeleccionado.descripcion = elemTmp["descripcion"];
+
+           if( elemTmp["descripcion"]!=null)
+          this.eventoSeleccionado.descripcion =  elemTmp["descripcion"].replace("<br>", "\n");
+
+
           this.eventoSeleccionado.estatus = elemTmp["estatus"];
           this.eventoSeleccionado.estatusCaptura = elemTmp["estatus"];
       //    this.eventoSeleccionado.fechaInicio = elemTmp["nombre_municipio"];
