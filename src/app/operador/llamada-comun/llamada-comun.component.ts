@@ -55,6 +55,7 @@ export class LlamadaComunComponent implements OnInit {
   public eventoDobleClick(id: number) {
     this.preventSimpleClick = true;
     clearTimeout(this.timer);
+    this.llamadaNoPreferente = id;
     this.persisteLlamadaComun(id);
   }
 
