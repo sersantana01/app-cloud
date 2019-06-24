@@ -9,6 +9,8 @@ export class NotificacionService {
 
   constructor() { }
 
+  public counterNotificaciones=0;
+
   
 
   public   showNotification(from: any, align: any, msj : string ,msjType: string) {
@@ -17,6 +19,8 @@ export class NotificacionService {
     const color = Math.floor((Math.random() * 6) + 1);
 
    
+    var numberTmp=this.counterNotificaciones;
+
     $.notify({
         icon: 'notifications',
         message:msj      //'Welcome to <b>Material Dashboard</b> - a beautiful dashboard for every web developer.'
@@ -28,7 +32,7 @@ export class NotificacionService {
             from: from,
             align: align
         },
-        template: '<div id="notifier" data-notify="container" class="notificationMsg col-xs-11 col-sm-3 alert alert-{0} alert-with-icon" role="alert">' +
+        template: '<div id="notifier" data-notify="container" class="numberNoti_'+numberTmp+' notificationMsg col-xs-11 col-sm-3 alert alert-{0} alert-with-icon" role="alert">' +
           '<i class="material-icons" data-notify="icon">notifications</i> ' +
           '<span data-notify="title">{1}</span> ' +
           '<span data-notify="message">{2}</span>' +
@@ -39,12 +43,13 @@ export class NotificacionService {
         '</div>'
     }); 
      
+    this.counterNotificaciones= this.counterNotificaciones+1;
   
     setTimeout (() => {  
-      //jquery("#notifier").remove();
+       //jquery("#notifier").remove();
        //console.log($("#notifier"));
-      $(".notificationMsg").remove();
-    //  $(".note_"+this.arrayNotif[0]).remove(); 
+    //  $(".notificationMsg").remove();
+       $(".numberNoti_"+numberTmp).remove(); 
     }, 4000);
 }
 ngOnInit(){/*
