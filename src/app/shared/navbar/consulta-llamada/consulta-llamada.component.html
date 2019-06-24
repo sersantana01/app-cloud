@@ -250,11 +250,7 @@
               </div>
               <hr />
               
-              <div class="col-1 text-left">   
-                  <button type="button" class="btn btn-link">                                    
-                     <img (click)="setMostrarBusquedas();" src="../assets/images/icnFlechaIzquierdaAzul.svg" />  
-                  </button> 
-              </div>
+            
               <!--
               <div *ngIf="!mostrarBusquedas" class="row content p-3 menuIconos">
 
@@ -279,6 +275,11 @@
               -->
               
               <div *ngIf="!mostrarBusquedas">
+                  <div class="col-1 text-left">   
+                      <button type="button" class="btn btn-link">                                    
+                         <img (click)="setMostrarBusquedas();" src="../assets/images/icnFlechaIzquierdaAzul.svg" />  
+                      </button> 
+                  </div>
               <hr />
               <h2>Datos del evento</h2>
               <form *ngIf="!mostrarBusquedas">
