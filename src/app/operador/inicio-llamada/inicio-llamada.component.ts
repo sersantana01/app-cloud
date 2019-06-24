@@ -8,6 +8,8 @@ import {Subscription} from 'rxjs';
 import {DataSharedService} from '../../shared/services/data-shared.service';
 import {Evento} from '../../models/evento.model';
 import {Denunciante} from '../../models/denunciante.model';
+import { Grabacion } from '../../models/grabacion.model';
+
 
 
 @Component({
@@ -18,13 +20,14 @@ import {Denunciante} from '../../models/denunciante.model';
 export class InicioLlamadaComponent implements OnInit {
 
   public habilitar: boolean = false;
+  grabacion: Grabacion;
 
   public callId: string = '';
   lista = 'NINGUNO';
   prefolio = null;
   contadores;
-  accion = 'Intermedio';
-  estatusGrabacion :string ='';
+  accion = 'INICIO';
+ 
   x = null;
   y = null;
 
@@ -106,6 +109,8 @@ export class InicioLlamadaComponent implements OnInit {
   }
 
   obtenerPrefolioIncidente() {
+
+
     this.http
       .post('http://3.14.155.2:8687/obtenerPrefolioIncidente', {
         nombreMs: 'ms-recibir-incidente',
@@ -128,19 +133,35 @@ export class InicioLlamadaComponent implements OnInit {
       .subscribe(data => {
         this.prefolio = data['RESULTADO'];
 
-
-
-        
-        this.obtenerUbicacion(this.callId);
-        
-        this.inicioGrabacion(this.prefolio, this.accion);
-
        // $("#button_motivo").click();
+       this.inicioGrabacion(this.prefolio, this.accion);
 
+
+        
+       /////////////////////////////////////////SE CREA NUEVA INSTANCIA DE EVENTO
+       let ev=new Evento();
+       ev.numeroTelefonico=this.callId;
+       ev.prefolio = this.prefolio;
+
+      
+       let denun= new Denunciante();
+       denun.latitudDenunciante= '19.4336368';
+       denun.longitudDenunciante='-99.1836388';
+
+       ev.denunciante = denun;
+       ev.fechaInicio=this.fechaInicioLlamada;
+       
+
+       this.callCreaLlamadaEvento(ev);
 
         let btnMotivo=  <HTMLInputElement>(document.getElementById("button_motivo"));
         btnMotivo.click();
       });
+      
+
+      
+     // this.obtenerUbicacion(this.callId);
+        
       
   }
 
@@ -165,6 +186,9 @@ export class InicioLlamadaComponent implements OnInit {
   }
 
   inicioGrabacion(pre, accion) {
+
+    let localIp=localStorage.getItem('LOCAL_IP');
+
     let fecha = new Date();
     let fActual = fecha.getDate() + '/' +
             fecha.getMonth() + '/' +
@@ -174,8 +198,34 @@ export class InicioLlamadaComponent implements OnInit {
             fecha.getSeconds();
     // alert(pre + this.accion + fActual);
 
-    this.estatusGrabacion = this.grabacionService.grabarAuronix(pre, fActual, accion);
 
+    this.grabacion = new Grabacion();
+
+   this.grabacion.accion = accion;
+   this.grabacion.prefolio=pre;
+   this.grabacion.fechaGrabacion=fActual;
+   this.grabacion.ip = localIp;
+   this.grabacion.nombreUsuario = "OPERADOR1";
+   this.grabacion.idUsuario = "";
+
+
+
+     
+    this.grabacionService.grabacion(this.grabacion).subscribe(response => {
+     // let jsonRespuesta = JSON.parse(atob(response ) ) ;
+     
+  
+    }, error =>{
+     
+           if(error.status == 400){
+           
+           }else if(error.status == 401) {
+           
+           }
+          }
+      
+      );
+    
   }
 
   obtenerUbicacion(numero) {
@@ -188,23 +238,6 @@ export class InicioLlamadaComponent implements OnInit {
         this.x = data['x'];//latitud
         this.y = data['y'];//longitud
 
-
-        
-        /////////////////////////////////////////SE CREA NUEVA INSTANCIA DE EVENTO
-        let ev=new Evento();
-        ev.numeroTelefonico=this.callId;
-        ev.prefolio = this.prefolio;
-
-
-        let denun= new Denunciante();
-        denun.latitudDenunciante=this.x;
-        denun.longitudDenunciante=this.y;
-
-        ev.denunciante = denun;
-        ev.fechaInicio=this.fechaInicioLlamada;
-        
-
-        this.callCreaLlamadaEvento(ev);
       });
   }
 

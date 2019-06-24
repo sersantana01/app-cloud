@@ -9,6 +9,8 @@ import {Denunciante} from '../../../models/denunciante.model';
 
 import {NotificacionService} from '../../../notificacion/notificacion.service';
 import {MatDatepickerInputEvent} from '@angular/material/datepicker';
+
+import * as moment from 'moment';
  
 
 @Component({
@@ -29,9 +31,9 @@ export class ConsultaLlamadaComponent implements OnInit {
 
   public endpointMotivos ="http://3.14.155.2:9091/api/llamadaReal/obtenerMotivos";
   public endpointOrigenes="http://3.14.155.2:9091/api/llamadaReal/obtenerOrigenes";
-  public endpointBusqueda ="http://localhost:9091/api/llamadaReal/consultaLlamada";
+  public endpointBusqueda ="http://3.14.155.2:9091/api/llamadaReal/consultaLlamada";
   
-  public endpointEventoById ="http://localhost:9091/api/llamadaReal/getEventoById";
+  public endpointEventoById ="http://3.14.155.2:9091/api/llamadaReal/getEventoById";
 /*
   public endpointMotivos ="http://localhost:9091/api/llamadaReal/obtenerMotivos";
     public endpointOrigenes="http://localhost:9091/api/llamadaReal/obtenerOrigenes";
@@ -39,8 +41,8 @@ export class ConsultaLlamadaComponent implements OnInit {
   //public endpointBusqueda ="http://3.14.155.2:9091/api/llamadaReal/consultaLlamada";
      
 
-  public endpointMunicipios = "http://172.168.13.26:8888/api/telefonoemergencia/getMunicipios";
-  public endpointColonias = "http://172.168.13.26:8888/api/telefonoemergencia/getColonias";
+  public endpointMunicipios = "http://3.14.155.2:9096/api/telefonoemergencia/getMunicipios";
+  public endpointColonias = "http://3.14.155.2:9096/api/telefonoemergencia/getColonias";
   
     
   public itemsSelectMotivos=[];   //Lista de motivos 
@@ -95,8 +97,15 @@ export class ConsultaLlamadaComponent implements OnInit {
   public hasMore;
 
 
+  public setMostrarBusquedas() {
+
+   this. mostrarBusquedas=true;
+  //  $("#buttoon").focus();
+   // document.getElementById('buttoon').focus();
+
+  }
   
-  setFinal() {
+  public setFinal() {
   //  this.events.push(`${type}: ${event.value}`);
       //alert("GOL");
  
@@ -110,7 +119,7 @@ export class ConsultaLlamadaComponent implements OnInit {
   }
 
   
-  setInicio() {
+  public setInicio() {
     //  this.events.push(`${type}: ${event.value}`);
         
         //console.log("TR");
@@ -439,12 +448,28 @@ getOffset(data){
 
     this.getBusquedaPorFiltros("FIRST");
   }
+ 
 
 
+public getFechaRecepcion(date: any){
+
+  if(date==null){
+    return "--/--/----"
+  } else{
+ 
+    var splitFecha= date;
+    var splitFecha =splitFecha.split("Z", 2);     
+    var dateTmp= new Date( splitFecha[0]);
+
+    return moment(dateTmp).format('DD/MM/YYYY HH:mm:ss');
+  }
+}
 
   public setLlamadaActual(index:any){ //metodo para obtener lista de motivos
   
          
+         
+
          let removeClass= <HTMLInputElement>(document.getElementsByClassName("selectedRowEvento")[0]);
          
          if(removeClass!=undefined)
@@ -460,6 +485,9 @@ getOffset(data){
 
           let elemTmp= this.listaLlamadasCoincidencia[index];
 
+          console.log("XXXXXXX>");
+          console.log(elemTmp);
+
           this.eventoSeleccionado.idEvento= elemTmp["id_evento"];
         //  this.eventoSeleccionado.latitud
         //  this.eventoSeleccionado.longitud
@@ -467,7 +495,11 @@ getOffset(data){
           this.eventoSeleccionado.colonia = elemTmp["nombre_colonia"];
        //   this.eventoSeleccionado.creadoPor = elemTmp["nombre_municipio"];
        //   this.eventoSeleccionado.creadoPorNombre = elemTmp["nombre_municipio"];
-          this.eventoSeleccionado.descripcion = elemTmp["descripcion"];
+
+           if( elemTmp["descripcion"]!=null)
+          this.eventoSeleccionado.descripcion =  elemTmp["descripcion"].replace("<br>", "\n");
+
+
           this.eventoSeleccionado.estatus = elemTmp["estatus"];
           this.eventoSeleccionado.estatusCaptura = elemTmp["estatus"];
       //    this.eventoSeleccionado.fechaInicio = elemTmp["nombre_municipio"];
@@ -480,16 +512,29 @@ getOffset(data){
           this.eventoSeleccionado.origenNombre = elemTmp["nombre_origen"];
           this.eventoSeleccionado.prioridad  = elemTmp["prioridad"];
 
-          let denunciante : Denunciante = new Denunciante();
+          var splitFecha= elemTmp["fecha_creacion"];
 
+          var splitFecha =splitFecha.split("Z", 2); 
+        
+          var dateTmp= new Date( splitFecha[0]);
+
+          this.eventoSeleccionado.fechaRecepcion =  moment(dateTmp).format('DD/MM/YYYY HH:mm:ss');
+
+          let denunciante : Denunciante = new Denunciante();
+/*
           denunciante.nombre="ESTELA";
           denunciante.apMaterno="BANKS";
           denunciante.apPaterno="PEREZ";
           denunciante.direccion="CALLE Z, NUMERO 35";
           denunciante.telefono="64433213";
-          denunciante.tipo="DENUNCIANTE";
+          denunciante.tipo="DENUNCIANTE";*/
 
           this.eventoSeleccionado.denunciante= denunciante;
+
+
+         //console.log( $("#buttoon").focus());
+
+         $('#modalConsultaLlamada').animate({ scrollTop: 0 }, 'slow');
 
 
   }

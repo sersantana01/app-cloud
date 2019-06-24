@@ -44,7 +44,7 @@ export class ActualizarDirectorioComponent implements OnInit {
   }
 
   public enviarDirectorio() {
-    let urlGetInsertarDirectorio = 'http://172.168.13.26:8888/api/telefonoemergencia/insertarDirectorio';
+    let urlGetInsertarDirectorio = 'http://3.14.155.2:9096/api/telefonoemergencia/insertarDirectorio';
     let json = {};
 
     if(this.uuid == '') {
@@ -126,7 +126,7 @@ export class ActualizarDirectorioComponent implements OnInit {
   }
 
   public getCatalogoEstados() {
-    let urlGetEstado = 'http://172.168.13.26:8888/api/telefonoemergencia/getEstados';
+    let urlGetEstado = 'http://3.14.155.2:9096/api/telefonoemergencia/getEstados';
 
     let json = {};
     json['uuid'] = this.uuid;
@@ -139,7 +139,7 @@ export class ActualizarDirectorioComponent implements OnInit {
   }
 
   public getCatalogoMunicipios() {
-    let urlGetMunicipio = 'http://172.168.13.26:8888/api/telefonoemergencia/getMunicipios';
+    let urlGetMunicipio = 'http://3.14.155.2:9096/api/telefonoemergencia/getMunicipios';
 
     let json = {};
     json['uuid'] = this.uuid;
@@ -152,7 +152,7 @@ export class ActualizarDirectorioComponent implements OnInit {
   }
 
   public getCatalogoColonias() {
-    let urlGetColonias = 'http://172.168.13.26:8888/api/telefonoemergencia/getColonias';
+    let urlGetColonias = 'http://3.14.155.2:9096/api/telefonoemergencia/getColonias';
 
     let json = {};
     json['uuid'] = this.uuid;

@@ -55,12 +55,12 @@ export class LlamadaComunComponent implements OnInit {
   public eventoDobleClick(id: number) {
     this.preventSimpleClick = true;
     clearTimeout(this.timer);
+    this.llamadaNoPreferente = id;
     this.persisteLlamadaComun(id);
   }
 
   public getLlamadaComun(data: any): void {
-    //let urlGetLlamadaComun = 'http://3.14.155.2:9093/obtenerCatalogoLlamadaComun';
-    let urlGetLlamadaComun = 'http://localhost:9088/obtenerCatalogoLlamadaNoProcedente';
+    let urlGetLlamadaComun = 'http://3.14.155.2:9093/obtenerCatalogoLlamadaNoProcedente';
 
     this.llamadaComunService.getLlamadaComun(urlGetLlamadaComun, data).subscribe(
       (response) => {
@@ -70,8 +70,7 @@ export class LlamadaComunComponent implements OnInit {
   }
 
   public persisteLlamadaComun(id: number): void {
-    //let urlSetLlamadaComun = 'http://3.14.155.2:9093/guardarLlamadaComun';
-    let urlSetLlamadaComun = 'http://localhost:9088/guardarLlamadaNoProcedente';
+    let urlSetLlamadaComun = 'http://3.14.155.2:9093/guardarLlamadaNoProcedente';
     let telefono = $('#numeroTelefono').val();
 
     let prefo = this.prefolio;

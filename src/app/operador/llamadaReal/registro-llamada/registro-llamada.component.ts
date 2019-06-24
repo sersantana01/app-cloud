@@ -18,6 +18,8 @@ import { Subscription,interval,Observable } from 'rxjs';
 import {NotificacionService} from '../../../notificacion/notificacion.service';
 import {GoogleMapService} from '../../../maps/fullscreenmap/google-map.service';
 
+import { Grabacion } from '../../../models/grabacion.model';
+
 
 @Component({
   encapsulation:ViewEncapsulation.None,
@@ -26,7 +28,7 @@ import {GoogleMapService} from '../../../maps/fullscreenmap/google-map.service';
   styleUrls: ['./registro-llamada.component.css']
 })
 export class RegistroLlamadaComponent implements OnInit {
-
+  grabacion: Grabacion;
  
  private readonly notifier: NotificacionService;
 
@@ -83,19 +85,21 @@ export class RegistroLlamadaComponent implements OnInit {
 
    public endopointGrabacion= "http://3.14.155.2:6769/grabarAuronix";  
    //public endpointSaveEvento="http://3.14.155.2:9091/api/llamadaReal/saveEvento";   
-   public endpointUpdateDesc="http://3.14.155.2:9091/api/llamadaReal/updateDescripcion";   
+   //public endpointUpdateDesc="http://3.14.155.2:9091/api/llamadaReal/updateDescripcion";   
+   public endpointUpdateDesc="http://localhost:9091/api/llamadaReal/updateDescripcion";   
+
    public endpointMotivos ="http://3.14.155.2:9091/api/llamadaReal/obtenerMotivos"; 
    public endpointInst ="http://3.14.155.2:9091/api/llamadaReal/obtenerInstituciones";   
    public endpointModificarEvento="http://3.14.155.2:9091/api/llamadaReal/updateEvento";   
-   public endpointBitacoraEvento="http://localhost:9091/api/llamadaReal/registroBitacoraEvento";
+   public endpointBitacoraEvento="http:///3.14.155.2:9091/api/llamadaReal/registroBitacoraEvento";
    
-     public endpointSaveEvento="http://172.168.13.25:9091/api/llamadaReal/saveEvento";
+     public endpointSaveEvento="http://3.14.155.2:9091/api/llamadaReal/saveEvento";
 
    public endpointAsignarInstitucion="http://3.14.155.2:9091/api/llamadaReal/asignarInstitucionEvento";
     
    //public endpointBitacoraEvento="http://3.14.155.2:9091/api/llamadaReal/registroBitacoraEvento";
 
-   public endpointSaveTiempos="http://localhost:9091/api/llamadaReal/guardaTiempo"; 
+   public endpointSaveTiempos="http:///3.14.155.2:9091/api/llamadaReal/guardaTiempo"; 
 
 
    //public endpointSaveEvento="http://localhost:9091/api/llamadaReal/saveEvento";   
@@ -306,31 +310,10 @@ constructor(public dataShared: DataSharedService,
           // console.log(  this.eventoTmp.motivo["prioridad"]);
 
             this.setPreseleccionPrioridad(  this.eventoTmp.motivo["prioridad"]   );
-
-
-
-              ///////////////////////////////////BITACORA///////////////////////            
-
-              /*
-              var bitacora={};
-              bitacora["uuid"]=this.uuid;
-              bitacora["idEvento"]="162";
-              bitacora["descripcionBitacora"]="TRANSMISION_DE_LA_LLAMADA";              
-              // bitacora["idTipoMovBitacora"]="2";            
-              // bitacora["idMovimientoRecurso"];
-              //bitacora["idInstitucion"];
-              // bitacora["direccionIp"];
-              bitacora["fechaHoraMovimiento"]= new Date().getTime(); 
-              this.saveBitacoraEvento(bitacora);
-              */
-
-              /////////////////////////////////////////////////////////////////////
-
+ 
 
      });
-
-       /*this.openPop (this.eventoTmp.motivo["prioridad"]);
-       this.noPopover=false;*/
+ 
        }
  }
 
@@ -454,24 +437,7 @@ constructor(public dataShared: DataSharedService,
 
         evento["listaInstituciones"]=this.eventoTmp.listaInstituciones;
 
-       
-       // evento["FechaCapturaFinal"]=
-
-        /*
-        var paramEvento= {};
-        paramEvento["nombreParametro"]="evento";
-        paramEvento["tipo"]="Clase";
-        paramEvento["valor"]=JSON.stringify(evento);
-
-        params.push(paramEvento);
-
-        call["nombrePaquete"] = "telefonista";
-        call["nombreStoreProcedure"] = "evento";
-        call["nombreMs"] = "MS-LLAMADA-REAL";
-        call["param"] = params;
-        */
-
-
+ 
         var callSaveEvento={};
         
         callSaveEvento["uuid"]= this.uuid;
@@ -548,10 +514,7 @@ constructor(public dataShared: DataSharedService,
        return validacion;
    }
 
- 
-
-
-
+  
   public transmitirEventoDespachador(){ //metodo para obtener lista de motivos
    
     
@@ -695,10 +658,7 @@ constructor(public dataShared: DataSharedService,
         
            var call = {};
            var params=[];
-           var param= {};
-           param["nombreParametro"]="uuid";
-           param["tipo"]="String";
-           param["valor"]=this.uuid;
+           var param= {}; 
 
            params.push(param);
 
@@ -706,32 +666,18 @@ constructor(public dataShared: DataSharedService,
            evento["descripcion"]=descripcion;
            evento["idDescripcionEvento"]=this.eventoTmp.idDescripcionEvento;
            evento["idEvento"]=this.eventoTmp.idEvento;
-           evento["creadoPor"]=this.session_id_user;
+           evento["creadoPor"]=this.session_id_user;           
+           evento["uuid"]=this.uuid;
 
-           var paramEvento= {};
-           paramEvento["nombreParametro"]="evento";
-           paramEvento["tipo"]="Clase";
-           paramEvento["valor"]=JSON.stringify(evento);
-
-           params.push(paramEvento);
-
-           call["nombrePaquete"] = "telefonista";
-           call["nombreStoreProcedure"] = "Descripcion_evento";
-           call["nombreMs"] = "MS-LLAMADA-REAL";
-           call["tipo"]="POST";
-           call["param"] = params;
-
-
-
+     
 
            var callUpdateEventoDescripcion={};
         
            callUpdateEventoDescripcion["uuid"]= this.uuid;
            callUpdateEventoDescripcion["evento"]=evento;
    
-
-
-
+           console.log(callUpdateEventoDescripcion);
+ 
            this.restCaller.sendCall(callUpdateEventoDescripcion,this.endpointUpdateDesc).subscribe(//llamadada a restcaller
              (data) => {
                    //this.itemsSelectMotivos=data["items"];
@@ -916,8 +862,34 @@ constructor(public dataShared: DataSharedService,
       
        var date = new Date();
        let dateGrabacion = moment(date).format('DD/MM/YYYY HH:mm:ss');
-       this.grabacionService.grabarAuronix(this.eventoTmp.prefolio, dateGrabacion, "Inicio");
 
+       let localIp=localStorage.getItem('LOCAL_IP');
+       this.grabacion = new Grabacion();
+
+       this.grabacion.accion = 'INICIO';
+       this.grabacion.prefolio=this.eventoTmp.prefolio;
+       this.grabacion.fechaGrabacion="";
+       this.grabacion.ip = localIp;
+       this.grabacion.nombreUsuario = "OPERADOR1";
+       this.grabacion.idUsuario = "";
+    
+    
+    
+         
+        this.grabacionService.grabacion(this.grabacion).subscribe(response => {
+       //   let jsonRespuesta = JSON.parse(atob(response ) ) ;
+         
+      
+        }, error =>{
+         
+               if(error.status == 400){
+               
+               }else if(error.status == 401) {
+               
+               }
+              }
+          
+          );
      }
 
 
@@ -925,7 +897,38 @@ constructor(public dataShared: DataSharedService,
  
        var date = new Date();
        let dateGrabacion = moment(date).format('DD/MM/YYYY HH:mm:ss');
-       this.grabacionService.grabarAuronix(this.eventoTmp.prefolio, dateGrabacion, "Final");
+
+       let localIp=localStorage.getItem('LOCAL_IP');
+       this.grabacion = new Grabacion();
+
+       this.grabacion.accion = 'FIN';
+       this.grabacion.prefolio=this.eventoTmp.prefolio;
+       this.grabacion.fechaGrabacion="";
+       this.grabacion.ip = localIp;
+       this.grabacion.nombreUsuario = "OPERADOR1";
+       this.grabacion.idUsuario = "";
+    
+    
+    
+         
+        this.grabacionService.grabacion(this.grabacion).subscribe(response => {
+        //  let jsonRespuesta = JSON.parse(atob(response ) ) ;
+         
+      
+        }, error =>{
+         
+               if(error.status == 400){
+               
+               }else if(error.status == 401) {
+               
+               }
+              }
+          
+          );
+
+
+
+     
 
      }
     
