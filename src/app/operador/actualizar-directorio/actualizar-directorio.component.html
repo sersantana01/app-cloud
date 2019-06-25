@@ -1,0 +1,160 @@
+<div class="modal fade" id="actualizarDirectorio" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalRastreoVehiculoLabel">Actualizar Directorio</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"> <span aria-hidden="true">&times;</span> </button>
+      </div>
+      <div class="modal-body"> 
+        <!--inicia contenido actualizar directorio -->
+        
+        <div class="contGeneral">
+          <div class="container-fluid">
+            <div class="row content">
+              <div class="col-md-6"> <span class="requerido">* </span>
+                <label class="etiqueta">Tel&eacute;fono:</label>
+                <br />
+                <input [(ngModel)]="telefono" name="" type="text" class="cajaTexto" />
+                <span class="validar" *ngIf="validarTelefono">
+                    <p>*No puede ir vacío</p>
+                </span>
+              </div>
+              <div class="col-md-6">
+                <label class="etiqueta">Tipo de tel&eacute;fono:</label>
+                <br />
+                <ng-select  class="selector" 
+                          id="selectTipoTelefono" 
+                          [items]="tiposTelefono"
+                          bindLabel="tipo_telefono"
+                          searchable="true"
+                          placeholder="Selecciona un tipo de teléfono"
+                          [(ngModel)]="telefonoSeleccionado"
+                          notFoundText="No se encontró">
+                </ng-select>
+              </div>
+            </div>
+            <hr />
+            <div class="row titulo">
+              <div class="col-12">
+                <h2>Contacto</h2>
+              </div>
+            </div>
+            <div class="row content">
+              <div class="col-md-4">
+                <label class="etiqueta">Nombre:</label>
+                <br />
+                <input [(ngModel)]="nombre" name="" type="text" class="cajaTexto" />
+              </div>
+              <div class="col-md-4">
+                <label class="etiqueta">Apellido Paterno:</label>
+                <br />
+                <input [(ngModel)]="apellidoPaterno" name="" type="text" class="cajaTexto" />
+              </div>
+              <div class="col-md-4">
+                <label class="etiqueta">Apellido Materno:</label>
+                <br />
+                <input [(ngModel)] ="apellidoMaterno" name="" type="text" class="cajaTexto" />
+              </div>
+            </div>
+            <hr />
+            <div class="row titulo">
+              <div class="col-12">
+                <h2> Ubicaci&oacute;n
+                  <div class="row contenedorBotones">
+                    <div class="col-6"> </div>
+                    <div class="col-6">
+                      <button type="button" class="botonModal btn btn-primary">Seleccionar ubicaci&oacute;n</button>
+                    </div>
+                  </div>
+                </h2>
+              </div>
+            </div>
+            <div class="row content">
+              <div class="col-md-3"> <span class="requerido">* </span>
+                <label class="etiqueta">Estado:</label>
+                <br />
+                <ng-select  class="selector" 
+                          id="selectEstado" 
+                          [items]="estados"
+                          bindLabel="nombre_estado"
+                          searchable="true"
+                          placeholder="Selecciona un estado"
+                          [(ngModel)]="estadoSeleccionado"
+                          notFoundText="No se encontró">
+                </ng-select>
+                <span class="validar" *ngIf="validarEstado">
+                  <p>*Seleccione un estado</p>
+                </span>
+              </div>
+              <div class="col-md-3"> <span class="requerido">* </span>
+                <label class="etiqueta">Municipio:</label>
+                <br />
+                <ng-select  class="selector" 
+                          (change)="insertaIdMunicipio()"
+                          id="selectMunicipio" 
+                          [items]="municipios"
+                          bindLabel="nombre_municipio"
+                          searchable="true"
+                          placeholder="Selecciona un municipio"
+                          [(ngModel)]="municipioSeleccionado"
+                          notFoundText="No se encontró">
+                </ng-select>
+                <span class="validar" *ngIf="validarMunicipio">
+                  <p>*Seleccione un municipio</p>
+                </span>
+              </div>
+              <div class="col-md-3">
+                <label class="etiqueta">Colonia:</label>
+                <br />
+                <ng-select  class="selector" 
+                          id="selectColonia" 
+                          [items]="colonias"
+                          bindLabel="nombre_colonia"
+                          searchable="true"
+                          placeholder="Selecciona una colonia"
+                          [(ngModel)]="coloniaSeleccionada"
+                          notFoundText="No se encontró">
+                </ng-select>
+              </div>
+              <div class="col-md-3">
+                <label class="etiqueta">Calle principal:</label>
+                <br />
+                <input [(ngModel)]="callePrincipal" name="" type="text" class="cajaTexto" />
+              </div>
+            </div>
+            <div class="row content">
+              <div class="col-md-3">
+                <label class="etiqueta">Entre calle:</label>
+                <br />
+                <input [(ngModel)]="entreCalle" name="" type="text" class="cajaTexto" />
+              </div>
+              <div class="col-md-3">
+                <label class="etiqueta">Y la calle:</label>
+                <br />
+                <input [(ngModel)]="yCalle" name="" type="text" class="cajaTexto" />
+              </div>
+              <div class="col-md-3">
+                <label class="etiqueta">N&uacute;mero:</label>
+                <br />
+                <input [(ngModel)]="numero" name="" type="text" class="cajaTexto" />
+              </div>
+              <div class="col-md-3"> </div>
+            </div>
+          </div>
+          <!--container-fluid --> 
+        </div>
+        <!--contGeneral --> 
+        
+        <!--termina contenido actualizar directorio --> 
+      </div>
+      <div class="modal-footer">
+        <div class="row contenedorBotones">
+          <div class="col-12">
+            <button type="button" class="botonModal btn btn-primary" (click)="enviarDirectorio()">Aceptar</button>
+            <button type="button" class="botonModal btn btn-secondary" (click)="cancelar()" data-dismiss="modal">Cancelar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

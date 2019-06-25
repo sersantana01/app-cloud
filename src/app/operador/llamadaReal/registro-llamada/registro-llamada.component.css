@@ -1,0 +1,19 @@
+@import "../../../../assets/css/estiloGeneral.css";
+
+
+@import "../../../../assets/css/selectRegistrollamada.css";
+
+
+/* CSS FOR TEXT PRIORIDAD*/
+
+
+.URGENTE_text{
+ color: red;
+}
+
+.RAPIDA_text{
+ color: gold;
+}
+.NORMAL_text{
+ color: LawnGreen;
+}
