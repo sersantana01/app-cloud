@@ -1,0 +1,502 @@
+
+
+<!-- Modal consulta de llamdada-->
+<div  class="modal fade" id="modalConsultaLlamada" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div  style="   
+     position: relative;
+     display: table;"
+      class="modal-dialog modal-lg " role="document">
+      <div style="width: 1220px " class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalLlamadaIncidenciaLabel">Consulta de llamada</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div style="width: 100% " class="modal-body">
+        <!--inicia contenido consulta de llamada -->
+        
+        <div class="contGeneral">
+            <div class="container-fluid">
+              <header class="row titulo">
+              </header>
+              <div   *ngIf="mostrarBusquedas" class="row titulo p-3">
+                  <h1>Consulta de llamadas</h1>
+              </div>
+              <form *ngIf="mostrarBusquedas"   >
+              <div class="row content p-3">
+                <div class="col-md-3">
+                  <label class="etiqueta">Ciudad:</label>
+                  <ng-select name="ciudades"  class="selector" id="selectCiudad" [items]="itemsSelectCiudades"                 
+                  searchable="false"
+                  bindLabel="nombre_municipio"
+                  placeholder="Selecciona una ciudad" 
+                  [(ngModel)]="consultaCiudad" >
+                </ng-select>
+                </div>
+                <div class="col-md-3">
+                  <label class="etiqueta">Colonia:</label>
+                  <ng-select name="colonias"  class="selector" id="selectColonia" [items]="itemsSelectColonias"                 
+                  searchable="false"
+                  bindLabel="nombre_colonia"
+                  placeholder="Selecciona una colonia" 
+                  [(ngModel)]="consultaColonia" >
+                </ng-select>
+                </div>
+                <div class="col-md-3">
+                  <label class="etiqueta">Calle:</label>
+                  <br />
+                  <input [(ngModel)]="this.busq_calle" name="busq_calle" type="text" class="cajaTexto" />
+                </div>
+                <div class="col-md-3">
+                  <label class="etiqueta">Motivo:</label>
+                  <ng-select name="motivos"  class="selector" id="selectMotivo" [items]="itemsSelectMotivos"                 
+                  bindLabel="nombre_motivo"
+                  searchable="true"
+                  placeholder="Selecciona un motivo"
+                  [searchFn]="customSearchFn"
+                  [(ngModel)]="consultaMotivo"
+                  notFoundText="No se encontró">
+                  </ng-select>
+                  <br />
+                 <!-- <select name="" class="selector">
+                    <option>SELECCIONAR</option>
+                  </select>  -->
+                </div>
+              </div>
+              <div class="row content p-3">
+               <div class="col-md-3">
+                  <label class="etiqueta">Clave operativa:</label>
+                  <br />
+                  <input [(ngModel)]="this.busq_claveOper" name="busq_claveOper" type="text" class="cajaTexto" />
+               </div> 
+               <div class="col-md-3">
+                  <label class="etiqueta">Origen:</label>
+                  <ng-select name="origenes"  class="selector" id="selectOrigen" [items]="itemsSelectOrigenes"                 
+                  bindLabel="nombre_origen"
+                  searchable="true"
+                  placeholder="Selecciona un origen"
+                  [searchFn]="customSearchFnOrigen"
+                  [(ngModel)]="consultaOrigen"
+                  notFoundText="No se encontró">
+                  </ng-select>
+                </div>
+                <div class="col-md-3">
+                  <label class="etiqueta">Prioridad:</label>
+                  <ng-select name="prioridad"  class="selector" id="selectPrioridad" [items]="itemsSelectPrioridad"                 
+                    searchable="false"
+                    placeholder="Selecciona una prioridad" 
+                    [(ngModel)]="consultaPrioridad" >
+                  </ng-select>
+                </div>
+                <div class="col-md-3">
+                  <label class="etiqueta">Tel&eacute;fono:</label>
+                  <br />
+                  <input [(ngModel)]="busq_numeroTelefono"  name="busq_numeroTelefono" id="consulta_telefono" type="text" class="cajaTexto" />
+                </div>
+              </div>
+              <div class="row content p-3">
+                <div class="col-md-3">
+                  <label class="etiqueta">Folio:</label>
+                  <br />
+                  <div class="row">
+                      <div class="col-md-6">
+                          <label>Desde:</label>
+                          <input name="busq_folioDesde" [(ngModel)]="busq_folioDesde" id="consulta_folio_desde" type="text" class="cajaTexto" />
+                      </div>
+                      <div class="col-md-6">
+                          <label>Hasta:</label>
+                          <input name="busq_folioHasta" [(ngModel)]="busq_folioHasta" id="consulta_folio_hasta" type="text" class="cajaTexto" />
+                      </div>
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="row">
+                      <div class="col-md-6">
+                          <label class="etiqueta">Fecha:</label> 
+                      </div> 
+                  </div>
+                  <div class="row">
+                      <div class="col-md-6">
+                          <label>Desde:</label>
+                          <mat-form-field>
+                              <input readonly (click)="picker1.open()"
+                              
+                              (dateChange)="setFinal()"
+                              name="fechaDesde" [(ngModel)]="busq_fechaDesde"  matInput [matDatepicker]="picker1" placeholder="Fecha Inicio">
+                              <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                              <mat-datepicker disabled="false" #picker1></mat-datepicker>
+                            </mat-form-field>
+                        </div>
+                      <div class="col-md-6">
+                          <label>Hasta:</label>
+                          <mat-form-field>
+                              <input  readonly (click)="picker2.open()"
+                              (dateChange)="setInicio()"
+                               name="fechaHasta" [(ngModel)]="busq_fechaHasta"  matInput [matDatepicker]="picker2" placeholder="Fecha Fin">
+                              <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                              <mat-datepicker disabled="false" #picker2></mat-datepicker>
+                            </mat-form-field>  
+                        </div>
+                  </div>
+               </div>
+               <div class="col-md-6">
+                      <label class="etiqueta">Descripci&oacute;n:</label>
+                      <br />
+                      <textarea  [(ngModel)]="busq_desc" name="busq_desc" cols="" rows="" class="areaTexto"></textarea>
+                </div>
+              </div>
+
+              <div class="row content p-3">
+                <div class="col-md-3">
+                  <label class="etiqueta">Lugar:</label>
+                  <br />
+                  <input name="" type="text" class="cajaTexto" />
+                </div>
+                <div class="col-md-2">
+                  <label class="etiqueta">Estatus:</label>
+                  <ng-select name="estatuses"  class="selector" id="selectEstatus" [items]="itemsSelectEstatus"                 
+                    searchable="false"
+                    placeholder="Selecciona un estatus" 
+                    [(ngModel)]="consultaEstatus" >
+                  </ng-select>
+                </div>
+                <!-- 
+                <div class="col-md-3">
+                    <label class="etiqueta">General(*):</label>
+                    <br />
+                    <input [(ngModel)]="this.busq_general" name="busq_general" type="text" class="cajaTexto" />
+                
+                </div>
+                -->
+                <div class="col-md-3">
+                  <div class="row contenedorBotones p-3">
+                    <div class="col-6">
+                      </div>
+                      <div class="col-12 nopadding">
+                        <button (click)="testMyEvento();" type="button" class="botonModal btn btn-primary">Buscar</button>
+                        <input type="reset" value="Borrar" class="botonModal btn btn-secondary">
+                      </div>
+                  </div>
+                </div>
+              </div>
+              </form>
+              <!--INICIA TABLA -->
+              <div [hidden]="!mostrarBusquedas" class="row p-3">
+                  <table class="table tablaDataTable" id="tblConsultaLlamada">
+                    <thead>
+                      <tr>
+                        <th></th>
+                        <th>Fecha / Hora</th>
+                        <th>Motivo</th>
+                        <th>Folio</th>
+                        <th>Tel&eacute;fono</th>
+                        <th>Municipio</th>
+                        <th>Colonia</th>
+                        <th>Telefonista</th>
+                        <th>Icono recurrente</th>
+                        <th>Icono</th>
+                        <th>Editar</th> 
+                      </tr>
+                    </thead>
+                    <tbody>
+
+                        <tr *ngFor="let evento of listaLlamadasCoincidencia; let i=index;" [id]="'row_' + (i+1)" (click)="setLlamadaActual(i)">
+                            <td>{{i+1}}</td>
+                            <td>{{getFechaRecepcion(evento.fecha_creacion)}}</td>
+                            <td>{{evento.nombre_motivo}}</td>
+                            <td>{{evento.folio}}</td>
+                            <td>{{evento.numero_telefono}}</td>
+                            <td>{{evento.nombre_municipio}}</td>
+                            <td>{{evento.nombre_colonia}}</td>
+                            <td>**{{evento.creadoPorNombre}}**</td>
+                            <td><a href="#"><img src="../assets/images/iconosTablas/icnRecurrente.svg" class="icnSvg"/></a></td>
+                            <td><a href="#"><img src="../assets/images/iconosTablas/icnDiadema.svg" class="icnSvg"/></a></td>
+                            <td><a href="#"><img src="../assets/images/iconosTablas/icnEditar.svg" class="icnSvg"/></a></td> 
+                          </tr>
+                        <tr *ngIf="listaLlamadasCoincidencia.length<1">  
+                          NO HUBO RESULTADOS
+
+                        </tr>
+
+
+                      <tr>
+                       
+                    </tbody>
+                  </table>
+              </div>
+              <!--TERMINA TABLA -->
+
+              <div *ngIf="mostrarBusquedas && listaLlamadasCoincidencia.length>0">
+                  <div class="col-12 text-right"> 
+                      <button disabled="true"  type="button" class="btn btn-link">
+                       <img (click)="getBusquedaPorFiltros('FIRST');" src="../assets/images/icnFlechaIzquierdaAzul.svg" /> 
+                      </button>
+ 
+                      <button disabled="true"  type="button" class="btn btn-link">        
+                        <img (click)="getBusquedaPorFiltros('PREV');" src="../assets/images/icnFlechaIzquierdaAzul.svg" />                       
+                      </button>
+
+                      <button disabled="true"  type="button" class="btn btn-link">
+                        <img (click)="getBusquedaPorFiltros('NEXT');" src="../assets/images/icnFlechaDerechaAzul.svg" />                      
+                      </button>
+                      <button disabled="true" type="button" class="btn btn-link">
+                        <img (click)="getBusquedaPorFiltros('ULTIMO');" src="../assets/images/icnFlechaDerechaAzul.svg" />
+                      
+                      </button> 
+                    </div>
+               
+
+              </div>
+              <hr />
+              
+            
+              <!--
+              <div *ngIf="!mostrarBusquedas" class="row content p-3 menuIconos">
+
+                  <div class="col-1 text-left">   
+                      <button type="button" class="btn btn-link">                                    
+                         <img (click)="setMostrarBusquedas();" src="../assets/images/icnFlechaIzquierdaAzul.svg" />  
+                      </button> 
+                  </div>
+ 
+                <div class="col-11 text-right">
+                    <img src="../assets/images/menu/icnPersonas.svg" />
+                      <img src="../assets/images/menu/icnAuto.svg" />
+                      <img src="../assets/images/menu/icnArma.svg" />
+                      <img src="../assets/images/menu/icnCorporacion.svg" />
+                      <img src="../assets/images/menu/icnTelefonista.svg" />
+                      <img src="../assets/images/menu/icnAgregarInfo.svg" />
+                      <img src="../assets/images/menu/icnEditarInfo.svg" />
+                      <img src="../assets/images/menu/icnReconocimiento.svg" />
+                  </div>
+
+              </div> 
+              -->
+              
+              <div *ngIf="!mostrarBusquedas">
+                  <div class="col-1 text-left">   
+                      <button type="button" class="btn btn-link">                                    
+                         <img (click)="setMostrarBusquedas();" src="../assets/images/icnFlechaIzquierdaAzul.svg" />  
+                      </button> 
+                  </div>
+              <hr />
+              <h2>Datos del evento</h2>
+              <form *ngIf="!mostrarBusquedas">
+              <div class="row content p-3">
+                    <div class="col">
+                      <label class="etiqueta">Municipio:</label>
+                      <br />
+                      <input [disabled]="true" id="evento_municipio"  [(ngModel)]="this.eventoSeleccionado.municipio" name="evento_municipio" type="text" class="cajaTexto" />
+                    </div>
+                    <div class="col">
+                      <label class="etiqueta">Folio:</label>
+                      <br />
+                      <input [disabled]="true" [(ngModel)]="this.eventoSeleccionado.idEvento" name="evento_idEvento" type="text" class="cajaTexto" />
+                    </div>
+                    <div class="col">
+                      <label class="etiqueta">Tipo de tel&eacute;fono:</label>
+                      <br />
+                      <input  [disabled]="true" [(ngModel)]="this.eventoSeleccionado.tipoTelefono" name="evento_tipoTelefono" type="text" class="cajaTexto" /> 
+                    </div> 
+                    <div class="col">
+                      <label class="etiqueta">Tel&eacute;fono:</label>
+                      <br />
+                      <input  [disabled]="true" [(ngModel)]="this.eventoSeleccionado.numeroTelefonico" name="evento_numeroTelefonico" type="text" class="cajaTexto" />
+                    </div>
+                    <div class="col">
+                      <label class="etiqueta">Fecha de recepci&oacute;n:</label>
+                      <br />
+                      <input [disabled]="true" [(ngModel)]="this.eventoSeleccionado.fechaRecepcion" name="evento_fechaRecepcion" type="text" id="datepicker" class="cajaTexto" />
+                    </div>
+              </div>
+              <div class="row content p-3">
+                    <div class="col">
+                      <label class="etiqueta">Motivo:</label>
+                      <br />
+                      <input  [disabled]="true" [(ngModel)]="this.eventoSeleccionado.motivoNombre" name="evento_motNombre" type="text" class="cajaTexto" />
+                    </div>
+                    <div class="col">
+                      <label class="etiqueta">Tiempo:</label>
+                      <br />
+                      <input  [disabled]="true" [(ngModel)]="this.eventoSeleccionado.tiempo" name="evento_tiempo" type="text" class="cajaTexto" />
+                    </div>
+                    <div class="col">
+                      <label class="etiqueta">Colonia:</label>
+                      <br />
+                      <input  [disabled]="true" [(ngModel)]="this.eventoSeleccionado.colonia" name="evento_colonia" type="text" id="datepicker" class="cajaTexto" />
+                    </div>
+                    <div class="col">
+                      <label class="etiqueta">Ciudad:</label>
+                      <br />
+                      <input  [disabled]="true" [(ngModel)]="this.eventoSeleccionado.ciudad" name="evento_ciudad" type="text" class="cajaTexto" />
+                    </div>
+                    <div class="col">
+                      <label class="etiqueta">Origen:</label>
+                      <br />
+                      <input  [disabled]="true" [(ngModel)]="this.eventoSeleccionado.origenNombre" name="evento_origen" type="text" class="cajaTexto" />
+                    </div>
+              </div>
+              <div class="row content p-3">
+                    <div class="col">
+                      <label class="etiqueta">Clave del operador:</label>
+                      <br />
+                      <input  [disabled]="true" [(ngModel)]="this.eventoSeleccionado.creadoPorNombre" name="evento_claveOperador" type="text" class="cajaTexto" />
+                    </div>
+                    <div class="col">
+                      <label class="etiqueta">Prioridad:</label>
+                      <br />
+                      <input   [disabled]="true" [(ngModel)]="this.eventoSeleccionado.prioridad" name="evento_operador" type="text" class="cajaTexto" />
+                    </div>
+                    <div class="col">
+                      <label class="etiqueta">Estatus:</label>
+                      <br />
+                      <input  [disabled]="true" [(ngModel)]="this.eventoSeleccionado.estatus" name="evento_estatus" type="text" id="datepicker" class="cajaTexto" />
+                    </div>
+                    <div class="col">
+                    </div> 
+                    <div class="col">
+                    </div> 
+              </div>
+              <div class="row content p-3">
+                    <div class="col-md-6">
+                      <label class="etiqueta">Lugar:</label>
+                      <br />
+                      <textarea  [disabled]="true" name="" cols="" rows="" class="areaTexto"></textarea>
+                    </div>
+                    <div class="col-md-6">
+                      <label class="etiqueta">Descripci&oacute;n del evento:</label>
+                      <br />
+                      <textarea  [disabled]="true" [(ngModel)]="this.eventoSeleccionado.descripcion" name="evento_descripcionEvento" cols="" rows="" class="areaTexto"></textarea>
+                    </div>
+              </div>
+              <div class="row contenedorBotones p-3">
+                <div class="col-6">
+
+                    <div *ngIf="!mostrarBusquedas" class="row content p-3 menuIconos">
+ 
+       
+                      <div class="col-11 text-right">
+                          <img src="../assets/images/menu/icnPersonas.svg" />
+                            <img src="../assets/images/menu/icnAuto.svg" />
+                            <img src="../assets/images/menu/icnArma.svg" />
+                            <img src="../assets/images/menu/icnCorporacion.svg" />
+                            <img src="../assets/images/menu/icnTelefonista.svg" />
+                            <img src="../assets/images/menu/icnAgregarInfo.svg" />
+                            <img src="../assets/images/menu/icnEditarInfo.svg" />
+                            <img src="../assets/images/menu/icnReconocimiento.svg" />
+                        </div>
+      
+                    </div>
+                    
+
+                  </div>
+                  <div class="col-6">
+                    <button type="button" class="botonModal btn btn-primary"><i class="fa fa-globe" aria-hidden="true"></i> Seleccionar ubicación</button>
+                  </div>
+              </div>
+              </form>
+              </div>
+              <div *ngIf="!mostrarBusquedas">
+              <hr />
+              <h2>Datos del denunciante</h2>
+              <form *ngIf="!mostrarBusquedas">
+              <div class="row content p-3">
+                    <div class="col-md-4">
+                      <label class="etiqueta">Nombre:</label>
+                      <br />
+                      <input  [disabled]="true" [(ngModel)]="this.eventoSeleccionado.denunciante.nombre" name="evento_denunciante_nombre" type="text" class="cajaTexto"  />
+                    </div>
+                    <div class="col-md-4">
+                      <label class="etiqueta">Apellido Paterno:</label>
+                      <br />
+                      <input  [disabled]="true" [(ngModel)]="this.eventoSeleccionado.denunciante.apPaterno" name="evento_denunciante_apPaterno" type="text" class="cajaTexto" />
+                    </div>
+                    <div class="col-md-4">
+                      <label class="etiqueta">Apellido Materno:</label>
+                      <br />
+                      <input  [disabled]="true" [(ngModel)]="this.eventoSeleccionado.denunciante.apMaterno"  name="evento_denunciante_apMaterno" type="text" class="cajaTexto" /> 
+                    </div> 
+              </div>
+              <div class="row content p-3">
+                    <div class="col-md-4">
+                      <label class="etiqueta">Direcci&oacute;n:</label>
+                      <br />
+                      <textarea  [disabled]="true" [(ngModel)]="this.eventoSeleccionado.denunciante.direccion"  name="evento_denunciante_direccion" cols="" rows="" class="areaTexto"></textarea>
+                    </div>
+                    <div class="col-md-4">
+                      <label class="etiqueta">Tel&eacute;fono:</label>
+                      <br />
+                      <input  [disabled]="true" [(ngModel)]="this.eventoSeleccionado.denunciante.telefono"  name="evento_denunciante_telefono" type="text" class="cajaTexto" />
+                    </div>
+                    <div class="col-md-4">
+                      <label class="etiqueta">Tipo:</label>
+                      <br />
+                      <input  [disabled]="true" [(ngModel)]="this.eventoSeleccionado.denunciante.tipo" name="evento_denunciante_tipo" type="text" class="cajaTexto" /> 
+                    </div> 
+              </div>
+              </form>
+              </div>
+              <div *ngIf="!mostrarBusquedas">
+
+              <hr />
+              <h2>Llamadas asociadas</h2>
+              <!--INICIA TABLA LLAMADAS ASOCIADAS -->
+              <div  class="row p-3">
+                  <table class="table tablaAlerta" id="tblLlamadasAsociadas">
+                    <thead>
+                      <tr>
+                        <th></th>
+                        <th></th>
+                        <th>Fecha / Hora</th>
+                        <th>Tel&eacute;fono</th>
+                        <th>Folio</th>
+                        <th>Razonamiento</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>1</td>
+                        <td><a href="#"><img src="../assets/images/iconosTablas/reproducir.svg" class="icnSvg" /></a></td>
+                        <td>2019-03-14 16:56:00</td>
+                        <td>312313123</td>
+                        <td>0021000100000012540</td>
+                        <td>INFO RAZONAMIENTO</td>
+                      </tr>
+                      <tr>
+                        <td>2</td>
+                        <td><a href="#"><img src="../assets/images/iconosTablas/reproducir.svg" class="icnSvg" /></a></td>
+                        <td>2017-06-11 02:33:43</td>
+                        <td>312313123</td>
+                        <td>0021000100000012540</td>
+                        <td>TOSCANA</td>
+                      </tr>
+                    </tbody>
+                  </table>
+              </div>
+ 
+            </div>
+              <!--TERMINA TABLA LLAMADAS ASOCIADAS-->
+              
+            </div>
+            <!--container-fluid --> 
+          </div>
+          <!--contGeneral -->
+          
+        <!--termina contenido consulta de llamada -->
+        </div>
+        <div class="modal-footer">
+          <div class="row contenedorBotones">
+              <div class="col-12">
+                <button type="button"  class="botonModal btn btn-primary">Aceptar</button>
+              <button type="button" class="botonModal btn btn-secondary" data-dismiss="modal">Cancelar</button>
+              </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--termina modal consulta de llamdada -->
+
+  
+  <button  [hidden]=true (click)="initModal();" id="button_getmotivos_consulta">GET MOTIVOS</button>
