@@ -6,7 +6,7 @@ import { AuthLayoutComponent } from './layouts/auth/auth-layout.component';
 export const AppRoutes: Routes = [
     {
       path: '',
-      redirectTo: 'maps/siga',
+      redirectTo: 'maps/googlemaps',
       pathMatch: 'full',
     }, {
       path: '',
