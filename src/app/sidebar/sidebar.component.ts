@@ -30,7 +30,24 @@ export const ROUTES: RouteInfo[] = [{
         title: 'Dashboard',
         type: 'link',
         icontype: 'dashboard'
-    },{
+    },
+    {
+        path: '/components',
+        title: 'Components',
+        type: 'sub',
+        icontype: 'apps',
+        collapse: 'components',
+        children: [
+            {path: 'buttons', title: 'Buttons', ab:'B'},
+            {path: 'grid', title: 'Grid System', ab:'GS'},
+            {path: 'panels', title: 'Panels', ab:'P'},
+            {path: 'sweet-alert', title: 'Sweet Alert', ab:'SA'},
+            {path: 'notifications', title: 'Notifications', ab:'N'},
+            {path: 'icons', title: 'Icons', ab:'I'},
+            {path: 'typography', title: 'Typography', ab:'T'}
+        ]
+    },
+    {
         path: '/forms',
         title: 'Forms',
         type: 'sub',
