@@ -8,23 +8,34 @@
     class="modal-dialog modal-lg " role="document">
     <div style="width: 1220px " class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="modalLlamadaIncidenciaLabel">Consulta de llamada</h5>
+         <h5 class="modal-title" id="modalLlamadaIncidenciaLabel">Consulta de llamada</h5>  
+        
+     
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
+      
       </div>
       <div style="width: 100% " class="modal-body">
       <!--inicia contenido consulta de llamada -->
       
       <div class="contGeneral">
           <div class="container-fluid">
-            <header class="row titulo">
+            <header *ngIf="mostrarBusquedas" class="row titulo" style=" position: absolute;
+            right: 10%;
+            top: 1%;">  
+                <button *ngIf="busqBasica" (click)=" toogleBusqueda();   " type="button" class="botonModal btn btn-primary"> <i class="material-icons" >autorenew</i> AVANZADA</button>
+                
+                <button *ngIf="!busqBasica"  (click)=" toogleBusqueda();   " type="button" class="botonModal btn btn-primary"><i class="material-icons" >autorenew</i> GENERAL</button>
+                
             </header>
-            <div *ngIf="mostrarBusquedas"   class="row titulo p-3">
-                <h1>Consulta de llamadas</h1>
-            </div>
+            <!-- <div *ngIf="mostrarBusquedas"   class="row titulo p-3">
+                 <h1>Consulta de llamadas</h1>  
+                <hr />
+            </div> -->
+         
             <form *ngIf="mostrarBusquedas"   >
-            <div class="row content p-3">
+            <div class="row content p-3"  *ngIf="!busqBasica">
               <div class="col-md-3">
                 <label class="etiqueta">Ciudad:</label>
                 <ng-select name="ciudades"  class="selector" id="selectCiudad" [items]="itemsSelectCiudades"                 
@@ -64,13 +75,21 @@
                 </select>  -->
               </div>
             </div>
-            <div class="row content p-3">
-             <div class="col-md-3">
+            <div class="row content p-3"  *ngIf="!busqBasica">
+                <div class="col-md-2">
+                    <label class="etiqueta">Estatus:</label>
+                    <ng-select name="estatuses"  class="selector" id="selectEstatus" [items]="itemsSelectEstatus"                 
+                      searchable="false"
+                      placeholder="Selecciona un estatus" 
+                      [(ngModel)]="consultaEstatus" >
+                    </ng-select>
+                  </div>
+             <!-- <div class="col-md-3">
                 <label class="etiqueta">Clave operativa:</label>
                 <br />
                 <input [(ngModel)]="this.busq_claveOper" name="busq_claveOper" type="text" class="cajaTexto" />
-             </div> 
-             <div class="col-md-3">
+             </div>  -->
+             <div class="col-md-2">
                 <label class="etiqueta">Origen:</label>
                 <ng-select name="origenes"  class="selector" id="selectOrigen" [items]="itemsSelectOrigenes"                 
                 bindLabel="nombre_origen"
@@ -81,7 +100,7 @@
                 notFoundText="No se encontró">
                 </ng-select>
               </div>
-              <div class="col-md-3">
+              <div class="col-md-2">
                 <label class="etiqueta">Prioridad:</label>
                 <ng-select name="prioridad"  class="selector" id="selectPrioridad" [items]="itemsSelectPrioridad"                 
                   searchable="false"
@@ -94,156 +113,276 @@
                 <br />
                 <input [(ngModel)]="busq_numeroTelefono"  name="busq_numeroTelefono" id="consulta_telefono" type="text" class="cajaTexto" />
               </div>
+              <div class="col-md-3">
+                  <div class="row">
+                      <div class="col-md-6">
+                          <label class="etiqueta">Folio:</label> 
+                      </div> 
+                  </div>
+                  <div class="row">
+                      <div class="col-md-6">
+                          <label>Desde:</label>
+                          <input name="busq_folioDesde" [(ngModel)]="busq_folioDesde" id="consulta_folio_desde" type="text" style="font-size:12px ; width: 140px;"   />
+                     
+                        </div>
+                      <div class="col-md-6">
+                          <label>Hasta:</label>
+                          <input name="busq_folioHasta" [(ngModel)]="busq_folioHasta" id="consulta_folio_hasta" type="text" style="font-size:12px ; width: 140px;" />
+                     
+                       
+                        </div>
+                  </div>
+               </div>
+  
             </div>
-            <div class="row content p-3">
-              <div class="col-md-3">
-                <label class="etiqueta">Folio:</label>
-                <br />
-                <div class="row">
-                    <div class="col-md-6">
-                        <label>Desde:</label>
-                        <input name="busq_folioDesde" [(ngModel)]="busq_folioDesde" id="consulta_folio_desde" type="text" class="cajaTexto" />
-                    </div>
-                    <div class="col-md-6">
-                        <label>Hasta:</label>
-                        <input name="busq_folioHasta" [(ngModel)]="busq_folioHasta" id="consulta_folio_hasta" type="text" class="cajaTexto" />
-                    </div>
+            <div class="row content p-3"  *ngIf="!busqBasica">
+ 
+
+                <div class="col-md-3">
+                  <label class="etiqueta">Lugar:</label>
+                  <br />
+                  <input name="" type="text" class="cajaTexto" />
                 </div>
-              </div>
-              <div class="col-md-3">
-                <div class="row">
-                    <div class="col-md-6">
-                        <label class="etiqueta">Fecha:</label> 
-                    </div> 
-                </div>
-                <div class="row">
-                    <div class="col-md-6">
-                        <label>Desde:</label>
-                        
-                    
-                        <mat-form-field>                       
-                            <input readonly (click)="picker1.open()"
-                        
-                            (dateChange)="setFinal()"
-                            name="fechaDesde" [(ngModel)]="busq_fechaDesde"  matInput [matDatepicker]="picker1" placeholder="Fecha Inicio">
-                            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
-                            <mat-datepicker disabled="false" #picker1></mat-datepicker>
-                          </mat-form-field>
-                      </div>
-                    <div class="col-md-6">
-                        <label>Hasta:</label>
-                        <mat-form-field>
-                            <input  readonly (click)="picker2.open()"
-                            (dateChange)="setInicio()"
-                             name="fechaHasta" [(ngModel)]="busq_fechaHasta"  matInput [matDatepicker]="picker2" placeholder="Fecha Fin">
-                            <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
-                            <mat-datepicker disabled="false" #picker2></mat-datepicker>
-                          </mat-form-field>  
-                      </div>
-                </div>
-             </div>
-             <div class="col-md-6">
+
+                <div class="col-md-3">
                     <label class="etiqueta">Descripci&oacute;n:</label>
                     <br />
-                    <textarea  [(ngModel)]="busq_desc" name="busq_desc" cols="" rows="" class="areaTexto"></textarea>
-              </div>
-            </div>
-
-            <div class="row content p-3">
-              <div class="col-md-3">
-                <label class="etiqueta">Lugar:</label>
-                <br />
-                <input name="" type="text" class="cajaTexto" />
-              </div>
-              <div class="col-md-2">
-                <label class="etiqueta">Estatus:</label>
-                <ng-select name="estatuses"  class="selector" id="selectEstatus" [items]="itemsSelectEstatus"                 
-                  searchable="false"
-                  placeholder="Selecciona un estatus" 
-                  [(ngModel)]="consultaEstatus" >
-                </ng-select>
-              </div>
-              <!-- 
-              <div class="col-md-3">
-                  <label class="etiqueta">General(*):</label>
-                  <br />
-                  <input [(ngModel)]="this.busq_general" name="busq_general" type="text" class="cajaTexto" />
-              
-              </div>
-              -->
-              <div class="col-md-3">
-                <div class="row contenedorBotones p-3">
-                  <div class="col-6">
-                    </div>
-                    <div class="col-12 nopadding">
-                      <button (click)="testMyEvento();" type="button" class="botonModal btn btn-primary">Buscar</button>
-                      <input type="reset" value="Borrar" class="botonModal btn btn-secondary">
-                    </div>
+                    <textarea  [(ngModel)]="busq_desc" name="busq_desc"  style="width: 100%" rows="3" class="areaTexto"></textarea>
                 </div>
-              </div>
+
+                <div class="col-md-3">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label class="etiqueta">Fecha:</label> 
+                        </div> 
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label>Desde:</label>
+                          
+                            <mat-form-field>                       
+                                <input readonly (click)="picker1.open()"
+                            
+                                (dateChange)="setFinal()"
+                                name="fechaDesde" [(ngModel)]="busq_fechaDesde"  matInput [matDatepicker]="picker1" placeholder="Fecha Inicio">
+                                <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                                <mat-datepicker disabled="false" #picker1></mat-datepicker>
+                              </mat-form-field>
+                          </div>
+                        <div class="col-md-6">
+                            <label>Hasta:</label>
+                            <mat-form-field>
+                                <input  readonly (click)="picker2.open()"
+                                (dateChange)="setInicio()"
+                                 name="fechaHasta" [(ngModel)]="busq_fechaHasta"  matInput [matDatepicker]="picker2" placeholder="Fecha Fin">
+                                <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                                <mat-datepicker disabled="false" #picker2></mat-datepicker>
+                              </mat-form-field>  
+                          </div>
+                    </div>
+                 </div>
+
+                 
+              <div class="col-md-3">
+                  <div class="row contenedorBotones p-3">
+                    <div class="col-6">
+                      </div>
+                      <div class="col-12 nopadding">
+                        <button (click)="getBusqueda();" type="button" class="botonModal btn btn-primary">Buscar</button>
+                        <input type="reset" value="Borrar" class="botonModal btn btn-secondary">
+                          
+                      </div>
+                  </div>
+                </div>
             </div>
-            </form>
+
+
+            <div class="row content p-3"    *ngIf="busqBasica">
+                <div class="col-md-3">
+                 </div>
+                <div class="col-md-3"> 
+                    <label class="etiqueta">Busqueda General</label>
+                    <br />
+                    <textarea  [(ngModel)]="busq_general" name="busq_general"  style="width: 100%" rows="3" class="areaTexto"></textarea>
+                  </div>
+
+                  <div class="col-md-3">
+                      <div class="row">
+                          <div class="col-md-6">
+                              <label class="etiqueta">Fecha:</label> 
+                          </div> 
+                      </div>
+                      <div class="row">
+                          <div class="col-md-6">
+                              <label>Desde:</label>
+                            
+                              <mat-form-field>                       
+                                  <input readonly (click)="picker1.open()"
+                              
+                                  (dateChange)="setFinal()"
+                                  name="fechaDesde" [(ngModel)]="busq_fechaDesde"  matInput [matDatepicker]="picker1" placeholder="Fecha Inicio">
+                                  <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                                  <mat-datepicker disabled="false" #picker1></mat-datepicker>
+                                </mat-form-field>
+                            </div>
+                          <div class="col-md-6">
+                              <label>Hasta:</label>
+                              <mat-form-field>
+                                  <input  readonly (click)="picker2.open()"
+                                  (dateChange)="setInicio()"
+                                   name="fechaHasta" [(ngModel)]="busq_fechaHasta"  matInput [matDatepicker]="picker2" placeholder="Fecha Fin">
+                                  <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                                  <mat-datepicker disabled="false" #picker2></mat-datepicker>
+                                </mat-form-field>  
+                            </div>
+                      </div>
+                   </div>
+  
+                   
+                <div class="col-md-3">
+                    <div class="row contenedorBotones p-3">
+                      <div class="col-6">
+                        </div>
+                        <div class="col-12 nopadding">
+                          <button (click)="getBusqueda();" type="button" class="botonModal btn btn-primary">Buscar</button>
+                          <input type="reset" value="Borrar" class="botonModal btn btn-secondary">
+                            
+                        </div>
+                    </div>
+                  </div>
+
+
+             </div>
+          
+ 
+            </form> 
             <!--INICIA TABLA -->
-            <div [hidden]="!mostrarBusquedas" class="row p-3">
-                <table class="table tablaDataTable" id="tblConsultaLlamada">
-                  <thead>
-                    <tr>
-                      <th></th>
-                      <th>Fecha / Hora</th>
-                      <th>Motivo</th>
-                      <th>Folio</th>
-                      <th>Tel&eacute;fono</th>
-                      <th>Municipio</th>
-                      <th>Colonia</th>
-                      <th>Telefonista</th>
-                      <th>Icono recurrente</th>
-                      <th>Icono</th>
-                      <th>Editar</th> 
-                    </tr>
-                  </thead>
-                  <tbody>
+            <div   *ngIf="mostrarBusquedas"   style="display:block; width: 100%  "  >
+           
+                <div   class="mat-elevation-z8" *ngIf="muestraListaFlag"   style="display:block; width: 100% ; max-height: 420px; overflow: auto; "  >
+           
+                <table   mat-table [dataSource]="dataSource" class="tablaMat ">
 
-                      <tr *ngFor="let evento of listaLlamadasCoincidencia; let i=index;" [id]="'row_' + (i+1)" (click)="setLlamadaActual(i)">
-                          <td>{{i+1}}</td>
-                          <td>{{getFechaRecepcion(evento.fecha_creacion)}}</td>
-                          <td>{{evento.nombre_motivo}}</td>
-                          <td>{{evento.folio}}</td>
-                          <td>{{evento.numero_telefono}}</td>
-                          <td>{{evento.nombre_municipio}}</td>
-                          <td>{{evento.nombre_colonia}}</td>
-                          <td>**{{evento.creadoPorNombre}}**</td>
-                          <td><a href="#"><img src="../assets/images/iconosTablas/icnRecurrente.svg" class="icnSvg"/></a></td>
-                          <td><a href="#"><img src="../assets/images/iconosTablas/icnDiadema.svg" class="icnSvg"/></a></td>
-                          <td><a href="#"><img src="../assets/images/iconosTablas/icnEditar.svg" class="icnSvg"/></a></td> 
-                        </tr>
-                      <tr *ngIf="listaLlamadasCoincidencia.length<1">  
-                        NO HUBO RESULTADOS
+                    <!--- Note that these columns can be defined in any order.
+                          The actual rendered columns are set as a property on the row definition" -->
+                 
+                    <!-- Position Column -->
+                    <ng-container  matColumnDef="registro">
+                      <th style="text-align: center" mat-header-cell *matHeaderCellDef mat-sort-header> # </th>
+                      <td (dblclick)="setLlamadaActual(element.id_evento)" mat-cell *matCellDef="let element"> {{element.registro}} </td>
+                    </ng-container>
+                 
+                    <!-- Name Column -->
+                    <ng-container matColumnDef="fecha_inicio">
+                      <th style="text-align: center" mat-header-cell *matHeaderCellDef mat-sort-header> Fecha / Hora </th>
+                      <td (dblclick)="setLlamadaActual(element.id_evento)" mat-cell *matCellDef="let element"> {{getFechaRecepcion(element.fecha_inicio)}} </td>
+                    </ng-container>
 
-                      </tr>
+                    <ng-container matColumnDef="nombre_motivo">
+                        <th style="text-align: center; width: 20%;" mat-header-cell *matHeaderCellDef mat-sort-header> Motivo </th>
+                        <td   (dblclick)="setLlamadaActual(element.id_evento)" mat-cell *matCellDef="let element">
+                          <u>   <a style="color:Navy" >   {{element.nombre_motivo}}</a></u>
+                        </td>
+                      </ng-container>
+                    
+                    <ng-container matColumnDef="folio">
+                        <th style="text-align: center" mat-header-cell *matHeaderCellDef mat-sort-header> Folio </th>
+                        <td style="text-align: center" (dblclick)="setLlamadaActual(element.id_evento)" mat-cell *matCellDef="let element"> {{element.folio}} </td>
+                      </ng-container>
+                    
+                    <ng-container matColumnDef="numero_telefono">
+                        <th style="text-align: center" mat-header-cell *matHeaderCellDef mat-sort-header> Tel&eacute;fono </th>
+                        <td (dblclick)="setLlamadaActual(element.id_evento)" mat-cell *matCellDef="let element"> {{element.numero_telefono}} </td>
+                      </ng-container>
+                    
+                    <ng-container matColumnDef="nombre_municipio">
+                        <th style="text-align: center" mat-header-cell *matHeaderCellDef mat-sort-header> Municipio </th>
+                        <td (dblclick)="setLlamadaActual(element.id_evento)" mat-cell *matCellDef="let element"> {{element.nombre_municipio}} </td>
+                      </ng-container>
+                    
+                      <ng-container matColumnDef="nombre_colonia">
+                          <th style="text-align: center" mat-header-cell *matHeaderCellDef mat-sort-header> Colonia </th>
+                          <td (dblclick)="setLlamadaActual(element.id_evento)" mat-cell *matCellDef="let element"> {{element.nombre_colonia}} </td>
+                        </ng-container>
+
+                    <ng-container matColumnDef="creadoPorNombre">
+                        <th style="text-align: center" mat-header-cell *matHeaderCellDef mat-sort-header> Telefonista </th>
+                        <td (dblclick)="setLlamadaActual(element.id_evento)" mat-cell *matCellDef="let element"> {{element.creadoPorNombre}} </td>
+                      </ng-container>
 
 
-                    <tr>
+                    <!-- <ng-container matColumnDef="icono_recurrente">
+                        <th style="text-align: center" mat-header-cell *matHeaderCellDef mat-sort-header> Icono R </th>
+                        <td mat-cell *matCellDef="let element">
+                           <a href="#"><img src="../assets/images/iconosTablas/icnRecurrente.svg" class="icnSvg"/></a></td>
+                      </ng-container>
+                           -->
+                      <ng-container matColumnDef="icono">
+                          <th style="text-align: center" mat-header-cell *matHeaderCellDef mat-sort-header> Acciones </th>
+                          <td style="text-align: center" mat-cell *matCellDef="let element">
+                              <a href="#"><img src="../assets/images/iconosTablas/icnRecurrente.svg" class="icnSvg"/></a> 
+                              <a href="#"><img src="../assets/images/iconosTablas/icnDiadema.svg" class="icnSvg"/></a>                               
+                              <a href="#"><img src="../assets/images/iconosTablas/icnEditar.svg" class="icnSvg"/></a>  
+                        </ng-container>
+                      
+                      <!-- <ng-container matColumnDef="editar">
+                          <th style="text-align: center" mat-header-cell *matHeaderCellDef mat-sort-header> Editar </th>
+                          <td mat-cell *matCellDef="let element"> 
+                              <a href="#"><img src="../assets/images/iconosTablas/icnEditar.svg" class="icnSvg"/></a> </td>
+                        </ng-container> -->
+
+
+                        <ng-container  matColumnDef="isDataAvailable"  >
+                            <mat-footer-cell *matFooterCellDef >
+                               
+                              <div  style="text-align:center; width: 100%">
+                                  No se encontraron resultados
+                              </div>
+                               
+                            
+                            </mat-footer-cell>
+                         </ng-container>
+  
+                                                
+
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"  [hidden]="!footerFilterFlag" ></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                    <mat-footer-row *matFooterRowDef="['isDataAvailable']" [hidden]="footerFilterFlag"  >
+                      </mat-footer-row>
+
+                  
                      
-                  </tbody>
-                </table>
+                  </table>         
+            
+
+                </div>
+
             </div>
             <!--TERMINA TABLA -->
 
+<!-- 
+            public paginaActual=0;           // PAGINA ACTUAL QUE MUESTRA EL PAGINADO
+            public totalBusquedaRegistros=0; // COUNT  DE TODOS LOS REGISTROS
+            public totalPaginas=0;           // PAGINAS TOTALES DE LA CONSULTA -->
+
+  
             <div *ngIf="mostrarBusquedas && listaLlamadasCoincidencia.length>0">
                 <div class="col-12 text-right"> 
-                    <button disabled="true"  type="button" class="btn btn-link">
-                     <img (click)="getBusquedaPorFiltros('FIRST');" src="../assets/images/icnFlechaIzquierdaAzul.svg" /> 
+                    <button  [disabled]="paginaActual<=1"  type="button" class="btn btn-link">
+                     <img (click)="getListaEventosPorFiltros(1)" src="../assets/images/icnFlechaIzquierdaAzul.svg" /> 
                     </button>
 
-                    <button disabled="true"  type="button" class="btn btn-link">        
-                      <img (click)="getBusquedaPorFiltros('PREV');" src="../assets/images/icnFlechaIzquierdaAzul.svg" />                       
+                    <button [disabled]="paginaActual<=1" type="button" class="btn btn-link">        
+                      <img (click)="getListaEventosPorFiltros(paginaActual-1)" src="../assets/images/icnFlechaIzquierdaAzul.svg" />                       
                     </button>
 
-                    <button disabled="true"  type="button" class="btn btn-link">
-                      <img (click)="getBusquedaPorFiltros('NEXT');" src="../assets/images/icnFlechaDerechaAzul.svg" />                      
+                    {{paginaActual}} / {{totalPaginas}}
+
+                    <button  [disabled]="paginaActual>=totalPaginas"  type="button" class="btn btn-link">
+                      <img (click)="getListaEventosPorFiltros(paginaActual+1)" src="../assets/images/icnFlechaDerechaAzul.svg" />                      
                     </button>
-                    <button disabled="true" type="button" class="btn btn-link">
-                      <img (click)="getBusquedaPorFiltros('ULTIMO');" src="../assets/images/icnFlechaDerechaAzul.svg" />
+                    <button  [disabled]="paginaActual>=totalPaginas" type="button" class="btn btn-link">
+                      <img (click)="getListaEventosPorFiltros(totalPaginas)" src="../assets/images/icnFlechaDerechaAzul.svg" />
                     
                     </button> 
                   </div>
@@ -277,13 +416,17 @@
             -->
             
             <div *ngIf="!mostrarBusquedas">
+ 
+            <div class="row">
                 <div class="col-1 text-left">   
                     <button type="button" class="btn btn-link">                                    
-                       <img (click)="setMostrarBusquedas();" src="../assets/images/icnFlechaIzquierdaAzul.svg" />  
+                       <img style=" width: 29px;" (click)="setMostrarBusquedas();" src="../assets/images/icnFlechaIzquierdaAzul.svg" />  
                     </button> 
                 </div>
-            <hr />
-            <h2>Datos del evento</h2>
+                <div class="col-6 text-left">   
+                    <h2>Datos del evento</h2>
+                </div>
+              </div>
             <form *ngIf="!mostrarBusquedas">
             <div class="row content p-3">
                   <div class="col">

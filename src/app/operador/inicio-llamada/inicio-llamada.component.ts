@@ -130,7 +130,10 @@ export class InicioLlamadaComponent implements OnInit {
         this.inicioGrabacion(this.prefolio, this.accion);
 
          
-        /////////////////////////////////////////SE CREA NUEVA INSTANCIA DE EVENTO
+        /////////////////////////////////////////SE CREA NUEVA INSTANCIA DE EVENTO7
+        $("#initCaptura").click();  
+        
+
         let ev=new Evento();
         ev.numeroTelefonico=this.callId;
         ev.prefolio = this.prefolio;

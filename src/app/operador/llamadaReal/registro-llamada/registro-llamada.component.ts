@@ -65,41 +65,20 @@ public descripcionEvento="";          //text area de descripcion de evento
   public imgrapidoOn ="../assets/img/images/icnRapido.svg";
   public imgrapidooff = "../assets/img/images/icnRapidoOff.svg";
   public imgrapidoACT="";
-
  
-
   ////////////////////////////////ENDPOINTS LLAMADA REAL/////////////////////////////////
-  
-  // public endpointMotivos ="http://localhost:9091/obtenerMotivos";  
-   //public endpointInst ="http://localhost:9091/obtenerInstituciones";
- // public endpointSaveEvento="http://localhost:9091/saveEvento"; 
-  //public endpointUpdateDesc="http://localhost:9091/updateDescripcion";      
- // public endpointModificarEvento="http://localhost:9091/updateEvento";
-   
-  //public endpointSaveEvento="http://localhost:9091/saveEvento"; 
-  //public endpointUpdateDesc="http://localhost:9091/updateDescripcion";
 
   public endopointGrabacion= "http://3.14.155.2:6769/grabarAuronix"; 
-  //public endpointSaveEvento="http://3.14.155.2:9091/api/llamadaReal/saveEvento";  
-  //public endpointUpdateDesc="http://3.14.155.2:9091/api/llamadaReal/updateDescripcion";  
   public endpointUpdateDesc="http://3.14.155.2:9091/api/llamadaReal/updateDescripcion";  
 
   public endpointMotivos ="http://3.14.155.2:9091/api/llamadaReal/obtenerMotivos";
   public endpointInst ="http://3.14.155.2:9091/api/llamadaReal/obtenerInstituciones";  
   public endpointModificarEvento="http://3.14.155.2:9091/api/llamadaReal/updateEvento";  
-  public endpointBitacoraEvento="http:///3.14.155.2:9091/api/llamadaReal/registroBitacoraEvento";
- 
+  public endpointBitacoraEvento="http:///3.14.155.2:9091/api/llamadaReal/registroBitacoraEvento"; 
   public endpointSaveEvento="http://3.14.155.2:9091/api/llamadaReal/saveEvento";
-
-  public endpointAsignarInstitucion="http://3.14.155.2:9091/api/llamadaReal/asignarInstitucionEvento";
-  
-  //public endpointBitacoraEvento="http://3.14.155.2:9091/api/llamadaReal/registroBitacoraEvento";
-
+  public endpointAsignarInstitucion="http://3.14.155.2:9091/api/llamadaReal/asignarInstitucionEvento"; 
   public endpointSaveTiempos="http:///3.14.155.2:9091/api/llamadaReal/guardaTiempo";
-
-
-  //public endpointSaveEvento="http://localhost:9091/api/llamadaReal/saveEvento";  
-
+ 
   public eventoTmp: Evento;
   public subscription: Subscription;  
   public subscriptionUbicacion: Subscription;
@@ -437,6 +416,9 @@ public customSearchFn(busqueda: string, item: any) { //busqueda por id_motivo Y 
                let fechaAsignacion= new Date().getTime();
                this.eventoTmp.fechaFin=fechaAsignacion+"";
 
+
+               $("#initTrans").click();
+
              //  for(var x=0;x<this.eventoTmp.listaInstituciones.length;x++){
               //  this.guardarAsignacionInstitucionEvento(this.eventoTmp.listaInstituciones[x] , fechaAsignacion);
            //   }
@@ -621,6 +603,8 @@ public customSearchFn(busqueda: string, item: any) { //busqueda por id_motivo Y 
   public guardarDescripcion (descripcion, descripcionCompleta){   //Metodo para guardar descripcion cada que se hace Enter en el textbox
 
   let textComp= $("#ev_descripcion").val().toString().trim();
+
+      if(this.eventoTmp.idEvento!=null){
         if(textComp!=null && textComp!= "" &&  ($("#ev_descripcion").val()).toString().trim()!="" ){
       
           var call = {};
@@ -689,6 +673,14 @@ public customSearchFn(busqueda: string, item: any) { //busqueda por id_motivo Y 
           this.notifier.showNotification ('top','center','Falta escribir descripcion', 'danger' );
 
         }
+
+      }else{
+
+        //this.notifier.showNotification ('top','center','Debe registrar ', 'danger' );
+
+
+
+      }
     }
 
       public validacionesEvento (){  //validaciones sobre eventos
@@ -812,6 +804,9 @@ public customSearchFn(busqueda: string, item: any) { //busqueda por id_motivo Y 
     public callReset(){                   //metodo para iniciar el reseteo de la llamada/evento
      this.terminarLlamadaTiempo();
       $("#button_header_reset").click();  //se manda llamar el evento que se encuentra en header
+      $("#stopTrans").click();  
+      $("#stopCap").click();  
+      
     }
   
     public siguienteLlamada(){  //Metodo para llamar cuando se produzca otra llamada

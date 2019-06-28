@@ -4,6 +4,8 @@ import { Router, ActivatedRoute, NavigationEnd, NavigationStart } from '@angular
 import { Subscription } from 'rxjs/Subscription';
 import { Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
 
+import {NotificacionService} from '../../notificacion/notificacion.service';
+
 import {AuthService} from '../../pages/login/auth.service'  ;
 
 import { Usuario } from '../../pages/login/usuario';
@@ -24,6 +26,7 @@ export class NavbarComponent implements OnInit {
     auth:boolean=false;
     username:string;
 
+    private readonly notifier: NotificacionService;
    banderaMapa :boolean=true;
    public urlMapa:string="/maps/googlemaps";
 
@@ -35,10 +38,18 @@ export class NavbarComponent implements OnInit {
     private sidebarVisible: boolean;
     private _router: Subscription;
 
+    public timerTransmision="00"+":"+"00"+":00";
+    public timerCaptura="00"+":"+"00"+":00";
+
+
+
     @ViewChild('app-navbar-cmp') button: any;
 
     constructor(location: Location, private renderer: Renderer, private element: ElementRef, private router: Router, 
-        private authService: AuthService) {
+        private authService: AuthService,
+        notifierService: NotificacionService) {
+             
+        this.notifier = notifierService;
         this.location = location;
         this.nativeElement = element.nativeElement;
         this.sidebarVisible = false;
@@ -101,7 +112,7 @@ export class NavbarComponent implements OnInit {
       }, 1000);
     }
 
-    ngOnInit() {
+    ngOnInit() { 
         this.listTitles = ROUTES.filter(listTitle => listTitle);
 
         const navbar: HTMLElement = this.element.nativeElement;
@@ -270,4 +281,132 @@ export class NavbarComponent implements OnInit {
 
 
     }
+
+
+    
+    public stopperTrans=false;
+    public stopperCap=false;
+
+    public initTimerTransmision(date:any){
+
+        console.log(date);
+
+        this.stopperTrans=true;
+
+        var from = new Date().getTime();
+
+        this.timerTrans(from, this.stopperTrans);
+        
+    }
+
+    public stopTransmision(){
+        this.stopperTrans=false;
+        
+        this.notifier.showNotification ('top','center', 'Tiempo Transmision: '+ this.timerTransmision , 'success' );
+ 
+        this.timerTransmision="00"+":"+"00"+":00";
+
+
+    } 
+
+    public timerTrans(from, stopper){
+
+        var now= new Date().getTime();
+
+        var difference= now - from;
+
+        var seconds= Math.floor( difference / 1000)%60;
+        var minutes= Math.floor(Math.floor( difference / 1000) / 60)%60;
+       
+        var timeSec;
+        var timeMin;
+
+        if(seconds<10){ timeSec="0"+seconds;}
+        else{timeSec=seconds }
+
+        if(minutes<10){ timeMin="0"+minutes;}
+        else{timeMin=minutes }
+
+
+        if(stopper){
+        this.timerTransmision="00"+":"+timeMin+":"+timeSec; 
+         
+
+        
+        setTimeout (() => {  
+            //jquery("#notifier").remove();
+            //console.log($("#notifier"));
+            //  $(".notificationMsg").remove();
+            this.timerTrans(from, this.stopperTrans);
+         }, 1000); 
+ 
+        }
+    }
+
+    public initTimerCaptura(){
+
+
+        this.timerCaptura="00"+":"+"00"+":"+"77";
+
+
+        
+        this.stopperCap=true;
+
+        var from = new Date().getTime();
+
+        this.timerCap(from, this.stopperCap);
+    }
+
+
+    public timerCap(from, stopper){
+
+
+
+        var now= new Date().getTime();
+
+        var difference= now - from;
+
+        var seconds= Math.floor( difference / 1000)%60;
+        var minutes= Math.floor(Math.floor( difference / 1000) / 60)%60;
+       
+        var timeSec;
+        var timeMin;
+
+        if(seconds<10){ timeSec="0"+seconds;}
+        else{timeSec=seconds }
+
+        if(minutes<10){ timeMin="0"+minutes;}
+        else{timeMin=minutes }
+
+
+        if(stopper){
+        this.timerCaptura="00"+":"+timeMin+":"+timeSec; 
+         
+
+        
+        setTimeout (() => {  
+            //jquery("#notifier").remove();
+            //console.log($("#notifier"));
+            //  $(".notificationMsg").remove();
+            this.timerCap(from, this.stopperCap);
+         }, 1000); 
+ 
+        }
+
+
+ 
+
+    }
+
+
+    
+    public stopCaptura(){
+        this.stopperCap=false;
+ 
+        this.notifier.showNotification ('top','center', 'Tiempo captura: '+ this.timerCaptura , 'success' );
+             
+        this.timerCaptura="00"+":"+"00"+":00";
+
+
+    } 
 }

@@ -17,13 +17,13 @@
       <span class="navbar-toggler-icon icon-bar"></span>
     </button>
     <div class="temporizador" *ngIf="auth" >
-        <label>Transmisi&oacute;n:</label><span class="crroIzquierda">00:00:00</span><span
-            class="cronometroDerecha">00:00:00</span> <br />
+        <label>Transmisi&oacute;n:</label><span class="cronometroIzquierda">{{timerTransmision}}</span>
+        <span   class="cronometroDerecha">00:00:00</span> <br />
         <div class="reloj">
             <p id="contador"><span id="minuto">0</span>:<span id="segundo">55</span></p>
         </div>
-        <label>Captura:</label><span class="cronometroIzquierda">00:00:00</span><span
-            class="cronometroDerecha">00:00:00</span>
+        <label>Captura:</label><span class="cronometroIzquierda">{{timerCaptura}}</span>
+        <span  class="cronometroDerecha">00:00:00</span>
     </div>
 
     <div class="contIconosMenu"  *ngIf="auth" >
@@ -182,3 +182,11 @@
  
 
 </nav>
+
+<button [hidden]="true" id="initTrans" (click)="initTimerTransmision( );"></button>
+<button [hidden]="true" id="stopTrans" (click)="stopTransmision()"></button>
+
+
+<button [hidden]="true" id="initCaptura" (click)="initTimerCaptura()"></button>
+
+<button [hidden]="true" id="stopCap" (click)="stopCaptura()"></button>
