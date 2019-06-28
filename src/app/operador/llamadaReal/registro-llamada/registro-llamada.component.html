@@ -24,8 +24,8 @@
  
  </div>
  <div class="contCorporacion"  [style.display]="hideCorporacion?'none':'inherit'">
-    <hr />
-          <h3>Corporaci&oacute;n</h3>
+    <hr [style.display]="eventoTmp.idEvento==null?'inherit':'none'"/>
+      <h3 [style.display]="eventoTmp.idEvento==null?'inherit':'none'"><span class="requerido">* </span> Corporaci&oacute;n</h3>
             <div  [style.display]="eventoTmp.idEvento==null?'inherit':'none'" *ngFor="let institucion of itemsSelectInstituciones" >
                         <div (click)="selectInstitucion($event,institucion.id_institucion);" >
                             <img class="envIcnCorporacionON" alt="NO IMAGE"  [src]="'../assets/img/images/corporaciones/' + institucion.url_imagen"/>
@@ -34,7 +34,7 @@
  </div>
  <div class="contPrioridad" [style.display]="hideCorporacion?'none':'inherit'">
           <hr />
-          <h3>Prioridad <label>Folio:&nbsp;</label><span id="id_evento">{{eventoTmp.idEvento}}</span></h3>
+          <h3><span class="requerido">* </span>Prioridad <label>Folio:&nbsp;</label><span id="id_evento">{{eventoTmp.idEvento}}</span></h3>
  
  
             <div class="iconosCorporacion" [style.display]="eventoTmp.idEvento==null?'inherit':'none'" >
@@ -94,12 +94,6 @@
  
         <button [hidden]="true" class="hide" (click)="siguienteLlamada();" id="button_pizq_reset">reset</button>
         <button [hidden]="true" class="hide" (click)="enableMotivos();" id="button_motivo">enableMotivo</button>
- 
- <p>
- 
- 
- </p>
- 
  
  
  

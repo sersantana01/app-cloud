@@ -37,6 +37,7 @@ public prefolio:string;
  public fechaRecepcion:string;
  public colonia:string;
  public tipoTelefono:string;
+ public estado:string;
 
 
 /////////////////////////DATOS DENUNCIANTE///////////////////////////////////////////

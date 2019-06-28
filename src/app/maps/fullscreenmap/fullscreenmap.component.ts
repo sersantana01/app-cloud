@@ -51,7 +51,7 @@ export class FullScreenMapsComponent implements OnInit {
 
      console.log(evento);
     
-     console.log(evento!=null && evento.denunciante.latitudDenunciante!=null);
+   //  console.log(evento!=null && evento.denunciante.latitudDenunciante!=null);
 
      if(evento!=null && evento.denunciante.latitudDenunciante!=null){
        //this.setGoogleUbicacion(evento.denunciante.latitudDenunciante,evento.denunciante.longitudDenunciante);
@@ -73,8 +73,6 @@ export class FullScreenMapsComponent implements OnInit {
            console.log(data);
 
            let evento= data.listaEventos[data.listaEventos.length-1];
-
-           console.log("?????"+(evento.idEvento==undefined || evento.idEvento==null || evento.idEvento==""));
            if(evento.idEvento==undefined || evento.idEvento==null || evento.idEvento==""){
 
               // this.setGoogleUbicacion(evento.denunciante.latitudDenunciante, evento.denunciante.longitudDenunciante);
