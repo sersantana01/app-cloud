@@ -20,6 +20,7 @@ export class ShortcutsComponent implements OnInit {
   @Input() prefolio: string;
   @Input() x: string;
   @Input() y: string;
+  @Input() fechaInicioLlamada: any
 
   ngOnInit() {
     let json = {};
@@ -42,7 +43,6 @@ export class ShortcutsComponent implements OnInit {
 
   public getLlamadaComun(data: any) {
     let urlGetLlamadaComun = 'http://3.14.155.2:9093/obtenerCatalogoLlamadaNoProcedente';
-    
     this.shortcutsService.getLlamadaComun(urlGetLlamadaComun, data).subscribe(
       response => {
         this.tipoLlamadaComun = response['items'];
@@ -86,16 +86,20 @@ export class ShortcutsComponent implements OnInit {
     
     let coordX = this.x;
     let coordY = this.y;
+    let fechaInicio = this.fechaInicioLlamada;
+    let fechaFin = (new Date()).getTime();
 
     let json = {};
 
     json['uuid'] = this.uuid;
-    json['idTipoNoProcedente'] = id;
-    json['numeroTelefono'] = telefono;
-    json['idUsuario'] = 5;
-    json['creadoPor'] = 2;
-    json['LATITUD'] = coordX;
-    json['LONGITUD'] = coordY;
+      json['idTipoNoProcedente'] = id;
+      json['numeroTelefono'] = telefono;
+      json['idUsuario'] = 5;
+      json['creadoPor'] = 2;
+      json['latitud'] = coordX;
+      json['longitud'] = coordY;
+      json['fechaInicio'] = fechaInicio;
+      json['fechaFin'] = fechaFin;
 
     this.showAlert(json, urlSetLlamadaComun, id);
   }

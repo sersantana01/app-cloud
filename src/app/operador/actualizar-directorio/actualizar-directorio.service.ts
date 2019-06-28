@@ -38,4 +38,10 @@ export class ActualizarDirectorioService {
       map(this.extractData)
     );
   }
+
+  public getCatalogoColoniaPorIdMunicipio(url: string, data: any): Observable<any> {
+    return this.http.post(url, data).pipe(
+      map(this.extractData)
+    );
+  }
 }

@@ -15,6 +15,7 @@ export class LlamadaComunComponent implements OnInit {
   @Input() prefolio: string;
   @Input() x: string;
   @Input() y: string;
+  @Input() fechaInicioLlamada: any;
   private accion = 'Fin';
   private uuid: string = '5';
   public tipoLlamadaComun: [];
@@ -78,6 +79,8 @@ export class LlamadaComunComponent implements OnInit {
     let prefo = this.prefolio;
     let coordX = this.x;
     let coordY = this.y;
+    let fechaInicio = this.fechaInicioLlamada;
+    let fechaFin = (new Date()).getTime();
 
     let json = {};
     
@@ -87,12 +90,15 @@ export class LlamadaComunComponent implements OnInit {
       json['numeroTelefono'] = telefono;
       json['idUsuario'] = 5;
       json['creadoPor'] = 2;
-      json['Observacion'] = this.observacionLlamada;
-      json['LATITUD'] = coordX;
-      json['LONGITUD'] = coordY;
+      json['observacion'] = this.observacionLlamada;
+      json['latitud'] = coordX;
+      json['longitud'] = coordY;
+      json['fechaInicio'] = fechaInicio;
+      json['fechaFin'] = fechaFin;
 
       this.llamadaComunService.setLlamadaComun(urlSetLlamadaComun, json).subscribe(
         response => {
+          console.log(response);
           let respuesta = response['INSERTADO'];
           if(respuesta == 1 ) {
             this.llamadaNoPreferente = null;

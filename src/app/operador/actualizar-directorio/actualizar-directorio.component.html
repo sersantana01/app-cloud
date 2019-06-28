@@ -31,6 +31,9 @@
                           [(ngModel)]="telefonoSeleccionado"
                           notFoundText="No se encontró">
                 </ng-select>
+                <span class="validar" *ngIf="validarTipoNumero">
+                  <p>*Seleccione un tipo de número</p>
+                </span>
               </div>
             </div>
             <hr />
@@ -44,16 +47,51 @@
                 <label class="etiqueta">Nombre:</label>
                 <br />
                 <input [(ngModel)]="nombre" name="" type="text" class="cajaTexto" />
+                <span class="validar" *ngIf="validarNombre">
+                  <p>*No puede ir vacío</p>
+              </span>
               </div>
               <div class="col-md-4">
                 <label class="etiqueta">Apellido Paterno:</label>
                 <br />
                 <input [(ngModel)]="apellidoPaterno" name="" type="text" class="cajaTexto" />
+                <span class="validar" *ngIf="validarApellidoPaterno">
+                  <p>*No puede ir vacío</p>
+              </span>
               </div>
               <div class="col-md-4">
                 <label class="etiqueta">Apellido Materno:</label>
                 <br />
                 <input [(ngModel)] ="apellidoMaterno" name="" type="text" class="cajaTexto" />
+                <span class="validar" *ngIf="validarApellidoMaterno">
+                  <p>*No puede ir vacío</p>
+              </span>
+              </div>
+            </div>
+            <div class="row content">
+              <div class="col-md-4">
+                <label class="etiqueta">Edad:</label>
+                <br />
+                <input [(ngModel)]="edad" name="" type="text" class="cajaTexto" />
+                <span class="validar" *ngIf="validarNombre">
+                  <p>*No puede ir vacío</p>
+                </span>
+              </div>
+              <div class="col-md-4">
+                <label class="etiqueta">Sexo:</label>
+                <br />
+                <ng-select  class="selector" 
+                          id="selectSexo" 
+                          [items]="sexo"
+                          bindLabel="nombre_sexo"
+                          searchable="true"
+                          placeholder="Selecciona un sexo"
+                          [(ngModel)]="sexoSeleccionado"
+                          notFoundText="No se encontró">
+                </ng-select>
+                <span class="validar" *ngIf="validarSexo">
+                  <p>*Seleccione un sexo</p>
+                </span>
               </div>
             </div>
             <hr />
@@ -63,7 +101,7 @@
                   <div class="row contenedorBotones">
                     <div class="col-6"> </div>
                     <div class="col-6">
-                      <button type="button" class="botonModal btn btn-primary">Seleccionar ubicaci&oacute;n</button>
+                      <button disabled type="button" class="botonModal btn btn-primary">Seleccionar ubicaci&oacute;n</button>
                     </div>
                   </div>
                 </h2>
@@ -115,11 +153,17 @@
                           [(ngModel)]="coloniaSeleccionada"
                           notFoundText="No se encontró">
                 </ng-select>
+                <span class="validar" *ngIf="validarColonia">
+                  <p>*Seleccione una colonia</p>
+                </span>
               </div>
               <div class="col-md-3">
                 <label class="etiqueta">Calle principal:</label>
                 <br />
                 <input [(ngModel)]="callePrincipal" name="" type="text" class="cajaTexto" />
+                <span class="validar" *ngIf="validarCallePrincipal">
+                  <p>*No puede ir vacío</p>
+              </span>
               </div>
             </div>
             <div class="row content">
@@ -127,16 +171,25 @@
                 <label class="etiqueta">Entre calle:</label>
                 <br />
                 <input [(ngModel)]="entreCalle" name="" type="text" class="cajaTexto" />
+                <span class="validar" *ngIf="validarEntreCalle">
+                  <p>*No puede ir vacío</p>
+              </span>
               </div>
               <div class="col-md-3">
                 <label class="etiqueta">Y la calle:</label>
                 <br />
                 <input [(ngModel)]="yCalle" name="" type="text" class="cajaTexto" />
+                <span class="validar" *ngIf="validarYCalle">
+                  <p>*No puede ir vacío</p>
+              </span>
               </div>
               <div class="col-md-3">
                 <label class="etiqueta">N&uacute;mero:</label>
                 <br />
                 <input [(ngModel)]="numero" name="" type="text" class="cajaTexto" />
+                <span class="validar" *ngIf="validarNumero">
+                  <p>*No puede ir vacío</p>
+              </span>
               </div>
               <div class="col-md-3"> </div>
             </div>

@@ -36,6 +36,10 @@ export class InicioLlamadaComponent implements OnInit {
   inicioLlamada() {
     if (this.callId !== '') {
       $('#botonPuto').prop('disabled', false);
+      $('#botonPuto').css({
+        'cursor': 'pointer',
+        'opacity': '1'
+      });
       $('#numeroTelefono').prop('disabled', true);
       this.fechaInicioLlamada= (new Date()).getTime();
 

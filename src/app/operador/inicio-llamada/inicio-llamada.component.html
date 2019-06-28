@@ -22,12 +22,13 @@
             <input class="form-control" type="hidden" [(ngModel)]="prefolio">
             <input class="form-control" type="hidden" [(ngModel)]="x">
             <input class="form-control" type="hidden" [(ngModel)]="y">
+            <input class="form-control" type="hidden" [(ngModel)]="fechaInicioLlamada">
 
         </div>
 
 
-        <app-llamada-comun [prefolio]="prefolio" [x]="x" [y]="y"></app-llamada-comun>
-        <app-shortcuts [prefolio]="prefolio" [x]="x" [y]="y"></app-shortcuts>
+        <app-llamada-comun [prefolio]="prefolio" [x]="x" [y]="y" [fechaInicioLlamada]="fechaInicioLlamada"></app-llamada-comun>
+        <app-shortcuts [prefolio]="prefolio" [x]="x" [y]="y" [fechaInicioLlamada]="fechaInicioLlamada"></app-shortcuts>
         <app-rastreo-vehiculo></app-rastreo-vehiculo>
         <app-actualizar-directorio></app-actualizar-directorio>
         <button [hidden]=true (click)="callResetLlamada();" id="button_header_reset">RESET EVENTO</button>
