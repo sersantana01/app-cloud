@@ -113,6 +113,9 @@ export class LlamadaComunComponent implements OnInit {
             $('#llamadaNoProcedente').modal('hide');
             $('#numeroTelefono').val('');
             $('#numeroTelefono').prop('disabled', false);
+            $("#stopTrans").click();  
+            $("#stopCap").click();  
+            $("#button_header_reset").click(); 
             this.notifier.showNotification ('top','center', 'Se ha generado una llamada no procedente', 'success' );
           }
         }

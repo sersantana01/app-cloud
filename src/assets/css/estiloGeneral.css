@@ -612,3 +612,17 @@ div.fixed-plugin{width:32px;}
 
 /****************estilo para modales al frente*****************/
 .main-panel .navbar.navbar-absolute{z-index: 3;}
+ 
+
+.tdMat{
+  font-size: 8px;
+  
+}
+
+.mat-row:hover {
+  background-color: gray;
+  cursor: pointer;
+
+}
+
+
