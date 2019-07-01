@@ -18,15 +18,15 @@ export class VehiculosComponent implements OnInit {
   editedIndex: number;
   @ViewChild(MatPaginator) paginator: MatPaginator;
 // Servicios
-  endpointAutoType = 'http://localhost:9098/obtenerCatalogoTipoVehiculo'; // 'http://3.14.155.2:9098/obtenerCatalogoTipoVehiculo';
-  endpointAutoMarca = 'http://localhost:9098/obtenerCatalogoMarca'; // 'http://3.14.155.2:9098/obtenerCatalogoMarca';
-  endpointAutoModelo = 'http://localhost:9098/obtenerModeloVehiculo'; // 'http://3.14.155.2:9098/obtenerModeloVehiculo'
-  endpointAutoColor = 'http://localhost:9098/obtenerCatalogoColorVehiculo'; // 'http://3.14.155.2:9098/obtenerCatalogoColorVehiculo';
-  endpointAutoRastreo = 'http://localhost:9098/obtenerCatalogoTipoRastreo'; // 'http://3.14.155.2:9098/obtenerCatalogoTipoRastreo';
-  endpointInsertAuto =     'http://localhost:9098/insertarRegistroVehiculo'; // 'http://3.14.155.2:9098/insertarRegistroVehiculo';
-  endpointfetchAutos = 'http://localhost:9098/obtenerRegistroVehiculo'; // 'http://3.14.155.2:9098/obtenerRegistroVehiculo';
-  endpointActualizarAuto = 'http://localhost:9098/actualizarRegistroVehiculo';  // 'http://3.14.155.2:9098/actualizarRegistroVehiculo';
-  endpointDeleteAuto =  'http://localhost:9098/eliminarRegistroVehiculo'; // 'http://3.14.155.2:9098/eliminarRegistroVehiculo';
+  endpointAutoType = 'http://localhost:3098/obtenerCatalogoTipoVehiculo'; // 'http://3.14.155.2:9098/obtenerCatalogoTipoVehiculo';
+  endpointAutoMarca = 'http://localhost:3098/obtenerCatalogoMarca'; // 'http://3.14.155.2:9098/obtenerCatalogoMarca';
+  endpointAutoModelo = 'http://localhost:3098/obtenerModeloVehiculo'; // 'http://3.14.155.2:9098/obtenerModeloVehiculo'
+  endpointAutoColor = 'http://localhost:3098/obtenerCatalogoColorVehiculo'; // 'http://3.14.155.2:9098/obtenerCatalogoColorVehiculo';
+  endpointAutoRastreo = 'http://localhost:3098/obtenerCatalogoTipoRastreo'; // 'http://3.14.155.2:9098/obtenerCatalogoTipoRastreo';
+  endpointInsertAuto =     'http://localhost:3098/insertarRegistroVehiculo'; // 'http://3.14.155.2:9098/insertarRegistroVehiculo';
+  endpointfetchAutos = 'http://localhost:3098/obtenerRegistroVehiculo'; // 'http://3.14.155.2:9098/obtenerRegistroVehiculo';
+  endpointActualizarAuto = 'http://localhost:3098/actualizarRegistroVehiculo';  // 'http://3.14.155.2:9098/actualizarRegistroVehiculo';
+  endpointDeleteAuto =  'http://localhost:3098/eliminarRegistroVehiculo'; // 'http://3.14.155.2:9098/eliminarRegistroVehiculo';
 // -----------
   uuid = 5;
   idInvolveAuto = '';
@@ -292,26 +292,6 @@ export class VehiculosComponent implements OnInit {
   }
   deleteAuto(item) {
     this.showSwal(item);
-    /*console.log('Delete item');
-    console.log(item);
-    const index = this.dataRow.indexOf(item);
-    console.log(index);
-    this.idInvolveAuto = item.id_vehiculo_involucrado;
-    console.log(this.idInvolveAuto);
-    const choise = confirm('¿Estás seguro de querer eliminar este registro?');
-    if (choise !== false) {
-      const jsonchain = {
-        'uuid': this.uuid,
-        'idVehiculoInvolucrado': this.idInvolveAuto
-      };
-      this.http.post(this.endpointDeleteAuto, jsonchain).subscribe(
-          (data) => {
-            console.log(data);
-            this.dataRow.splice(index, 1);
-            this.fetchAutos();
-          }
-      );
-    }*/
   }
 
   // SweetAlert

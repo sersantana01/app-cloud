@@ -9,8 +9,10 @@ import {RegistroLlamadaComponent} from '../operador/llamadaReal/registro-llamada
 import { GridsLlamadasComponent } from '../operador/grids-llamadas/grids-llamadas.component';
 import {ArmasComponent} from '../shared/armas/armas.component';
 import {VehiculosComponent} from '../shared/vehiculos/vehiculos.component';
+import {PersonasComponent} from '../shared/personas/personas.component';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatFormFieldModule} from '@angular/material/form-field';
+
 import {
     MatButtonModule,
     MatIconModule, MatInputModule,
@@ -24,11 +26,12 @@ import {
 
 
 
+
 @NgModule({
     imports: [ RouterModule, CommonModule, NgSelectModule ,FormsModule,NgSelectModule,  NgbModule, MatButtonModule,
         MatToolbarModule, MatIconModule, MatListModule, MatTableModule, MatPaginatorModule, MatSortModule, MatDatepickerModule,
         MatFormFieldModule, MatInputModule, ReactiveFormsModule],
-    declarations: [ SidebarComponent, RegistroLlamadaComponent, GridsLlamadasComponent, ArmasComponent, VehiculosComponent ],
+    declarations: [ SidebarComponent, RegistroLlamadaComponent, GridsLlamadasComponent, ArmasComponent, VehiculosComponent, PersonasComponent ],
     exports: [ SidebarComponent ]
 })
 
