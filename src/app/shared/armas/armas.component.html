@@ -1,0 +1,217 @@
+<div class="modal fade" id="armasModal" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog modal-xl" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="RegistroTitle">Armas involucradas</h5>
+        <h5 class="modal-title" id="EditarArmaTitle">Editar Registro</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="envolventeAgregarArma" id="envolventeAgregarArma">
+          <div class="row content p-3">
+            <div class="col-md-4">
+              <!--                  <mat-form-field>
+                                    <mat-select placeholder="Selecciona un arma">
+                                        <mat-option value="id_tipo_arma"></mat-option>
+                                    </mat-select>
+                                </mat-form-field>-->
+              <label class="etiqueta">Tipo de arma:</label>
+              <br/>
+
+              <ng-select class="selector" id="selectArma" [items]="itemsSelectArmas"
+                         bindLabel="nombre_tipo"
+                         bindValue="id_tipo_arma"
+                         placeholder="Selecciona un arma"
+                         [(ngModel)]="model.selectedArma">
+              </ng-select>
+              <br>
+              <span id="validate" *ngIf="validate">
+                          <p>*Debes seleccionar un tipo de arma</p>
+                    </span>
+              <br>
+            </div>
+            <div class="col-md-4">
+              <label class="etiqueta">Categoría de arma:</label>
+              <br/>
+
+              <ng-select class="selector" id="selectCat" [items]="itemsCatArmas"
+                         bindLabel="nombre_categoria"
+                         bindValue="id_categoria_arma"
+                         placeholder="Selecciona una categoria de arma"
+                         [(ngModel)]="model.selectedCat">
+              </ng-select>
+            </div>
+            <div class="col-md-4">
+              <mat-form-field>
+                <input matInput placeholder="Marca *" [(ngModel)]="model.marca">
+              </mat-form-field>
+            </div>
+            <div class="col-md-4">
+              <mat-form-field>
+                <input matInput placeholder="Modelo *" [(ngModel)]="model.modelo">
+              </mat-form-field>
+            </div>
+            <div class="col-md-4">
+              <mat-form-field>
+                <input matInput placeholder="Matricula *" [(ngModel)]="model.matricula">
+              </mat-form-field>
+            </div>
+
+            <div class="col">
+              <mat-form-field>
+                <textarea matInput placeholder="Observaciones *" [(ngModel)]="model.observaciones"></textarea>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="row titulo p-3">
+            <h5>Portador</h5>
+          </div>
+          <div class="row content p-3">
+            <div class="col-md-4">
+              <mat-form-field>
+                <input matInput placeholder="Nombre *" [(ngModel)]="model.nombre">
+              </mat-form-field>
+            </div>
+            <div class="col-md-4">
+              <mat-form-field>
+                <input matInput placeholder="Apellido Paterno *" [(ngModel)]="model.aPaterno">
+              </mat-form-field>
+            </div>
+            <div class="col-md-4">
+              <mat-form-field>
+                <input matInput placeholder="Apellido Materno *" [(ngModel)]="model.aMaterno">
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="row titulo p-3">
+            <h5>Registro</h5>
+          </div>
+          <div class="row content p-3">
+            <div class="col-md-4">
+              <mat-form-field>
+                <input disabled matInput placeholder="Folio de credencial *">
+              </mat-form-field>
+            </div>
+            <div class="col-md-4">
+              <mat-form-field>
+                <input disabled matInput placeholder="Corporaci&oacute;n *">
+              </mat-form-field>
+            </div>
+            <div class="col-md-4">
+              <legend>Vigencia</legend>
+              <mat-form-field >
+                <input readonly [(ngModel)]="model.vigencia" matInput [matDatepicker]="picker" placeholder="Elige una fecha" (click)="picker.open()">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+              </mat-form-field>
+            </div>
+          </div>
+          <br>
+          <div class="row contenedorBotones p-3">
+            <div class="col-md-12">
+              <button type="button" class="btn btn-info boton-add" id="boton-agregarArma" (click)="insertArmas()">Agregar</button>
+            </div>
+          </div>
+          <div class="row contenedorBotones p-3 boton-editar" id="botones-editarArma">
+            <div class="col-md-12">
+              <button type="button" class="botonModal btn btn-primary" id="bntGuardarEditarArma" (click)="save()">Guardar</button>
+              <button type="button" class="botonModal btn btn-secondary" id="bntCancelarEditarArma" (click)="close()">Cancelar</button>
+            </div>
+          </div>
+        </div>
+        <!--envolventeAgregarArma -->
+      </div>
+      <!-- termina modal-body -->
+      <br>
+      <!--      <button type="button" class="botonModal btn btn-primary" style="width:30%" id="icnEditarArma">Ejemplo boton editar registro</button>-->
+      <!-- data-table -->
+      <div class="mat-elevation-z8 data-table tabla-arma" id="tabla-arma">
+        <table mat-table [dataSource]="dataSource" matSort aria-label="Elements" class="tabla100">
+          <!-- Id Column -->
+          <ng-container matColumnDef="nombre_tipo">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Tipo de arma</mat-header-cell>
+            <mat-cell *matCellDef="let row">{{row.nombre_tipo}}</mat-cell>
+          </ng-container>
+
+          <!-- Name Column -->
+          <ng-container matColumnDef="nombre_categoria">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Categoría de arma</mat-header-cell>
+            <mat-cell *matCellDef="let row">{{row.nombre_categoria}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="marca">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Marca</mat-header-cell>
+            <mat-cell *matCellDef="let row">{{row.marca}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="modelo">
+            <mat-header-cell *matHeaderCellDef>Modelo</mat-header-cell>
+            <mat-cell *matCellDef="let row">{{row.modelo}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="matricula">
+            <mat-header-cell *matHeaderCellDef>Matricula</mat-header-cell>
+            <mat-cell *matCellDef="let row">{{row.matricula}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="observaciones">
+            <mat-header-cell *matHeaderCellDef>Observaciones</mat-header-cell>
+            <mat-cell *matCellDef="let row">{{row.observaciones}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="nombre_portador">
+            <mat-header-cell *matHeaderCellDef>Nombre</mat-header-cell>
+            <mat-cell *matCellDef="let row">{{row.nombre_portador}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="apellido_paterno">
+            <mat-header-cell *matHeaderCellDef>Apellido paterno</mat-header-cell>
+            <mat-cell *matCellDef="let row">{{row.apellido_paterno}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="apellido_materno">
+            <mat-header-cell *matHeaderCellDef>Apellido materno</mat-header-cell>
+            <mat-cell *matCellDef="let row">{{row.apellido_materno}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="vigencia_registro">
+            <mat-header-cell *matHeaderCellDef>Vigencia</mat-header-cell>
+            <mat-cell *matCellDef="let row">{{row.vigencia_registro}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="Editar">
+            <mat-header-cell *matHeaderCellDef> Editar </mat-header-cell>
+            <mat-cell *matCellDef="let element">
+              <button mat-icon-button (click)="editArma(element)">
+                <mat-icon>edit</mat-icon>
+              </button>
+            </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="Eliminar">
+            <mat-header-cell *matHeaderCellDef>Eliminar</mat-header-cell>
+            <mat-cell *matCellDef="let element">
+              <button mat-icon-button (click)="deleteArma(element)">
+                <mat-icon>delete_forever</mat-icon>
+              </button>
+            </mat-cell>
+          </ng-container>
+          <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+        </table>
+
+        <mat-paginator #paginator
+                       [length]="dataSource.data.length"
+                       [pageIndex]="0"
+                       [pageSize]="5" showFirstLastButtons>
+        </mat-paginator>
+      </div> <!-- end data-table -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-info">Aceptar</button>
+        <button type="button" class="btn btn-info" data-dismiss="modal">Cancelar</button>
+      </div>
+    </div>
+  </div>
+</div>
