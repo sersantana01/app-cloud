@@ -424,8 +424,8 @@ export class FullScreenMapsComponent implements OnInit {
 
 
    this.datataSharedService.setUbicacionLlamada( lat, long, zp);//PONER ZONA PATRULLAJE
-   $("#lat").val("" );
-   $("#long").val("");
+   //$("#lat").val("" );
+  // $("#long").val("");
   }
 
 
