@@ -22,14 +22,16 @@
               <div class="col-md-6">
                 <label class="etiqueta">Tipo de tel&eacute;fono:</label>
                 <br />
-                <ng-select  class="selector" 
-                          id="selectTipoTelefono" 
-                          [items]="tiposTelefono"
-                          bindLabel="tipo_telefono"
-                          searchable="true"
-                          placeholder="Selecciona un tipo de teléfono"
-                          [(ngModel)]="telefonoSeleccionado"
-                          notFoundText="No se encontró">
+                <ng-select  
+                  class="selector" 
+                  dropdownPosition="bottom"
+                  id="selectTipoTelefono" 
+                  [items]="tiposTelefono"
+                  bindLabel="tipo_telefono"
+                  searchable="true"
+                  placeholder="Selecciona un tipo de teléfono"
+                  [(ngModel)]="telefonoSeleccionado"
+                  notFoundText="No se encontró">
                 </ng-select>
                 <span class="validar" *ngIf="validarTipoNumero">
                   <p>*Seleccione un tipo de número</p>
@@ -80,14 +82,16 @@
               <div class="col-md-4">
                 <label class="etiqueta">Sexo:</label>
                 <br />
-                <ng-select  class="selector" 
-                          id="selectSexo" 
-                          [items]="sexo"
-                          bindLabel="nombre_sexo"
-                          searchable="true"
-                          placeholder="Selecciona un sexo"
-                          [(ngModel)]="sexoSeleccionado"
-                          notFoundText="No se encontró">
+                <ng-select  
+                  class="selector" 
+                  dropdownPosition="bottom"
+                  id="selectSexo" 
+                  [items]="sexo"
+                  bindLabel="nombre_sexo"
+                  searchable="true"
+                  placeholder="Selecciona un sexo"
+                  [(ngModel)]="sexoSeleccionado"
+                  notFoundText="No se encontró">
                 </ng-select>
                 <span class="validar" *ngIf="validarSexo">
                   <p>*Seleccione un sexo</p>
@@ -111,14 +115,16 @@
               <div class="col-md-3"> <span class="requerido">* </span>
                 <label class="etiqueta">Estado:</label>
                 <br />
-                <ng-select  class="selector" 
-                          id="selectEstado" 
-                          [items]="estados"
-                          bindLabel="nombre_estado"
-                          searchable="true"
-                          placeholder="Selecciona un estado"
-                          [(ngModel)]="estadoSeleccionado"
-                          notFoundText="No se encontró">
+                <ng-select  
+                  class="selector" 
+                  dropdownPosition="bottom"
+                  id="selectEstado" 
+                  [items]="estados"
+                  bindLabel="nombre_estado"
+                  searchable="true"
+                  placeholder="Selecciona un estado"
+                  [(ngModel)]="estadoSeleccionado"
+                  notFoundText="No se encontró">
                 </ng-select>
                 <span class="validar" *ngIf="validarEstado">
                   <p>*Seleccione un estado</p>
