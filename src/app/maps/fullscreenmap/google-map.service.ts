@@ -243,6 +243,7 @@ google.maps.event.addListener (  this.map, 'click', function (e) {
   $("#lat").val(latLng.lat());
   $("#long").val(latLng.lng());
   $("#btn_location").click();
+  $('#btn_traer_eventos_cercanos').click();
 
 
 });

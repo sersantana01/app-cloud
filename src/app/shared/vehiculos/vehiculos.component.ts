@@ -18,15 +18,15 @@ export class VehiculosComponent implements OnInit {
   editedIndex: number;
   @ViewChild(MatPaginator) paginator: MatPaginator;
 // Servicios
-  endpointAutoType = 'http://localhost:3098/obtenerCatalogoTipoVehiculo'; // 'http://3.14.155.2:9098/obtenerCatalogoTipoVehiculo';
-  endpointAutoMarca = 'http://localhost:3098/obtenerCatalogoMarca'; // 'http://3.14.155.2:9098/obtenerCatalogoMarca';
-  endpointAutoModelo = 'http://localhost:3098/obtenerModeloVehiculo'; // 'http://3.14.155.2:9098/obtenerModeloVehiculo'
-  endpointAutoColor = 'http://localhost:3098/obtenerCatalogoColorVehiculo'; // 'http://3.14.155.2:9098/obtenerCatalogoColorVehiculo';
-  endpointAutoRastreo = 'http://localhost:3098/obtenerCatalogoTipoRastreo'; // 'http://3.14.155.2:9098/obtenerCatalogoTipoRastreo';
-  endpointInsertAuto =     'http://localhost:3098/insertarRegistroVehiculo'; // 'http://3.14.155.2:9098/insertarRegistroVehiculo';
-  endpointfetchAutos = 'http://localhost:3098/obtenerRegistroVehiculo'; // 'http://3.14.155.2:9098/obtenerRegistroVehiculo';
-  endpointActualizarAuto = 'http://localhost:3098/actualizarRegistroVehiculo';  // 'http://3.14.155.2:9098/actualizarRegistroVehiculo';
-  endpointDeleteAuto =  'http://localhost:3098/eliminarRegistroVehiculo'; // 'http://3.14.155.2:9098/eliminarRegistroVehiculo';
+  endpointAutoType = 'http://3.14.155.2:9098/obtenerCatalogoTipoVehiculo';
+  endpointAutoMarca = 'http://3.14.155.2:9098/obtenerCatalogoMarca';
+  endpointAutoModelo = 'http://3.14.155.2:9098/obtenerModeloVehiculo';
+  endpointAutoColor = 'http://3.14.155.2:9098/obtenerCatalogoColorVehiculo';
+  endpointAutoRastreo = 'http://3.14.155.2:9098/obtenerCatalogoTipoRastreo';
+  endpointInsertAuto = 'http://3.14.155.2:9098/insertarRegistroVehiculo';
+  endpointfetchAutos = 'http://3.14.155.2:9098/obtenerRegistroVehiculo';
+  endpointActualizarAuto = 'http://3.14.155.2:9098/actualizarRegistroVehiculo';
+  endpointDeleteAuto = 'http://3.14.155.2:9098/eliminarRegistroVehiculo';
 // -----------
   uuid = 5;
   idInvolveAuto = '';

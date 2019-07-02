@@ -31,8 +31,6 @@ export class FullScreenMapsComponent implements OnInit {
  label: string;
 
  map:any;
-
-  
  public subscriptionDatos: Subscription;
  public subscriptionCenterUbicacion: Subscription;
 
@@ -430,7 +428,6 @@ export class FullScreenMapsComponent implements OnInit {
 
 
    }
-
 
  }
 
