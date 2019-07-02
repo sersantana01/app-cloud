@@ -1,9 +1,10 @@
-<div class="modal fade " id="modalRastreoVehiculo" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade " id="modalRastreoVehiculo" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
   <div class="modal-dialog modal-xl" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <h4 class="modal-title" id="modalRastreoVehiculoLabel">Rastreo de veh&iacute;culo</h4>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <button type="button" (click)="borrar()" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
@@ -19,23 +20,45 @@
                 <label>Hasta:</label><input [(ngModel)]="hastaFolio" name="" type="text" class="cajaTexto" />
               </div>
               <div class="col-md-3">
-                <label class="etiqueta">Fecha:</label>
-                <br />
-                <label>Desde:</label><input [(ngModel)]="desdeFecha" name="" type="text" class="cajaTexto" />
-                <label>Hasta:</label><input [(ngModel)]="hastaFecha" name="" type="text" class="cajaTexto" />
+                <mat-form-field>                       
+                  <input 
+                    readonly 
+                    (click)="pickerDesde.open()"
+                    (dateChange)="getFechaIni()"
+                    name="fechaDesde" 
+                    [(ngModel)]="desdeFecha"  
+                    matInput [matDatepicker]="pickerDesde" 
+                    placeholder="Fecha Inicio">
+                  <mat-datepicker-toggle matSuffix [for]="pickerDesde"></mat-datepicker-toggle>
+                  <mat-datepicker disabled="false" #pickerDesde></mat-datepicker>
+                </mat-form-field>
+                <mat-form-field>                       
+                  <input 
+                    readonly 
+                    (click)="pickerHasta.open()"
+                    (dateChange)="getFechaFin()"
+                    name="fechaHasta" 
+                    [(ngModel)]="hastaFecha"  
+                    matInput [matDatepicker]="pickerHasta" 
+                    placeholder="Fecha Fin">
+                  <mat-datepicker-toggle matSuffix [for]="pickerHasta"></mat-datepicker-toggle>
+                  <mat-datepicker disabled="false" #pickerHasta></mat-datepicker>
+                </mat-form-field>
               </div>
               <div class="col-md-3">
                 <label class="etiqueta">Motivo:</label>
                 <br />
-               <ng-select  class="selector" 
-                            id="selectMotivo" 
-                            [items]="motivos"
-                            bindLabel="nombre_motivo"
-                            searchable="true"
-                            placeholder="Selecciona un motivo"
-                            [searchFn]="customSearchFn"
-                            [(ngModel)]="motivoSeleccionado"
-                            notFoundText="No se encontró">
+                <ng-select 
+                  class="selector" 
+                  dropdownPosition="bottom"
+                  id="selectMotivo" 
+                  [items]="motivos" 
+                  bindLabel="nombre_motivo"
+                  searchable="true" 
+                  placeholder="Selecciona un motivo" 
+                  [searchFn]="customSearchFn"
+                  [(ngModel)]="motivoSeleccionado" 
+                  notFoundText="No se encontró">
                 </ng-select>
               </div>
               <div class="col-md-3">
@@ -53,48 +76,50 @@
               <div class="col-md-3">
                 <label class="etiqueta">Tipo de veh&iacute;culo:</label>
                 <br />
-               <ng-select  class="selector" 
-                            id="selectTipoVehiculo" 
-                            [items]="tipoVehiculo"
-                            bindLabel="nombre_tipo"
-                            searchable="true"
-                            placeholder="Selecciona un tipo de vehículo"
-                            [searchFn]="customSearchFn"
-                            [(ngModel)]="tipoVehiculoSeleccionado"
-                            notFoundText="No se encontró">
+                <ng-select 
+                  class="selector" 
+                  dropdownPosition="bottom"
+                  id="selectTipoVehiculo" 
+                  [items]="tipoVehiculo" 
+                  bindLabel="nombre_tipo"
+                  searchable="true" 
+                  placeholder="Selecciona un tipo de vehículo" 
+                  [searchFn]="customSearchFn"
+                  [(ngModel)]="tipoVehiculoSeleccionado" 
+                  notFoundText="No se encontró">
                 </ng-select>
               </div>
               <div class="col-md-3">
                 <label class="etiqueta">Marca:</label>
                 <br />
-                <ng-select  class="selector"
-                            (change)="insertaIdMarca()"
-                            id="selectMarca" 
-                            [items]="marca"
-                            bindLabel="marca"
-                            searchable="true"
-                            placeholder="Selecciona una marca"
-                            [searchFn]="customSearchFn"
-                            [(ngModel)]="marcaSeleccionada"
-                            notFoundText="No se encontró">
+                <ng-select 
+                  class="selector" 
+                  dropdownPosition="bottom"
+                  (change)="insertaIdMarca()" 
+                  id="selectMarca" 
+                  [items]="marca"
+                  bindLabel="marca" 
+                  searchable="true" 
+                  placeholder="Selecciona una marca" 
+                  [searchFn]="customSearchFn"
+                  [(ngModel)]="marcaSeleccionada" 
+                  notFoundText="No se encontró">
                 </ng-select>
               </div>
-              <div class="col-md-3" >
-                <label class="etiqueta">Modelo:</label><!-- 
-                <label for="test">
-                    <input type="checkbox" name="test" id="checkModelo">
-                    Ingresar modelo manualmente
-                  </label> -->
+              <div class="col-md-3">
+                <label class="etiqueta">Modelo:</label>
                 <br />
-              <ng-select  class="selector" 
-                            id="selectModelo" 
-                            [items]="modelo"
-                            bindLabel="modelo"
-                            searchable="true"
-                            [searchFn]="customSearchFn"
-                            placeholder="Selecciona un modelo"
-                            [(ngModel)]="modeloSeleccionado"
-                            notFoundText="No se encontró">
+                <ng-select 
+                  class="selector" 
+                  dropdownPosition="bottom"
+                  id="selectModelo" 
+                  [items]="modelo" 
+                  bindLabel="modelo" 
+                  searchable="true"
+                  [searchFn]="customSearchFn" 
+                  placeholder="Selecciona un modelo" 
+                  [(ngModel)]="modeloSeleccionado"
+                  notFoundText="No se encontró">
                 </ng-select>
               </div>
             </div>
@@ -112,28 +137,32 @@
               <div class="col-md-3">
                 <label class="etiqueta">Color:</label>
                 <br />
-              <ng-select  class="selector" 
-                            id="selectColor" 
-                            [items]="color"
-                            bindLabel="nombre_color"
-                            searchable="true"
-                            placeholder="Selecciona un color"
-                            [searchFn]="customSearchFn"
-                            [(ngModel)]="colorSeleccionado"
-                            notFoundText="No se encontró">
+                <ng-select 
+                  class="selector" 
+                  dropdownPosition="bottom"
+                  id="selectColor" 
+                  [items]="color" 
+                  bindLabel="nombre_color" 
+                  searchable="true"
+                  placeholder="Selecciona un color" 
+                  [searchFn]="customSearchFn" 
+                  [(ngModel)]="colorSeleccionado"
+                  notFoundText="No se encontró">
                 </ng-select>
               </div>
               <div class="col-md-3">
                 <label class="etiqueta">Rastreo:</label>
                 <br />
-              <ng-select  class="selector" 
-                            id="selectRastreo" 
-                            [items]="rastreo"
-                            bindLabel="nombre_estatus_rastreo"
-                            searchable="true"
-                            placeholder="Selecciona un rastreo"
-                            [(ngModel)]="rastreoSeleccionado"
-                            notFoundText="No se encontró">
+                <ng-select 
+                  class="selector" 
+                  dropdownPosition="bottom"
+                  id="selectRastreo" 
+                  [items]="rastreo" 
+                  bindLabel="nombre_estatus_rastreo"
+                  searchable="true" 
+                  placeholder="Selecciona un rastreo" 
+                  [(ngModel)]="rastreoSeleccionado"
+                  notFoundText="No se encontró">
                 </ng-select>
               </div>
             </div>
@@ -146,14 +175,16 @@
               <div class="col-md-3">
                 <label class="etiqueta">Antig&uuml;edad:</label>
                 <br />
-             <ng-select  class="selector" 
-                            id="selectAntiguedad" 
-                            [items]="antiguedad"
-                            bindLabel="z"
-                            searchable="true"
-                            placeholder="Selecciona una antigüedad"
-                            [(ngModel)]="antiguedadSeleccionada"
-                            notFoundText="No se encontró">
+                <ng-select 
+                  class="selector" 
+                  dropdownPosition="bottom"
+                  id="selectAntiguedad" 
+                  [items]="antiguedad" 
+                  bindLabel="nombre_antiguedad"
+                  searchable="true" 
+                  placeholder="Selecciona una antigüedad" 
+                  [(ngModel)]="antiguedadSeleccionada"
+                  notFoundText="No se encontró">
                 </ng-select>
               </div>
               <div class="col-md-6">
@@ -164,7 +195,8 @@
             </div>
             <div class="row contenedorBotones p-3">
               <div class="col-12">
-                <button type="button" class="botonModal btn btn-primary" (click)="buscar()">Buscar</button>
+                <button type="button" class="botonModal btn btn-primary"
+                  (click)="buscarRastreoVehiculo()">Buscar</button>
                 <button type="button" class="botonModal btn btn-secondary" (click)="borrar()">Borrar</button>
               </div>
             </div>
@@ -173,75 +205,69 @@
               <div class="col-md-4">
                 <label class="etiqueta">Rastreo:</label>
                 <br />
-                <select name="" class="selector">
-                  <option>NO ESPECIFICADO</option>
-                </select>
-              </div>
-              <div class="col-md-4">
-                <label class="etiqueta">Motivo:</label>
-                <br />
-                <select name="" class="selector">
-                  <option>NO ESPECIFICADO</option>
-                </select>
-              </div>
-              <div class="col-md-4">
-                <label class="etiqueta">Observaciones:</label>
-                <br />
-                <textarea name="" cols="" rows="" class="areaTexto"></textarea>
+                <ng-select 
+                  class="selector" 
+                  dropdownPosition="bottom"
+                  (change)="actualizarVehiculoPorRastreo()" 
+                  id="selectRastreo" 
+                  [items]="rastreoUpdate" 
+                  bindLabel="nombre_estatus_rastreo"
+                  searchable="true" 
+                  placeholder="Selecciona un rastreo" 
+                  [(ngModel)]="rastreoUpdateSeleccionado"
+                  notFoundText="No se encontró">
+                </ng-select>
               </div>
             </div>
-            <div class="row p-3">
-              <table class="table tablaDataTable" id="tblRastreoVehiculo">
-                <thead>
-                  <tr>
-                    <th></th>
-                    <th>Tipo de veh&iacute;culo</th>
-                    <th>Marca</th>
-                    <th>Modelo</th>
-                    <th>Placa</th>
-                    <th>Color</th>
-                    <th>Rastreo</th>
-                    <th>Seleccionar</th>
-                    <th>Eliminar</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>1</td>
-                    <td>TIPO DE VEHICULO</td>
-                    <td>MARCA DEL VEHICULO</td>
-                    <td>MODELO DEL VEHICULO</td>
-                    <td>PLACA DEL VEHICULO</td>
-                    <td>COLOR DEL VEHICULO</td>
-                    <td>RASTREO DEL VEHICULO</td>
-                    <td><a href="#"><img src="../../../assets/images/iconosTablas/icnPaloma.svg" class="icnSvg"/></a></td>
-                    <td><a href="#"><img src="../../../assets/images/iconosTablas/icnCancelar.svg" class="icnSvg"/></a></td>
-                  </tr>
-                  <tr>
-                    <td>2</td>
-                    <td>SEDAN</td>
-                    <td>VOLKSWAGEN</td>
-                    <td>JETTA 2018</td>
-                    <td>EGA3425</td>
-                    <td>AZUL MARINO</td>
-                    <td>RASTREO 123456789</td>
-                    <td><a href="#"><img src="../../../assets/images/iconosTablas/icnPaloma.svg" class="icnSvg"/></a></td>
-                    <td><a href="#"><img src="../../../assets/images/iconosTablas/icnCancelar.svg" class="icnSvg"/></a></td>
-                  </tr>
-                  <tr>
-                    <td>3</td>
-                    <td>SEDAN 4 PUERTAS</td>
-                    <td>CHEVROLET</td>
-                    <td>AVEO 1998</td>
-                    <td>PEE1234</td>
-                    <td>PLATA</td>
-                    <td>123456789</td>
-                    <td><a href="#"><img src="../../../assets/images/iconosTablas/icnPaloma.svg" class="icnSvg"/></a></td>
-                    <td><a href="#"><img src="../../../assets/images/iconosTablas/icnCancelar.svg" class="icnSvg"/></a></td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
+            <mat-form-field>
+              <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Busqueda...">
+            </mat-form-field>
+            <table matSort style="width: 100%" mat-table [dataSource]="dataSource" class=" mat-elevation-z8">
+              <ng-container matColumnDef="nombre_tipo">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Tipo de vehículo </th>
+                <td mat-cell *matCellDef="let element"> {{element.nombre_tipo}} </td>
+              </ng-container>
+              <ng-container matColumnDef="marca">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Marca </th>
+                <td mat-cell *matCellDef="let element"> {{element.marca}} </td>
+              </ng-container>
+              <ng-container matColumnDef="modelo">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Modelo </th>
+                <td mat-cell *matCellDef="let element"> {{element.modelo}} </td>
+              </ng-container>
+              <ng-container matColumnDef="numero_placa">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Placa </th>
+                <td mat-cell *matCellDef="let element"> {{element.numero_placa}} </td>
+              </ng-container>
+              <ng-container matColumnDef="nombre_color">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Color </th>
+                <td mat-cell *matCellDef="let element"> {{element.nombre_color}} </td>
+              </ng-container>
+              <ng-container matColumnDef="nombre_estatus_rastreo">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Rastreo </th>
+                <td mat-cell *matCellDef="let element"> {{element.nombre_estatus_rastreo}} </td>
+              </ng-container>
+              <ng-container matColumnDef="iconoSelect">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Seleccionar </th>
+                <td mat-cell *matCellDef="let element"><a href="javascript:void(0)" (click)="actualizarVehiculo(element)"><img src="../../../assets/images/iconosTablas/icnPaloma.svg"
+                  class="icnSvg" /></a></td>
+              </ng-container>
+              <ng-container matColumnDef="iconoDelete">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Eliminar </th>
+                <td mat-cell *matCellDef="let element"><a href="javascript:void(0)" (click)="eliminarVehiculo(element.uuid, element.id_vehiculo_involucrado)"><img src="../../../assets/images/iconosTablas/icnCancelar.svg"
+                  class="icnSvg" /></a></td>
+              </ng-container>
+              <ng-container  matColumnDef="isDataAvailable">
+                <mat-footer-cell *matFooterCellDef colspan="12">
+                    No se encontraron resultados
+                </mat-footer-cell>
+              </ng-container>
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+              <mat-footer-row *matFooterRowDef="['isDataAvailable']" [hidden]="footerFilterFlag" ></mat-footer-row>
+            </table>          
+            <hr />
+            <mat-paginator [pageSizeOptions]="[10, 20, 50]" showFirstLastButtons></mat-paginator>
             <div class="row content p-3 menuIconos">
               <div class="col-12 text-right">
                 <img src="../../../assets/images/menu/icnPersonas.svg" />
@@ -254,96 +280,6 @@
                 <img src="../../../assets/images/menu/icnReconocimiento.svg" />
               </div>
             </div>
-            <hr />
-            <div class="row content p-3">
-              <div class="col-md-3">
-                <label class="etiqueta">Municipio:</label>
-                <br />
-                <input name="" type="text" class="cajaTexto" />
-              </div>
-              <div class="col-md-3">
-                <label class="etiqueta">Folio:</label>
-                <br />
-                <input name="" type="text" class="cajaTexto" />
-              </div>
-              <div class="col-md-3">
-                <label class="etiqueta">Fecha de recepci&oacute;n:</label>
-                <br />
-                <input type="text" id="fechaRecepcionRastreoVehiculo" class="cajaTexto" />
-              </div>
-              <div class="col-md-3">
-                <label class="etiqueta">Tipo de tel&eacute;fono:</label>
-                <br />
-                <input name="" type="text" class="cajaTexto" />
-              </div> 
-            </div>
-            <div class="row content p-3">
-              <div class="col-md-3">
-                <label class="etiqueta">Tel&eacute;fono:</label>
-                <br />
-                <input name="" type="text" class="cajaTexto" />
-              </div>
-              <div class="col-md-3">
-                <label class="etiqueta">Motivo:</label>
-                <br />
-                <input name="" type="text" class="cajaTexto" />
-              </div>
-              <div class="col-md-3">
-                <label class="etiqueta">Colonia:</label>
-                <br />
-                <input name="" type="text" class="cajaTexto" />
-              </div>
-              <div class="col-md-3">
-                <label class="etiqueta">Tiempo:</label>
-                <br />
-                <input name="" type="text" class="cajaTexto" />
-              </div> 
-            </div>
-            <div class="row content p-3">
-              <div class="col-md-3">
-                <label class="etiqueta">Ciudad:</label>
-                <br />
-                <input name="" type="text" class="cajaTexto" />
-              </div>
-              <div class="col-md-3">
-                <label class="etiqueta">Prioridad:</label>
-                <br />
-                <input name="" type="text" class="cajaTexto" />
-              </div>
-              <div class="col-md-3">
-                <label class="etiqueta">Estatus:</label>
-                <br />
-                <input type="text" id="datepicker" class="cajaTexto" />
-              </div>
-              <div class="col-md-3"></div> 
-            </div>
-            <div class="row content p-3">
-              <div class="col-md-6">
-                <label class="etiqueta">Lugar:</label>
-                <br />
-                <textarea name="" cols="" rows="" class="areaTexto"></textarea>
-              </div>
-              <div class="col-md-6">
-                <label class="etiqueta">Descripci&oacute;n del evento:</label>
-                <br />
-                <textarea name="" cols="" rows="" class="areaTexto"></textarea>
-              </div>
-            </div>
-            <div class="row contenedorBotones p-3">
-              <div class="col-12">
-                <button type="button" class="botonModal btn btn-primary">Aceptar</button>
-                <button type="button" class="botonModal btn btn-primary">Ubicar en el mapa</button>
-                <button type="button" class="botonModal btn btn-secondary">Borrar</button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="modal-footer">
-        <div class="row contenedorBotones">
-          <div class="col-12">
-            <button type="button" class="botonModal btn btn-primary">Aceptar</button>
-            <button type="button" class="botonModal btn btn-secondary" data-dismiss="modal">Cancelar</button>
           </div>
         </div>
       </div>

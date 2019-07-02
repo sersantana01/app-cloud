@@ -10,48 +10,66 @@ export class RastreoVehiculoService {
 
   constructor(private http: HttpClient) { }
 
-  public extractData(res: Response) {
+  extractData(res: Response) {
     let body = res;
     return body || { };
   }
 
-  public getCatalogoMotivo(url: string, data: any): Observable<any> {
+  getCatalogoMotivo(url: string, data: any): Observable<any> {
     return this.http.post(url, data).pipe(
       map(this.extractData)
     );
   }
 
-  public getCatalogoTipoVehiculo(url: string, data: any): Observable<any> {
+  getCatalogoTipoVehiculo(url: string, data: any): Observable<any> {
     return this.http.post(url, data).pipe(
       map(this.extractData)
     );
   }
 
-  public getCatalogoMarca(url: string, data: any): Observable<any> {
+  getCatalogoMarca(url: string, data: any): Observable<any> {
     return this.http.post(url, data).pipe(
       map(this.extractData)
     );
   }
 
-  public getCatalogoColorVehiculo(url: string, data: any): Observable<any> {
+  getCatalogoColorVehiculo(url: string, data: any): Observable<any> {
     return this.http.post(url, data).pipe(
       map(this.extractData)
     );
   }
 
-  public getCatalogoTipoRastreo(url: string, data: any): Observable<any> {
+  getCatalogoTipoRastreo(url: string, data: any): Observable<any> {
     return this.http.post(url, data).pipe(
       map(this.extractData)
     );
   }
 
-  public getCatalogoModeloPorIdModelo(url: string, data: any): Observable<any> {
+  getCatalogoModeloPorIdModelo(url: string, data: any): Observable<any> {
     return this.http.post(url, data).pipe(
       map(this.extractData)
     );
   }
 
-  public getCatalogoModeloPorNombre(url: string, data: any): Observable<any> {
+  getCatalogoModeloPorNombre(url: string, data: any): Observable<any> {
+    return this.http.post(url, data).pipe(
+      map(this.extractData)
+    );
+  }
+
+  busquedaRastreoVehiculo(url: string, data: any): Observable<any> {
+    return this.http.post(url, data).pipe(
+      map(this.extractData)
+    );
+  }
+
+  deleteVehiculo(url: string, data: any) {
+    return this.http.post(url, data).pipe(
+      map(this.extractData)
+    );
+  }
+
+  actualizarVehiculo(url: string, data: any) {
     return this.http.post(url, data).pipe(
       map(this.extractData)
     );
