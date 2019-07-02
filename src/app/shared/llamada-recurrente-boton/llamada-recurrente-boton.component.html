@@ -1,0 +1,317 @@
+<!-- Modal llamada Recurrente-->
+<div class="modal fade" id="modalLlamadaRecurrente" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalRastreoVehiculoLabel">Llamada recurrente</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"> <span aria-hidden="true">&times;</span> </button>
+      </div>
+      <div class="modal-body">
+        <!--inicia contenido llamada recurrente -->
+
+        <div class="contGeneral" id="envolventeLlamadaRecurrente">
+          <div class="container-fluid">
+            <form>
+              <div class="row content p-3">
+                <div class="col-md-6">
+                  <label class="etiqueta">Raz&oacute;n de la llamada:</label>
+                  <br />
+                  <select name="" class="selector">
+                    <option>SELECCIONAR</option>
+                    <option>No ha llegado la unidad</option>
+                    <option>Cancelar llamada</option>
+                  </select>
+                </div>
+                <div class="col-md-6">
+                  <div class="contenedorBotones">
+                    <button type="button" class="botonModal btn btn-primary" (click)="ocultarDiv();">Buscar</button>
+                    <input type="reset" value="Borrar" class="botonModal btn btn-secondary">
+                  </div>
+                </div>
+              </div>
+            </form>
+            <hr  />
+            <h2>Datos del denunciante</h2>
+            <form>
+              <div class="row content p-3">
+                <div class="col-md-3">
+                  <label class="etiqueta">Nombre:</label>
+                  <br />
+                  <input name="" type="text" class="cajaTexto" />
+                </div>
+                <div class="col-md-3">
+                  <label class="etiqueta">Apellido Paterno:</label>
+                  <br />
+                  <input name="" type="text" class="cajaTexto" />
+                </div>
+                <div class="col-md-3">
+                  <label class="etiqueta">Apellido Materno:</label>
+                  <br />
+                  <input type="text" class="cajaTexto" />
+                </div>
+                <div class="col-md-3">
+                  <label class="etiqueta">Tel&eacute;fono:</label>
+                  <br />
+                  <input name="" type="text" class="cajaTexto" />
+                </div>
+              </div>
+              <div class="row content p-3">
+                <div class="col-md-3">
+                  <label class="etiqueta">Tipo de tel&eacute;fono:</label>
+                  <br />
+                  <select name="" class="selector">
+                    <option>SELECCIONAR</option>
+                  </select>
+                </div>
+                <div class="col-md-3">
+                  <label class="etiqueta">Tipo de denunciante:</label>
+                  <br />
+                  <select name="" class="selector">
+                    <option>SELECCIONAR</option>
+                  </select>
+                </div>
+                <div class="col-md-3">
+                  <input name="" type="checkbox" value="" class="casillaVerificacion" />
+                  <label class="etiqueta">Mostrar datos del operador</label>
+                </div>
+                <div class="col-md-3">
+                  <input name="" type="checkbox" value="" class="casillaVerificacion" />
+                  <label class="etiqueta">Guardar datos en directorio</label>
+                </div>
+              </div>
+              <div class="row content p-3">
+                <div class="col-md-3">
+                  <label class="etiqueta">Municipio:</label>
+                  <br />
+                  <select name="" class="selector">
+                    <option>SELECCIONAR</option>
+                  </select>
+                </div>
+                <div class="col-md-3">
+                  <label class="etiqueta">Colonia:</label>
+                  <br />
+                  <input type="text" class="cajaTexto" />
+                </div>
+                <div class="col-md-3">
+                  <label class="etiqueta">Calle principal:</label>
+                  <br />
+                  <input type="text" class="cajaTexto" />
+                </div>
+                <div class="col-md-3">
+                  <label class="etiqueta">Entre calle:</label>
+                  <br />
+                  <input type="text" class="cajaTexto" />
+                </div>
+              </div>
+              <div class="row content p-3">
+                <div class="col-md-3">
+                  <label class="etiqueta">Y la calle:</label>
+                  <br />
+                  <input type="text" class="cajaTexto" />
+                </div>
+                <div class="col-md-3">
+                  <label class="etiqueta">N&uacute;mero:</label>
+                  <br />
+                  <input type="text" class="cajaTexto" />
+                </div>
+                <div class="col-md-6 contenedorBotones">
+                  <button type="button" class="botonModal btn btn-primary"><i class="fa fa-globe" aria-hidden="true"></i> Seleccionar ubicación</button>
+                </div>
+              </div>
+            </form>
+            <hr />
+            <div class="row content p-3 menuIconos"> <img src="../svg/si-glyph-person-public.svg" height="20px"/> <img src="../svg/si-glyph-car.svg" height="20px"/> <img src="../svg/gun.svg" height="20px"/> <img src="../svg/si-glyph-shield-star.svg" height="20px"/> <img src="../svg/si-glyph-customer-support.svg" height="20px"/> <img src="../svg/si-glyph-edit.svg" height="20px"/> <img src="../svg/si-glyph-document-edit.svg" height="20px"/> <img src="../svg/si-glyph-medal-star.svg" height="20px"/> </div>
+            <hr />
+            <h2>Lugar del incidente</h2>
+            <form>
+              <div class="row content p-3">
+                <div class="col-md-3">
+                  <label class="etiqueta">Municipio:</label>
+                  <br />
+                  <input name="" type="text" class="cajaTexto" readonly="readonly" />
+                </div>
+                <div class="col-md-3">
+                  <label class="etiqueta">Colonia:</label>
+                  <br />
+                  <input name="" type="text" class="cajaTexto" readonly="readonly" />
+                </div>
+                <div class="col-md-3">
+                  <label class="etiqueta">Ciudad:</label>
+                  <br />
+                  <input type="text" class="cajaTexto" readonly="readonly" />
+                </div>
+                <div class="col-md-3">
+                  <label class="etiqueta">Motivo:</label>
+                  <br />
+                  <input name="" type="text" class="cajaTexto" readonly="readonly" />
+                </div>
+              </div>
+              <div class="row content p-3">
+                <div class="col-md-3">
+                  <label class="etiqueta">Folio:</label>
+                  <br />
+                  <input type="text" class="cajaTexto" readonly="readonly" />
+                </div>
+                <div class="col-md-3">
+                  <label class="etiqueta">Tipo de tel&eacute;fono:</label>
+                  <br />
+                  <input name="" type="text" class="cajaTexto" readonly="readonly" />
+                </div>
+                <div class="col-md-3">
+                  <label class="etiqueta">Tel&eacute;fono:</label>
+                  <br />
+                  <input name="" type="text" class="cajaTexto" readonly="readonly" />
+                </div>
+                <div class="col-md-3">
+                  <label class="etiqueta">Fecha de recepci&oacute;n:</label>
+                  <br />
+                  <input type="text" class="cajaTexto" readonly="readonly" />
+                </div>
+              </div>
+              <div class="row content p-3">
+                <div class="col-md-3">
+                  <label class="etiqueta">Tiempo:</label>
+                  <br />
+                  <input name="" type="text" class="cajaTexto" readonly="readonly" />
+                </div>
+                <div class="col-md-3">
+                  <label class="etiqueta">Origen:</label>
+                  <br />
+                  <input type="text" class="cajaTexto" readonly="readonly" />
+                </div>
+                <div class="col-md-3">
+                  <label class="etiqueta">Prioridad:</label>
+                  <br />
+                  <input name="" type="text" class="cajaTexto" readonly="readonly" />
+                </div>
+                <div class="col-md-3">
+                  <label class="etiqueta">Estatus:</label>
+                  <br />
+                  <input name="" type="text" class="cajaTexto" readonly="readonly" />
+                </div>
+              </div>
+              <div class="row content p-3">
+                <div class="col-md-6">
+                  <label class="etiqueta">Lugar:</label>
+                  <br />
+                  <textarea name="" cols="" rows="" class="areaTexto"></textarea>
+                </div>
+                <div class="col-md-6">
+                  <label class="etiqueta">Descripci&oacute;n del evento:</label>
+                  <br />
+                  <textarea name="" cols="" rows="" class="areaTexto"></textarea>
+                </div>
+              </div>
+              <div class="row contenedorBotones p-3">
+                <div class="col-12">
+                  <button type="button" class="botonModal btn btn-primary"><i class="fa fa-globe" aria-hidden="true"></i> Seleccionar ubicación</button>
+                </div>
+              </div>
+            </form>
+
+            <!--INICIA TABLA -->
+            <div class="row p-3">
+              <table class="table" id="tblLlamadaRecurrente">
+                <thead>
+                <tr>
+                  <th></th>
+                  <th>Hora</th>
+                  <th>Telefonista</th>
+                  <th>Folio</th>
+                  <th>Motivo</th>
+                  <th>Municipio</th>
+                  <th>Colonia</th>
+                  <th>Razonamiento</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                  <td>1</td>
+                  <td>16:56:00</td>
+                  <td>OPERADOR1</td>
+                  <td>0021000100000012540</td>
+                  <td>ROBO</td>
+                  <td>SAN ANDRES CHOLULA</td>
+                  <td>TOSCANA</td>
+                  <td>TEXTO RAZONAMIENTO</td>
+                </tr>
+                <tr>
+                  <td>2</td>
+                  <td>02:12:32</td>
+                  <td>OPERADOR2</td>
+                  <td>12540</td>
+                  <td>FUGA DEGAS</td>
+                  <td>SAN ANDRES CHOLULA</td>
+                  <td>TOSCANA</td>
+                  <td>RAZONAMIENTO</td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+            <!--TERMINA TABLA -->
+          </div>
+          <!--container-fluid -->
+        </div>
+        <!--contGeneral -->
+
+        <!--div razon de cancelacion -->
+        <div class="contRazonCancelacion" id="contRazonCancelacion" style="display:none;">
+          <div class="container-fluid">
+            <form>
+              <div class="row titulo p-3">
+                <h1>T&iacute;tulo raz&oacute;n de la llamada</h1>
+              </div>
+              <div class="row">
+                <div class="col-md-4">
+                  <label class="etiqueta">Folio:</label>
+                  <br />
+                  <input type="text" class="cajaTexto" value="001309867545367657586" readonly="readonly" />
+                </div>
+                <div class="col-md-4">
+                  <label class="etiqueta">Fecha de la llamada:</label>
+                  <br />
+                  <input type="text" class="cajaTexto" value="18-06-2019 13:07:33" readonly="readonly" />
+                </div>
+                <div class="col-md-4">
+                  <label class="etiqueta">Raz&oacute;n de la cancelaci&oacute;n:</label>
+                  <br />
+                  <select name="" class="selector">
+                    <option>Seleccionar</option>
+                    <option>Falsa alarma</option>
+                  </select>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <label class="etiqueta">Observaciones:</label>
+                  <br />
+                  <textarea class="areaTexto"></textarea>
+                </div>
+                <div class="col-md-6"> <br />
+                  <br />
+                  <br />
+                  <div class="contenedorBotones">
+                    <button type="button" class="botonModal btn btn-primary" (click)="mostrarDiv();">Aceptar</button>
+                    <button type="button" class="botonModal btn btn-secondary" (click)="mostrarDiv();">Regresar</button>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+        <!--termina div razon de cancelacion -->
+
+        <!--termina contenido llamada recurrente -->
+      </div>
+      <div class="modal-footer">
+        <div class="row contenedorBotones" id="botonesPieLlamadaRecurrente">
+          <div class="col-12">
+            <button type="button" class="botonModal btn btn-primary">Aceptar</button>
+            <button type="button" class="botonModal btn btn-secondary" data-dismiss="modal">Cancelar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!--termina modal llamada recurrente -->

@@ -26,6 +26,8 @@ import {TelefonosEmergenciaComponent} from '../../operador/telefonos-emergencia/
 import { ActualizarDirectorioComponent } from '../../operador/actualizar-directorio/actualizar-directorio.component';
 import { RastreoVehiculoComponent } from '../../operador/rastreo-vehiculo/rastreo-vehiculo.component';
 import { from } from 'rxjs';
+import {EventoRecurrenteComponent} from '../evento-recurrente/evento-recurrente.component';
+import {LlamadaRecurrenteBotonComponent} from '../llamada-recurrente-boton/llamada-recurrente-boton.component';
 
 
 
@@ -33,7 +35,7 @@ import { from } from 'rxjs';
     imports: [ RouterModule, CommonModule, MatButtonModule,MatPaginatorModule, MatTableModule,
                FormsModule , NgSelectModule , NgbModule, MatFormFieldModule, MatDatepickerModule, MatInputModule ],
     declarations: [ NavbarComponent, InicioLlamadaComponent, LlamadaComunComponent, ShortcutsComponent, 
-        ConsultaLlamadaComponent, TelefonosEmergenciaComponent, ActualizarDirectorioComponent, RastreoVehiculoComponent ],
+        ConsultaLlamadaComponent, TelefonosEmergenciaComponent, ActualizarDirectorioComponent, RastreoVehiculoComponent, EventoRecurrenteComponent, LlamadaRecurrenteBotonComponent ],
     exports: [ NavbarComponent ]
 })
 

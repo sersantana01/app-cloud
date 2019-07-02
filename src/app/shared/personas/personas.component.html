@@ -1,0 +1,356 @@
+<div class="modal fade" id="personasModal" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog modal-xl" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="InsertarPersonaTitle">Persona involucrada</h5>
+        <h5 class="modal-title" id="EditarPersona"> Editar Registro </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="envolventeAgregarPersona" id="envolventeAgregarPersona">
+          <div class="row content p-3">
+            <div class="col-md-4">
+              <label class="etiqueta">Tipo de persona involucrada:</label>
+              <br>
+              <ng-select class="selector" [items]="itemsSelectPersona"
+                         bindLabel="nombre_tipo_persona"
+                         bindValue="id_tipo_persona"
+                         placeholder="Selecciona un tipo de persona"
+                         [(ngModel)]="model.selectedPersona"
+              >
+              </ng-select>
+            </div>
+            <div class="col-md-4">
+              <label class="etiqueta">Color de cabello:</label>
+              <br>
+              <ng-select class="selector" [items]="itemsSelectColor"
+                         bindLabel="color_cabello"
+                         bindValue="id_color_cabello"
+                         placeholder="Selecciona un color de cabello"
+                         [(ngModel)]="model.selectedColor"
+              >
+              </ng-select>
+            </div>
+            <div class="col-md-4">
+              <label class="etiqueta">Color de Tez:</label>
+              <br>
+              <ng-select class="selector" [items]="itemsSelectTez"
+                         bindLabel="color_tez"
+                         bindValue="id_color_tez"
+                         placeholder="Selecciona un color de Tez"
+                         [(ngModel)]="model.selectedTez"
+              >
+              </ng-select>
+            </div>
+            <div class="col-md-4">
+              <label class="etiqueta">Estatura:</label>
+              <br>
+              <ng-select class="selector" [items]="itemsSelectEstatura"
+                         bindLabel="estatura"
+                         bindValue="id_estatura"
+                         placeholder="Selecciona estatura"
+                         [(ngModel)]="model.selectedEstatura"
+              >
+              </ng-select>
+            </div>
+            <div class="col-md-4">
+              <label class="etiqueta">Complexión:</label>
+              <br>
+              <ng-select class="selector" [items]="itemsSelectComplexion"
+                         bindLabel="complexion"
+                         bindValue="id_complexion"
+                         placeholder="Selecciona complexion"
+                         [(ngModel)]="model.selectedComplexion"
+              >
+              </ng-select>
+            </div>
+            <div class="col-md-4">
+              <label class="etiqueta">Tipo de cabello:</label>
+              <br>
+              <ng-select class="selector" [items]="itemsSelectTipoCabello"
+                         bindLabel="tipo_cabello"
+                         bindValue="id_tipo_cabello"
+                         placeholder="Selecciona un tipo de cabello"
+                         [(ngModel)]="model.selectedTipoCabello"
+              >
+              </ng-select>
+            </div>
+            <div class="col-md-4">
+              <label class="etiqueta">Color de ojos:</label>
+              <br>
+              <ng-select class="selector" [items]="itemsSelectColOjos"
+                         bindLabel="nombre_color_ojos"
+                         bindValue="id_color_ojos"
+                         placeholder="Selecciona color de ojos"
+                         [(ngModel)]="model.selectedColOjos"
+              >
+              </ng-select>
+            </div>
+            <div class="col-md-4">
+              <label class="etiqueta">Forma de la cara:</label>
+              <br>
+              <ng-select class="selector" [items]="itemsSelectFormaCara"
+                         bindLabel="nombre_forma_cara"
+                         bindValue="id_forma_cara"
+                         placeholder="Selecciona forma de la cara"
+                         [(ngModel)]="model.selectedFormaCara"
+              >
+              </ng-select>
+            </div>
+            <div class="col-md-4">
+              <label class="etiqueta">Tipo de nariz:</label>
+              <br>
+              <ng-select class="selector" [items]="itemsSelectTipoNariz"
+                         bindLabel="nombre_tipo_nariz"
+                         bindValue="id_tipo_nariz"
+                         placeholder="Selecciona tipo de nariz"
+                         [(ngModel)]="model.selectedTipoNariz"
+              >
+              </ng-select>
+            </div>
+            <div class="col-md-4">
+              <mat-form-field>
+                <input matInput placeholder="Nombre *" [(ngModel)]="model.nombre">
+              </mat-form-field>
+            </div>
+            <div class="col-md-4">
+              <mat-form-field>
+                <input matInput placeholder="Apellido paterno *" [(ngModel)]="model.aPaterno">
+              </mat-form-field>
+            </div>
+            <div class="col-md-4">
+              <mat-form-field>
+                <input matInput placeholder="Apellido Materno *" [(ngModel)]="model.aMaterno">
+              </mat-form-field>
+            </div>
+            <div class="col-md-4">
+              <label class="etiqueta">Sexo:</label>
+              <br>
+              <ng-select class="selector" [items]="itemsSexo"
+                         bindLabel="name_sex"
+                         bindValue="name_sex"
+                         placeholder="Selecciona sexo de la persona"
+                         [(ngModel)]="model.selectedSexo"
+              >
+              </ng-select>
+            </div>
+            <div class="col-md-4">
+              <mat-form-field>
+                <input matInput placeholder="Edad *" [(ngModel)]="model.edad">
+              </mat-form-field>
+            </div>
+
+            <div class="row content p-3">
+              <div class="col">
+                <h2>Vestimenta</h2>
+              </div>
+              <br/>
+              <br/>
+              <div class="col">
+                <h5>Cabeza</h5>
+                <label class="etiqueta">Prenda:</label><br />
+                <ng-select class="selector" [items]="itemsSelectVestHead"
+                           bindLabel="nombre_vestimenta"
+                           bindValue="id_vestimenta"
+                           placeholder="Selecciona prenda"
+                           [(ngModel)]="model.selectedVestHead"
+                >
+                </ng-select><br /><br />
+                <label class="etiqueta">Color:</label><br />
+                <ng-select class="selector" [items]="itemsSelectVestColor"
+                           bindLabel="nombre_color"
+                           bindValue="id_color"
+                           placeholder="Selecciona un color"
+                           [(ngModel)]="model.selectedColorVestHead"
+                >
+                </ng-select><br /><br />
+              </div>
+              <div class="col">
+                <h5>Talle</h5>
+                <label class="etiqueta">Prenda:</label><br />
+                <ng-select class="selector" [items]="itemsSelectVestTalla"
+                           bindLabel="nombre_vestimenta"
+                           bindValue="id_vestimenta"
+                           placeholder="Selecciona una prenda"
+                           [(ngModel)]="model.selectedVestTalla"
+                >
+                </ng-select><br /><br />
+                <label class="etiqueta">Color:</label><br />
+                <ng-select class="selector" [items]="itemsSelectVestColor"
+                           bindLabel="nombre_color"
+                           bindValue="id_color"
+                           placeholder="Selecciona un color"
+                           [(ngModel)]="model.selectedColorVestTalla"
+                >
+                </ng-select><br /><br />
+              </div>
+              <div class="col">
+                <h5>Piernas</h5>
+                <label class="etiqueta">Prenda:</label><br />
+                <ng-select class="selector" [items]="itemsSelectVestLegs"
+                           bindLabel="nombre_vestimenta"
+                           bindValue="id_vestimenta"
+                           placeholder="Selecciona un modelo"
+                           [(ngModel)]="model.selectedVestLegs"
+                >
+                </ng-select><br /><br />
+                <label class="etiqueta">Color:</label><br />
+                <ng-select class="selector" [items]="itemsSelectVestColor"
+                           bindLabel="nombre_color"
+                           bindValue="id_color"
+                           placeholder="Selecciona un color"
+                           [(ngModel)]="model.selectedColorVestLegs"
+                >
+                </ng-select><br /><br />
+              </div>
+              <div class="col">
+                <h5>Pies</h5>
+                <label class="etiqueta">Prenda:</label><br />
+                <ng-select class="selector" [items]="itemsSelectVestPies"
+                           bindLabel="nombre_vestimenta"
+                           bindValue="id_vestimenta"
+                           placeholder="Selecciona una prenda"
+                           [(ngModel)]="model.selectedVestPies"
+                >
+                </ng-select><br /><br />
+                <label class="etiqueta">Color:</label><br />
+                <ng-select class="selector" [items]="itemsSelectVestColor"
+                           bindLabel="nombre_color"
+                           bindValue="id_color"
+                           placeholder="Selecciona un color"
+                           [(ngModel)]="model.selectedColorVestPies"
+                >
+                </ng-select><br /><br />
+              </div>
+              <div class="col">
+                <mat-form-field>
+                  <textarea matInput placeholder="Seña particular *" [(ngModel)]="model.seniaParticular"></textarea>
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="row contenedorBotones p-3">
+              <div class="col-md-12">
+                <button type="button" class="btn btn-info add-boton-persona" id="add-boton-persona" (click)="insertPersona()">Agregar</button>
+              </div>
+            </div>
+            <div class="row contenedorBotones p-3 boton-editar-persona" id="botones-editar-persona">
+              <div class="col-md-12">
+                <button type="button" class="botonModal btn btn-primary" (click)="save()">Guardar</button>
+                <button type="button" class="botonModal btn btn-secondary" (click)="close()">Cancelar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <br>
+        <div class="mat-elevation-z8 data-table tabla-persona" id="tabla-persona"> <!-- put data-table here -->
+          <table mat-table [dataSource]="dataSource" class="tabla100">
+
+            <!-- Person Type Column -->
+            <ng-container matColumnDef="nombre_tipo_persona">
+              <th mat-header-cell *matHeaderCellDef> Tipo de persona involucrada </th>
+              <td mat-cell *matCellDef="let element"> {{element.nombre_tipo_persona}} </td>
+            </ng-container>
+
+            <!-- Hair Color Column -->
+            <ng-container matColumnDef="color_cabello">
+              <th mat-header-cell *matHeaderCellDef> Color de cabello </th>
+              <td mat-cell *matCellDef="let element"> {{element.color_cabello}} </td>
+            </ng-container>
+
+            <!-- Weight Column -->
+            <ng-container matColumnDef="color_tez">
+              <th mat-header-cell *matHeaderCellDef> Color de tez </th>
+              <td mat-cell *matCellDef="let element"> {{element.color_tez}} </td>
+            </ng-container>
+
+            <!-- Symbol Column -->
+            <ng-container matColumnDef="estatura">
+              <th mat-header-cell *matHeaderCellDef> Estatura </th>
+              <td mat-cell *matCellDef="let element"> {{element.estatura}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="complexion">
+              <th mat-header-cell *matHeaderCellDef> Complexion </th>
+              <td mat-cell *matCellDef="let element"> {{element.complexion}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="tipo_cabello">
+              <th mat-header-cell *matHeaderCellDef> Tipo de cabello </th>
+              <td mat-cell *matCellDef="let element"> {{element.tipo_cabello}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="nombre_color_ojos">
+              <th mat-header-cell *matHeaderCellDef> Color de ojos </th>
+              <td mat-cell *matCellDef="let element"> {{element.nombre_color_ojos}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="nombre_forma_cara">
+              <th mat-header-cell *matHeaderCellDef> Forma de la cara </th>
+              <td mat-cell *matCellDef="let element"> {{element.nombre_forma_cara}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="nombre_tipo_nariz">
+              <th mat-header-cell *matHeaderCellDef> Tipo de nariz </th>
+              <td mat-cell *matCellDef="let element"> {{element.nombre_tipo_nariz}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="nombre">
+              <th mat-header-cell *matHeaderCellDef> Nombre </th>
+              <td mat-cell *matCellDef="let element"> {{element.nombre}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="apellido_paterno">
+              <th mat-header-cell *matHeaderCellDef> Apellido paterno </th>
+              <td mat-cell *matCellDef="let element"> {{element.apellido_paterno}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="apellido_materno">
+              <th mat-header-cell *matHeaderCellDef> Apellido materno </th>
+              <td mat-cell *matCellDef="let element"> {{element.apellido_materno}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="sexo">
+              <th mat-header-cell *matHeaderCellDef> Sexo </th>
+              <td mat-cell *matCellDef="let element"> {{element.sexo}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="edad">
+              <th mat-header-cell *matHeaderCellDef> Edad </th>
+              <td mat-cell *matCellDef="let element"> {{element.edad}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="Editar">
+              <th mat-header-cell *matHeaderCellDef> Editar </th>
+              <td mat-cell *matCellDef="let element">
+                <button mat-icon-button (click)="editPersona(element)">
+                  <mat-icon>edit</mat-icon>
+                </button>
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="Eliminar">
+              <th mat-header-cell *matHeaderCellDef> Eliminar </th>
+              <td mat-cell *matCellDef="let element">
+                <button mat-icon-button (click)="deletePersona(element)">
+                  <mat-icon>delete_forever</mat-icon>
+                </button>
+              </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          </table>
+
+          <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+        </div>
+        <br>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-info">Aceptar</button>
+          <button type="button" class="btn btn-info" data-dismiss="modal">Cancelar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

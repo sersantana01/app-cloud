@@ -1,0 +1,83 @@
+<!-- Modal eventos cercanos-->
+<div class="modal fade" id="modalEventosCercanos" #modalEventCerc tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalRastreoVehiculoLabel">Eventos cercanos</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"> <span aria-hidden="true">&times;</span> </button>
+      </div>
+      <div class="modal-body">
+        <!--inicia contenido eventos cercanos -->
+
+        <div class="contGeneral">
+          <div class="container-fluid">
+            <div class="row titulo">
+<!--              <div class="col-12">
+                <h1>Eventos cercanos</h1>
+              </div>-->
+            </div>
+            <div class="row content">
+              <div class="col-md-12"> <span class="inatrucciones">Seleccione un evento para registrar recurrencia</span> </div>
+            </div>
+            <div class="row">
+              <div class="col-12">
+<!--                <mat-form-field>
+                  <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Busqueda...">
+                </mat-form-field>-->
+                <table matSort style="width: 100%" mat-table [dataSource]="dataSource" class=" mat-elevation-z8">
+
+                  <!--- Note that these columns can be defined in any order.
+                        The actual rendered columns are set as a property on the row definition" -->
+
+                  <!-- Position Column -->
+                  <ng-container matColumnDef="id_evento">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> ID Evento </th>
+                    <td mat-cell *matCellDef="let element"> {{element.id_evento}} </td>
+                  </ng-container>
+
+                  <!-- Name Column -->
+                  <ng-container matColumnDef="nombre_motivo">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Motivo </th>
+                    <td mat-cell *matCellDef="let element"> {{element.nombre_motivo}} </td>
+                  </ng-container>
+
+                  <ng-container  matColumnDef="isDataAvailable">
+                    <mat-footer-cell *matFooterCellDef>
+                      No se encontraron resultados
+                    </mat-footer-cell>
+                  </ng-container>
+
+                  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                  <mat-footer-row *matFooterRowDef="['isDataAvailable']" [hidden]="footerFilterFlag" >
+                  </mat-footer-row>
+                </table>
+
+
+                <!--TERMINA TABLA -->
+                <hr />
+
+                <mat-paginator [pageSizeOptions]="[10, 20, 50]" showFirstLastButtons></mat-paginator>
+              </div>
+            </div>
+          </div>
+          <!--container-fluid -->
+        </div>
+        <!--contGeneral -->
+
+        <!--termina contenido eventos cercanos -->
+      </div>
+      <div class="modal-footer">
+        <div class="row contenedorBotones">
+          <div class="col-12">
+            <button type="button" class="botonModal btn btn-primary" data-dismiss="modal">Aceptar</button>
+            <button type="button" class="botonModal btn btn-secondary" data-dismiss="modal">Cancelar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!--termina modal eventos cercanos -->
+<button [hidden]=true id="btn_traer_eventos_cercanos" (click)="getEventos()"></button>
+<button [hidden]=true data-toggle="modal" data-target="#modalEventosCercanos" id="btn_abrir_eventos_cercanos"></button>
