@@ -173,16 +173,16 @@ margin-bottom: 0px;
 margin-left: 5%;
 }
 .contIconosMenu a{
-width:32px; height: 32px;
+width:30px; height: 30px;
 display: inline-block;
 text-align: center;
 vertical-align: middle;
 padding: 3px;
-margin-right: 10px;
+margin-right: 5px;
 }
 .contIconosMenu a:hover, .deshabilitado{cursor:pointer; opacity: 0.6;}
 .contIconosMenu a img{
-width: 32px;
+width: 28px;
 }
 .nav-link .material-icons{color:#fff;}
 
@@ -222,7 +222,7 @@ position: fixed;
   color:#e1e1e1;
   display: block;
     font-family: 'Roboto Condensed', sans-serif;
-    font-size: 13px;
+    font-size: 12px;
 }
 .contenedorTablaResultados label{
 font-family: 'Roboto Condensed', sans-serif;
@@ -569,6 +569,7 @@ background: transparent url(/assets/images/icnArmaAzulOff.svg) center center no-
 }
 
 /******ventana estatus usuarios******/
+.user-info{text-align: center;}
 .user-info span{font-size: 13px; color: #007bff;}
 .user-info span:hover{text-decoration: none; cursor: pointer;}
 .user-info #collapseExample{
@@ -612,17 +613,52 @@ div.fixed-plugin{width:32px;}
 
 /****************estilo para modales al frente*****************/
 .main-panel .navbar.navbar-absolute{z-index: 3;}
- 
+.modal .modal-dialog .modal-content{background: #F5F5F5; font-size: 12px; color:#333;}
+.modal .modal-dialog .modal-content .modal-title{text-align: left; color: #00B3E3; font-size:16px; }
+.modal .modal-dialog .modal-content .titulo h1{text-align: left; color: #666; font-size:14px;}
+.modal .modal-dialog .modal-content h2{text-align: left; color: #666; font-size:14px;}
+.modal .modal-dialog .modal-content .etiqueta, .modal .modal-dialog .modal-content label{color:#333;}
+.modal .modal-dialog .modal-content .cajaTexto{
+  background: #FFF;
+  color: #666;
+  border:1px solid #ccc;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  width: 100%;
+}
+.modal .modal-dialog .modal-content .selector{
+  background: #FFF;
+  color: #666;
+  border:1px solid #ccc;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  width: 100%;
+}
+.modal .modal-dialog .modal-content .selector option{background:#EEE; padding: 3px 10px;}
+.modal .modal-dialog .modal-content .p-3 {
+    padding: 5px !important;
+}
+.modal .modal-dialog .modal-content .col-md-3 input,
+.modal .modal-dialog .modal-content .col-md-3 label{ vertical-align: middle;}
 
-.tdMat{
-  font-size: 8px;
-  
+.contenedorBotones .botonModal.btn.btn-primary {
+  padding: 6px 10px;
+  background: #00B2E2;
+  color: #FFFFFF;
+  border: 1px solid #2693FF;
+  height: 30px;
+  display: inline-block;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  margin-right: 5px;
+  margin-bottom: 10px;
+  font-family: 'BoxedBook',Open Sans, sans-serif;
+  font-size: 12px;
 }
 
-.mat-row:hover {
-  background-color: gray;
-  cursor: pointer;
-
-}
-
-
+/***************actualizar directoria***********/
+#actualizarDirectorio img{margin-top: 6px; cursor: pointer; max-width: 28px;}
+#actualizarDirectorio img:hover{opacity:0.8;}
