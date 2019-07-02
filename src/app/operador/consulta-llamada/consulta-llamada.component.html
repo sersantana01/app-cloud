@@ -40,6 +40,7 @@
                 <label class="etiqueta">Ciudad:</label>
                 <ng-select name="ciudades"  class="selector" id="selectCiudad" [items]="itemsSelectCiudades"                 
                 searchable="false"
+                dropdownPosition="bottom"
                 bindLabel="nombre_municipio"
                 placeholder="Selecciona una ciudad" 
                 [(ngModel)]="consultaCiudad" >
@@ -49,6 +50,7 @@
                 <label class="etiqueta">Colonia:</label>
                 <ng-select name="colonias"  class="selector" id="selectColonia" [items]="itemsSelectColonias"                 
                 searchable="false"
+                dropdownPosition="bottom"
                 bindLabel="nombre_colonia"
                 placeholder="Selecciona una colonia" 
                 [(ngModel)]="consultaColonia" >
@@ -64,6 +66,7 @@
                 <ng-select name="motivos"  class="selector" id="selectMotivo" [items]="itemsSelectMotivos"                 
                 bindLabel="nombre_motivo"
                 searchable="true"
+                dropdownPosition="bottom"
                 placeholder="Selecciona un motivo"
                 [searchFn]="customSearchFn"
                 [(ngModel)]="consultaMotivo"
@@ -80,6 +83,7 @@
                     <label class="etiqueta">Estatus:</label>
                     <ng-select name="estatuses"  class="selector" id="selectEstatus" [items]="itemsSelectEstatus"                 
                       searchable="false"
+                      dropdownPosition="bottom"
                       placeholder="Selecciona un estatus" 
                       [(ngModel)]="consultaEstatus" >
                     </ng-select>
@@ -94,6 +98,7 @@
                 <ng-select name="origenes"  class="selector" id="selectOrigen" [items]="itemsSelectOrigenes"                 
                 bindLabel="nombre_origen"
                 searchable="true"
+                dropdownPosition="bottom"
                 placeholder="Selecciona un origen"
                 [searchFn]="customSearchFnOrigen"
                 [(ngModel)]="consultaOrigen"
@@ -104,6 +109,7 @@
                 <label class="etiqueta">Prioridad:</label>
                 <ng-select name="prioridad"  class="selector" id="selectPrioridad" [items]="itemsSelectPrioridad"                 
                   searchable="false"
+                  dropdownPosition="bottom"
                   placeholder="Selecciona una prioridad" 
                   [(ngModel)]="consultaPrioridad" >
                 </ng-select>
@@ -346,7 +352,10 @@
                                                 
 
                     <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"  [hidden]="!footerFilterFlag" ></tr>
-                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                    <tr [ngClass]="{
+                      'mat-row-activo': row.estatus === 'ACTIVO',
+                      'mat-row-historico': row.estatus === 'HISTORICO' 
+                    }"  mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
                     <mat-footer-row *matFooterRowDef="['isDataAvailable']" [hidden]="footerFilterFlag"  >
                       </mat-footer-row>
 

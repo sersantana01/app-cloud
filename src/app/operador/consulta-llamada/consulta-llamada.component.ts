@@ -474,10 +474,7 @@ export class ConsultaLlamadaComponent implements OnInit {
   }
   
   public setFinal() {
-  //  this.events.push(`${type}: ${event.value}`);
-      //alert("GOL");
  
-      //console.log("TR");
  
       var fecFinal= new Date(this.busq_fechaDesde);
 
@@ -487,10 +484,7 @@ export class ConsultaLlamadaComponent implements OnInit {
   }
 
   
-  public setInicio() {
-    //  this.events.push(`${type}: ${event.value}`);
-        
-        //console.log("TR");
+  public setInicio() { 
 
       var fecInicio = new Date(this.busq_fechaHasta);
       fecInicio.setDate(fecInicio.getDate()-1);
@@ -669,15 +663,11 @@ getOffset(data){
          //  console.log(lista["vSalida"]);
   
            this.listaLlamadasCoincidencia=respuesta["vSalida"];
-
-       //    console.log(this.listaLlamadasCoincidencia);
-
-
-       
-            this.dataSource = new MatTableDataSource(
+           this.dataSource = new MatTableDataSource(
 
               this.listaLlamadasCoincidencia
           );
+          
 
 
            var total = respuesta["Total_registro"]; 
@@ -731,10 +721,7 @@ getOffset(data){
     this.totalPaginas=Math.ceil(totalRegistros/paginado);
   
   }
-
-
-
-
+ 
 
 public getFechaRecepcion(date: any){
 
@@ -751,17 +738,33 @@ return moment(dateTmp).format('DD/MM/YYYY HH:mm:ss');
 }
 
   public setLlamadaActual(idEvento:any){ //metodo para obtener lista de motivos
-  
-          
-
- 
-
+   
          // this.getEventoById(elemTmp["id_evento"]);
          this.getEventoById(idEvento);
          
  
 
 
+  }
+
+  public rowEvento(estatus:any){
+
+    let cssClassRow="";
+
+      if(estatus=='ACTIVO'){
+
+        cssClassRow='mat-row-activo';
+
+      } else 
+      if(estatus=='HISTORICO'){
+
+        cssClassRow='mat-row-historico';
+
+      }
+
+console.log(cssClassRow);
+
+    return cssClassRow;
   }
 
 public getMotivos(){ //metodo para obtener lista de motivos
@@ -1125,9 +1128,7 @@ public getEventoById(idEvento:any){
 
     }else{
 
-
       this.notifier.showNotification ('top','center', 'Debe escribir un filtro de busqueda primero' , 'danger' );
-
 
     }
 

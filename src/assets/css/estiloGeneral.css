@@ -625,4 +625,12 @@ div.fixed-plugin{width:32px;}
 
 }
 
+.mat-row-activo{
+  background-color: #FFCA67; 
+}
+
+.mat-row-historico{
+  background-color: #A4CFFF; 
+}
+
 
