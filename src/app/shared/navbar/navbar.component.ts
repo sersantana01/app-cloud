@@ -27,7 +27,11 @@ export class NavbarComponent implements OnInit {
     username:string;
 
     private readonly notifier: NotificacionService;
+
+
    banderaMapa :boolean=true;
+   
+   banderaMapaFrame :any="GOOGLE";
    public urlMapa:string="/maps/googlemaps";
 
     private listTitles: any[];
@@ -244,16 +248,13 @@ export class NavbarComponent implements OnInit {
 
     cambioMapa(){
         
-
-        if(this.banderaMapa){
+        if(this.banderaMapaFrame=="SIGA"){
             this.urlMapa="/maps/googlemaps";
-            this.banderaMapa=false;
-        }else{
+            this.banderaMapaFrame="GOOGLE";
+        }else if(this.banderaMapaFrame=="GOOGLE"){
               this.urlMapa="/maps/siga";
-              this.banderaMapa=true;
-        }
-
-       
+              this.banderaMapaFrame="SIGA";
+        } 
         this.router.navigateByUrl(  this.urlMapa);
        
     }
