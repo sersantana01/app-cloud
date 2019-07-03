@@ -24,11 +24,12 @@
             <header *ngIf="mostrarBusquedas" class="row titulo" style=" position: absolute;
             right: 10%;
             top: 1%;">  
-                <button *ngIf="busqBasica" (click)=" toogleBusqueda();   " type="button" class="botonModal btn btn-primary"> <i class="material-icons" >autorenew</i> AVANZADA</button>
+                <button *ngIf="busqBasica" (click)=" toogleBusqueda();   " type="button" class="botonModal btn btn-primary btn-sm"> <i class="material-icons" >autorenew</i> AVANZADA</button>
                 
-                <button *ngIf="!busqBasica"  (click)=" toogleBusqueda();   " type="button" class="botonModal btn btn-primary"><i class="material-icons" >autorenew</i> GENERAL</button>
-                
+                <button *ngIf="!busqBasica"  (click)=" toogleBusqueda();   " type="button" class="botonModal btn btn-primary btn-sm"><i class="material-icons" >autorenew</i> GENERAL</button>
+     
             </header>
+            <br> 
             <!-- <div *ngIf="mostrarBusquedas"   class="row titulo p-3">
                  <h1>Consulta de llamadas</h1>  
                 <hr />
